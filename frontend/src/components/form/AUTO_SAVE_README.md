@@ -2,7 +2,7 @@
 
 ## Overview
 
-The KBWeb form system now includes comprehensive auto-save functionality that automatically preserves user input to prevent data loss. The system uses localStorage to store form data and provides seamless restoration capabilities.
+The pulse form system now includes comprehensive auto-save functionality that automatically preserves user input to prevent data loss. The system uses localStorage to store form data and provides seamless restoration capabilities.
 
 ## Features
 
@@ -167,13 +167,13 @@ class FormAutoSave {
 
 ### localStorage Key Format
 ```
-kbweb_form_autosave_{doctype}_{docname?}
+pulse_form_autosave_{doctype}_{docname?}
 ```
 
 Examples:
-- `kbweb_form_autosave_Project` (new document)
-- `kbweb_form_autosave_Project_PRJ-001` (editing existing)
-- `kbweb_form_autosave_Customer_CUST-123`
+- `pulse_form_autosave_Project` (new document)
+- `pulse_form_autosave_Project_PRJ-001` (editing existing)
+- `pulse_form_autosave_Customer_CUST-123`
 
 ### Data Structure
 ```typescript
@@ -288,7 +288,7 @@ console.log(FormAutoSave.hasFormData('Project', 'PRJ-001'));
 
 // View raw localStorage
 Object.keys(localStorage)
-  .filter(key => key.startsWith('kbweb_form_autosave_'))
+  .filter(key => key.startsWith('pulse_form_autosave_'))
   .forEach(key => console.log(key, localStorage.getItem(key)));
 ```
 

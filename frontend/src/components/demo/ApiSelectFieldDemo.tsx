@@ -75,7 +75,7 @@ const exampleFields: FieldMetadata[] = [
     description: 'Custom API endpoint example',
     apiConfig: {
       apiType: 'custom',
-      endpoint: '/api/v2/method/kbweb.api.get_priorities',
+      endpoint: '/api/v2/method/pulse.api.get_priorities',
       method: 'POST',
       params: {
         project_type: 'internal'
@@ -211,10 +211,10 @@ export const ApiSelectFieldDemo: React.FC = () => {
               <div>
                 <h4 className="text-sm font-medium">API Configuration Summary:</h4>
                 <ul className="text-xs space-y-1 mt-1">
-                  <li><strong>DocType Select:</strong> {exampleFields[0].fieldname} - Uses /api/v2/method/kbweb.api.get_fields_of_doctype</li>
+                  <li><strong>DocType Select:</strong> {exampleFields[0].fieldname} - Uses /api/v2/method/pulse.api.get_fields_of_doctype</li>
                   <li><strong>Link Search:</strong> {exampleFields[1].fieldname}, {exampleFields[2].fieldname} - Uses /api/method/frappe.desk.search.search_widget</li>
                   <li><strong>Resource List:</strong> {exampleFields[3].fieldname} - Uses /api/resource/Department</li>
-                  <li><strong>Custom Endpoint:</strong> {exampleFields[4].fieldname} - Uses /api/v2/method/kbweb.api.get_priorities</li>
+                  <li><strong>Custom Endpoint:</strong> {exampleFields[4].fieldname} - Uses /api/v2/method/pulse.api.get_priorities</li>
                   <li><strong>Static Options:</strong> {exampleFields[5].fieldname} - Traditional array-based options</li>
                 </ul>
               </div>
@@ -274,7 +274,7 @@ export const ApiSelectFieldDemo: React.FC = () => {
   reqd: false,
   apiConfig: {
     apiType: 'custom',
-    endpoint: '/api/v2/method/kbweb.api.get_priorities',
+    endpoint: '/api/v2/method/pulse.api.get_priorities',
     method: 'POST',
     params: { project_type: 'internal' },
     transformResponse: (data: any) => {

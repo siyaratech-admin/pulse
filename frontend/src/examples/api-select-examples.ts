@@ -8,7 +8,7 @@ export const projectStatusField: FieldMetadata = {
     label: 'Project Status',
     fieldtype: 'Select',
     reqd: true,
-    api_endpoint: '/api/v2/method/kbweb.api.get_fields_of_doctype.get_select_options',
+    api_endpoint: '/api/v2/method/pulse.api.get_fields_of_doctype.get_select_options',
     api_method: 'POST',
     api_params: {
         doctype: 'Project',

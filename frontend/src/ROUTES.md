@@ -1,6 +1,6 @@
 # Application Routes
 
-This document lists all available routes in the KBWeb frontend application.
+This document lists all available routes in the pulse frontend application.
 
 ## Main Routes
 

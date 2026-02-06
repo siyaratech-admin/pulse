@@ -1,6 +1,6 @@
 # Projects Module
 
-This module contains components for managing projects in the KBWeb application.
+This module contains components for managing projects in the pulse application.
 
 ## Components
 
@@ -13,14 +13,14 @@ This module contains components for managing projects in the KBWeb application.
 ### 2. `NewProjectForm.tsx` 
 - New project form creation page
 - **API Testing Component** - Tests the DocType fields API endpoint
-- Fetches field metadata from: `/api/v2/method/kbweb.api.get_fields_of_doctype.get_doctype_fields`
+- Fetches field metadata from: `/api/v2/method/pulse.api.get_fields_of_doctype.get_doctype_fields`
 - Displays field information with visual formatting
 - Supports multiple DocTypes for testing (Project, Item, Customer, User, Company)
 
 ## API Integration
 
 ### Backend API: `get_doctype_fields`
-**Endpoint**: `/api/v2/method/kbweb.api.get_fields_of_doctype.get_doctype_fields`
+**Endpoint**: `/api/v2/method/pulse.api.get_fields_of_doctype.get_doctype_fields`
 
 **Purpose**: Retrieves curated field metadata for any Frappe DocType
 

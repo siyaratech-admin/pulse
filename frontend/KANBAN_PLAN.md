@@ -48,7 +48,7 @@ TaskManager.tsx (Parent)
 ### 1.1 Install Required Packages
 
 ```bash
-cd kbweb/frontend
+cd pulse/frontend
 npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
 ```
 
@@ -62,7 +62,7 @@ npm install @dnd-kit/core @dnd-kit/sortable @dnd-kit/utilities
 ### 1.2 Create Component Directory Structure
 
 ```
-kbweb/frontend/src/pages/modules/TaskManager/components/kanban/
+pulse/frontend/src/pages/modules/TaskManager/components/kanban/
 ├── KanbanView.tsx       # Main container component
 ├── KanbanColumn.tsx     # Column component with droppable area
 └── KanbanCard.tsx       # Draggable task card component
@@ -593,32 +593,32 @@ try {
 ### ✅ New Files (4)
 
 1. **KANBAN_PLAN.md** (this file)
-   - `kbweb/frontend/KANBAN_PLAN.md`
+   - `pulse/frontend/KANBAN_PLAN.md`
 
 2. **KanbanView.tsx**
-   - `kbweb/frontend/src/pages/modules/TaskManager/components/kanban/KanbanView.tsx`
+   - `pulse/frontend/src/pages/modules/TaskManager/components/kanban/KanbanView.tsx`
    - ~250 lines
    - Main container with drag-drop logic
 
 3. **KanbanColumn.tsx**
-   - `kbweb/frontend/src/pages/modules/TaskManager/components/kanban/KanbanColumn.tsx`
+   - `pulse/frontend/src/pages/modules/TaskManager/components/kanban/KanbanColumn.tsx`
    - ~80 lines
    - Droppable column component
 
 4. **KanbanCard.tsx**
-   - `kbweb/frontend/src/pages/modules/TaskManager/components/kanban/KanbanCard.tsx`
+   - `pulse/frontend/src/pages/modules/TaskManager/components/kanban/KanbanCard.tsx`
    - ~100 lines
    - Draggable task card
 
 ### 📝 Modified Files (2)
 
 1. **QuickAddModal.tsx**
-   - `kbweb/frontend/src/pages/modules/TaskManager/components/QuickAddModal.tsx`
+   - `pulse/frontend/src/pages/modules/TaskManager/components/QuickAddModal.tsx`
    - Add `initialStatus` prop (line ~10)
    - Pre-populate status field (line ~50)
 
 2. **TaskManager.tsx**
-   - `kbweb/frontend/src/pages/modules/TaskManager/TaskManager.tsx`
+   - `pulse/frontend/src/pages/modules/TaskManager/TaskManager.tsx`
    - Add import (line ~15)
    - Update TabsList grid-cols (line ~280)
    - Add Kanban TabsTrigger (line ~285)
@@ -784,7 +784,7 @@ try {
 ### Codebase References
 - Task DocType: `frappe/frappe/projects/doctype/task/`
 - Frappe Kanban: `frappe/frappe/desk/doctype/kanban_board/`
-- TaskManager: `kbweb/frontend/src/pages/modules/TaskManager/`
+- TaskManager: `pulse/frontend/src/pages/modules/TaskManager/`
 
 ---
 

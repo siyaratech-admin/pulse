@@ -47,7 +47,7 @@ const NewSafetyInspectionForm: React.FC = () => {
 
         try {
             // Fetch Safety Checklist fields
-            const fieldsResponse = await fetch('/api/v2/method/kbweb.api.get_fields_of_doctype.get_form_meta', {
+            const fieldsResponse = await fetch('/api/v2/method/pulse.api.get_fields_of_doctype.get_form_meta', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -180,7 +180,7 @@ const NewSafetyInspectionForm: React.FC = () => {
         setError(null);
 
         try {
-            const response = await fetch('/api/v2/method/kbweb.api.get_fields_of_doctype.get_form_meta', {
+            const response = await fetch('/api/v2/method/pulse.api.get_fields_of_doctype.get_form_meta', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

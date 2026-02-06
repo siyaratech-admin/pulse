@@ -122,7 +122,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     const [showAutoSaveRestore, setShowAutoSaveRestore] = useState(false);
     const [isInitialLoad, setIsInitialLoad] = useState(true);
     const [isPageRefresh] = useState(() => {
-        const key = 'kbweb_page_loaded';
+        const key = 'pulse_page_loaded';
         const wasLoaded = sessionStorage.getItem(key);
         sessionStorage.setItem(key, 'true');
         return !wasLoaded;
@@ -219,7 +219,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     useEffect(() => {
         return () => {
             setTimeout(() => {
-                sessionStorage.removeItem('kbweb_page_loaded');
+                sessionStorage.removeItem('pulse_page_loaded');
             }, 100);
         };
     }, []);

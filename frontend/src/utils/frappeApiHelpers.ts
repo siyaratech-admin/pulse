@@ -22,7 +22,7 @@ export const fetchDocTypeSelectOptions = async (
     fieldname: string
 ): Promise<SelectOption[]> => {
     try {
-        const response = await fetch('/api/v2/method/kbweb.api.get_fields_of_doctype.get_select_options', {
+        const response = await fetch('/api/v2/method/pulse.api.get_fields_of_doctype.get_select_options', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -220,7 +220,7 @@ export const createApiSelectField = {
         label,
         fieldtype: 'Select',
         reqd: required,
-        api_endpoint: '/api/v2/method/kbweb.api.get_fields_of_doctype.get_select_options',
+        api_endpoint: '/api/v2/method/pulse.api.get_fields_of_doctype.get_select_options',
         api_method: 'POST',
         api_params: {
             doctype: doctype,

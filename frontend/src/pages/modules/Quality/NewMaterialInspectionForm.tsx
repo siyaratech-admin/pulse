@@ -98,7 +98,7 @@ const NewMaterialInspectionForm: React.FC = () => {
         const fetchMeta = async () => {
             setMetaLoading(true);
             try {
-                const response = await fetch('/api/v2/method/kbweb.api.get_fields_of_doctype.get_form_meta', {
+                const response = await fetch('/api/v2/method/pulse.api.get_fields_of_doctype.get_form_meta', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

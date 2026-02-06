@@ -92,7 +92,7 @@ const fetchInitialFormData = async () => {
 
     try {
         // Step 1: Fetch DocType fields
-        const fieldsResponse = await fetch('/api/v2/method/kbweb.api.get_fields_of_doctype.get_form_meta', {
+        const fieldsResponse = await fetch('/api/v2/method/pulse.api.get_fields_of_doctype.get_form_meta', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -17,7 +17,7 @@ export const UserRoleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
     // Fetch user info once at the top level
     const { data: userData, isLoading: userLoading, error: userError } = useFrappeGetCall(
-        "kbweb.api.get_current_user_info",
+        "pulse.api.get_current_user_info",
         null,
         // Only fetch if we have a current user, otherwise skip
         currentUser ? undefined : true

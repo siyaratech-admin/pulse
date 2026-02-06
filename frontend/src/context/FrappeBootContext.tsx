@@ -51,7 +51,7 @@ export const FrappeBootProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     // Use the dev endpoint or a production equivalent
     // In production, boot data is usually injected in the page template.
     // For this SPA, we fetch it.
-    const { call: getDevContext } = useFrappePostCall('kbweb.kbweb.api.dev.get_context_for_dev');
+    const { call: getDevContext } = useFrappePostCall('pulse.pulse.api.dev.get_context_for_dev');
 
     const fetchBootData = async () => {
         let hasCache = false;

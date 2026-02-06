@@ -8,7 +8,7 @@ repos:
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        files: "kbweb.*"
+        files: "pulse.*"
         exclude: ".*json$|.*txt$|.*csv|.*md|.*svg"
       - id: check-merge-conflict
       - id: check-ast
@@ -38,11 +38,11 @@ repos:
         # Ignore any files that might contain jinja / bundles
         exclude: |
             (?x)^(
-                kbweb/public/dist/.*|
+                pulse/public/dist/.*|
                 .*node_modules.*|
                 .*boilerplate.*|
-                kbweb/templates/includes/.*|
-                kbweb/public/js/lib/.*
+                pulse/templates/includes/.*|
+                pulse/public/js/lib/.*
             )$
 
 
@@ -55,12 +55,12 @@ repos:
         # Ignore any files that might contain jinja / bundles
         exclude: |
             (?x)^(
-                kbweb/public/dist/.*|
+                pulse/public/dist/.*|
                 cypress/.*|
                 .*node_modules.*|
                 .*boilerplate.*|
-                kbweb/templates/includes/.*|
-                kbweb/public/js/lib/.*
+                pulse/templates/includes/.*|
+                pulse/public/js/lib/.*
             )$
 
 ci:

@@ -102,7 +102,7 @@ const AttendancePanel = () => {
                 time: new Date().toISOString().replace('T', ' ').split('.')[0],
                 latitude: location?.lat,
                 longitude: location?.lng,
-                device_id: 'kbweb',
+                device_id: 'pulse',
                 custom_attendance_image: imageUrl
             });
 

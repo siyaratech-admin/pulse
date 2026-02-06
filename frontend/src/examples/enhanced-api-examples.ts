@@ -76,7 +76,7 @@ export const customEndpointSelect: FieldMetadata = {
   reqd: 0,
   apiConfig: {
     apiType: 'custom',
-    apiEndpoint: '/api/v2/method/kbweb.api.get_priorities',
+    apiEndpoint: '/api/v2/method/pulse.api.get_priorities',
     apiMethod: 'POST',
     apiParams: {
       project_type: 'internal'

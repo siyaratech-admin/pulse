@@ -38,7 +38,7 @@ const Login = () => {
             await login({ username: data.username, password: data.password });
 
             // Refresh the route after successful login
-            window.location.href = '/kbweb';
+            window.location.href = '/pulse';
         } catch (error) {
             console.error('Login failed:', error);
         } finally {

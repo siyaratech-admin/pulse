@@ -36,7 +36,7 @@ export const FormDashboard: React.FC<FormDashboardProps> = ({ doctype, name, doc
             try {
                 // Use backend API to fetch link fields (avoids PermissionError)
                 const response = await fetch(
-                    `/api/method/kbweb.api.get_link_fields.get_link_fields?doctype=${encodeURIComponent(doctype)}`,
+                    `/api/method/pulse.api.get_link_fields.get_link_fields?doctype=${encodeURIComponent(doctype)}`,
                     {
                         method: 'GET',
                         headers: {

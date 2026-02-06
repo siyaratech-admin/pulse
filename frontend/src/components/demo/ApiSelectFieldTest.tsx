@@ -84,7 +84,7 @@ export const ApiSelectFieldTest: React.FC = () => {
       reqd: false,
       apiConfig: {
         apiType: 'custom',
-        endpoint: '/api/v2/method/kbweb.api.get_fields_of_doctype',
+        endpoint: '/api/v2/method/pulse.api.get_fields_of_doctype',
         method: 'POST',
         params: {
           doctype: 'Project',
@@ -122,7 +122,7 @@ export const ApiSelectFieldTest: React.FC = () => {
       let response: Response;
       
       if (apiConfig.apiType === 'doctype_select') {
-        response = await fetch('/api/v2/method/kbweb.api.get_fields_of_doctype.get_select_options', {
+        response = await fetch('/api/v2/method/pulse.api.get_fields_of_doctype.get_select_options', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ export interface FormAutoSaveData {
 }
 
 export class FormAutoSave {
-  private static readonly STORAGE_PREFIX = 'kbweb_form_autosave_';
+  private static readonly STORAGE_PREFIX = 'pulse_form_autosave_';
   private static readonly MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
 
   /**

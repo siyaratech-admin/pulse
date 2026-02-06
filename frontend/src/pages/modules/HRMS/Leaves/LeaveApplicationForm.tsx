@@ -51,7 +51,7 @@ const LeaveApplicationForm = () => {
 
     // 1. Data Fetching Hooks
     const { data: contextData, isLoading: contextLoading, mutate: refreshContext } =
-        useFrappeGetCall('kbweb.api.get_doctype_form_context.get_form_context', {
+        useFrappeGetCall('pulse.api.get_doctype_form_context.get_form_context', {
             doctype: doctype,
             name: isNew ? undefined : id
         });

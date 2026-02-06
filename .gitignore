@@ -6,7 +6,7 @@
 tags
 node_modules
 __pycache__
-kbweb/public/frontend/*
-kbweb/www/kbweb.html
+pulse/public/frontend/*
+pulse/www/pulse.html
 frontend/.env
 *Zone.Identifier

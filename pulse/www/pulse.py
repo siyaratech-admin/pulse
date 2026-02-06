@@ -56,11 +56,11 @@ def get_context(context):
 
 	favicon = frappe.get_website_settings("favicon")
 
-	context["icon_96"] = favicon or "/assets/kbweb/manifest/favicon-96x96.png"
-	context["apple_touch_icon"] = favicon or "/assets/kbweb/manifest/apple-touch-icon.png"
-	context["mask_icon"] = favicon or "/assets/kbweb/manifest/safari-pinned-tab.svg"
-	context["favicon_svg"] = favicon or "/assets/kbweb/manifest/favicon.svg"
-	context["favicon_ico"] = favicon or "/assets/kbweb/manifest/favicon.ico"
+	context["icon_96"] = favicon or "/assets/pulse/manifest/favicon-96x96.png"
+	context["apple_touch_icon"] = favicon or "/assets/pulse/manifest/apple-touch-icon.png"
+	context["mask_icon"] = favicon or "/assets/pulse/manifest/safari-pinned-tab.svg"
+	context["favicon_svg"] = favicon or "/assets/pulse/manifest/favicon.svg"
+	context["favicon_ico"] = favicon or "/assets/pulse/manifest/favicon.ico"
 	context["sitename"] = boot.get("sitename")
 
 	if frappe.session.user != "Guest":
@@ -71,9 +71,9 @@ def get_context(context):
 		] = """
 			<link rel="preload" href="/api/method/frappe.auth.get_logged_user" as="fetch" crossorigin="use-credentials">
 			"""
-			# <link rel="preload" href="/api/method/kbweb.api.workspaces.get_list" as="fetch" crossorigin="use-credentials">
-			# <link rel="preload" href="/api/method/kbweb.api.kbweb_users.get_list" as="fetch" crossorigin="use-credentials">
-			# <link rel="preload" href="/api/method/kbweb.api.kbweb_channel.get_all_channels?hide_archived=false" as="fetch" crossorigin="use-credentials">
+			# <link rel="preload" href="/api/method/pulse.api.workspaces.get_list" as="fetch" crossorigin="use-credentials">
+			# <link rel="preload" href="/api/method/pulse.api.pulse_users.get_list" as="fetch" crossorigin="use-credentials">
+			# <link rel="preload" href="/api/method/pulse.api.pulse_channel.get_all_channels?hide_archived=false" as="fetch" crossorigin="use-credentials">
 	else:
 		context["preload_links"] = ""
 

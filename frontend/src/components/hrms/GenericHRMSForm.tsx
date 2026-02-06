@@ -81,13 +81,13 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
 
     // Fetch Form Meta
     const { data: metaData, isLoading: metaLoading, error: metaError } = useFrappeGetCall(
-        'kbweb.api.get_fields_of_doctype.get_form_meta',
+        'pulse.api.get_fields_of_doctype.get_form_meta',
         { doctype_name: doctype }
     );
 
     // Fetch Form Context (permissions and actions)
     const { data: contextData, isLoading: contextLoading, mutate: refreshContext } = useFrappeGetCall(
-        'kbweb.api.get_doctype_form_context.get_form_context',
+        'pulse.api.get_doctype_form_context.get_form_context',
         { doctype: doctype, name: isNew ? undefined : id }
     );
 
