@@ -177,13 +177,18 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       )}
 
       {/* Main content area */}
-      <div className="flex flex-1 flex-col overflow-hidden bg-slate-50">
+      <div className="flex flex-1 flex-col overflow-hidden bg-gradient-to-br from-orange-50/30 via-amber-50/20 to-white">
         {/* Top header */}
-        <header className="flex h-16 items-center justify-between bg-white px-4 md:px-8 border-b border-border/20 z-20 sticky top-0 shadow-sm">
+        <header className="flex h-16 items-center justify-between bg-white px-4 md:px-8 border-b border-orange-200/30 z-20 sticky top-0 shadow-sm">
           <div className="flex items-center gap-3 md:gap-6">
             {/* Mobile sidebar trigger */}
             {isMobile && (
-              <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleSidebar}
+                className="md:hidden hover:bg-orange-50 hover:text-orange-700"
+              >
                 <Menu className="h-5 w-5" />
               </Button>
             )}
@@ -202,19 +207,19 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               onClick={() => setIsCommandPaletteOpen(true)}
             >
               {/* Search Icon */}
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-600/70 group-hover:text-orange-600 transition-colors" />
 
               {/* Input Shell */}
-              <div className="relative w-full h-10 pl-10 pr-4 rounded-xl bg-muted/50 border border-transparent hover:bg-background hover:border-primary/20 hover:ring-2 hover:ring-primary/10 transition-all flex items-center overflow-hidden">
+              <div className="relative w-full h-10 pl-10 pr-4 rounded-xl bg-gradient-to-r from-orange-50/50 to-amber-50/50 border border-orange-200/30 hover:bg-white hover:border-orange-400/40 hover:ring-2 hover:ring-orange-500/20 transition-all flex items-center overflow-hidden">
 
                 {/* Centered Text - Responsive */}
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none whitespace-nowrap">
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-gray-600 pointer-events-none whitespace-nowrap">
                   <span className="hidden sm:inline">Search or type a command...</span>
                   <span className="sm:hidden">Search...</span>
                 </span>
 
                 {/* Shortcut (hide on mobile) */}
-                <kbd className="ml-auto pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                <kbd className="ml-auto pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-orange-300/50 bg-gradient-to-r from-orange-50 to-amber-50 px-1.5 font-mono text-[10px] font-medium text-orange-700">
                   <span className="text-xs">⌘</span>K
                 </kbd>
               </div>
@@ -236,24 +241,24 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <div className="flex items-center gap-3 pl-2 cursor-pointer hover:opacity-80 transition-opacity">
                   <div className="hidden sm:flex flex-col items-end">
                     <span className="text-sm font-semibold text-gray-800">{currentUser || "Administrator"}</span>
-                    <span className="text-[10px] text-purple-600 font-medium">View Profile</span>
+                    <span className="text-[10px] bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent font-medium">View Profile</span>
                   </div>
-                  <Avatar className="h-9 w-9 ring-2 ring-white shadow-md transition-transform hover:scale-105">
-                    <AvatarFallback className="bg-purple-600 text-white font-bold text-xs">
+                  <Avatar className="h-9 w-9 ring-2 ring-orange-200 shadow-md transition-transform hover:scale-105 hover:ring-orange-400">
+                    <AvatarFallback className="bg-gradient-to-br from-orange-500 to-amber-500 text-white font-bold text-xs">
                       {getUserInitials(currentUser || "Administrator")}
                     </AvatarFallback>
                   </Avatar>
                   <ChevronDown className="h-4 w-4 text-muted-foreground hidden sm:block" />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64">
+              <DropdownMenuContent align="end" className="w-64 border-orange-200/50">
                 <DropdownMenuLabel>
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">{currentUser || "Administrator"}</p>
                     <p className="text-xs leading-none text-muted-foreground">User ID: {currentUser || "admin"}</p>
                   </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
+                <DropdownMenuSeparator className="bg-orange-200/30" />
                 <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
@@ -266,7 +271,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         </header>
 
         {/* Main content */}
-        <main className="flex-1 overflow-y-auto scroll-smooth bg-slate-100">
+        <main className="flex-1 overflow-y-auto scroll-smooth bg-gradient-to-br from-orange-50/20 via-amber-50/10 to-slate-50">
           <div className="mx-auto max-w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Content goes here - either children prop or Outlet for routing */}
             {children || <Outlet />}

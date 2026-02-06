@@ -244,8 +244,8 @@ export const AttachField: React.FC<AttachFieldProps> = ({
                         className={cn(
                             "transition-all cursor-pointer",
                             showLabel
-                                ? "border-2 border-dashed rounded-lg p-8 text-center border-gray-300 hover:border-blue-400 hover:bg-blue-50"
-                                : "border border-dashed rounded-md p-3 text-center border-gray-300 hover:border-blue-400 hover:bg-blue-50 flex items-center justify-center gap-2",
+                                ? "border-2 border-dashed rounded-lg p-8 text-center border-gray-300 hover:border-orange-400 hover:bg-orange-50"
+                                : "border border-dashed rounded-md p-3 text-center border-gray-300 hover:border-orange-400 hover:bg-orange-50 flex items-center justify-center gap-2",
                             disabled && "border-gray-200 bg-gray-50 cursor-not-allowed opacity-60"
                         )}
                         onClick={() => !disabled && setShowOptionsModal(true)}
@@ -269,11 +269,11 @@ export const AttachField: React.FC<AttachFieldProps> = ({
 
                 {/* Loading State */}
                 {(uploadStatus === 'uploading' || isLoadingPreview) && (
-                    <div className="border border-blue-200 rounded-lg p-8 bg-blue-50 flex flex-col items-center justify-center space-y-3">
-                        <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
-                        <p className="text-sm font-medium text-blue-900">{uploadProgress}</p>
-                        <div className="w-48 h-1.5 bg-blue-200 rounded-full overflow-hidden">
-                            <div className="h-full bg-blue-600 rounded-full animate-pulse w-3/4" />
+                    <div className="border border-orange-200 rounded-lg p-8 bg-orange-50 flex flex-col items-center justify-center space-y-3">
+                        <Loader2 className="h-12 w-12 animate-spin text-orange-600" />
+                        <p className="text-sm font-medium text-orange-900">{uploadProgress}</p>
+                        <div className="w-48 h-1.5 bg-orange-200 rounded-full overflow-hidden">
+                            <div className="h-full bg-orange-600 rounded-full animate-pulse w-3/4" />
                         </div>
                     </div>
                 )}
@@ -326,7 +326,7 @@ export const AttachField: React.FC<AttachFieldProps> = ({
             <Dialog open={showOptionsModal} onOpenChange={setShowOptionsModal}>
                 <DialogContent className="sm:max-w-md">
                     <DialogHeader>
-                        <DialogTitle className="text-xl font-bold">Upload Photo</DialogTitle>
+                        <DialogTitle className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Upload Photo</DialogTitle>
                         <p className="text-sm text-gray-500 mt-1">Choose your preferred capture method</p>
                     </DialogHeader>
                     <div className="grid grid-cols-2 gap-4 py-6">
@@ -336,12 +336,12 @@ export const AttachField: React.FC<AttachFieldProps> = ({
                                 setShowOptionsModal(false);
                                 setShowCameraModal(true);
                             }}
-                            className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 hover:shadow-lg transition-all group"
+                            className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-2xl hover:border-orange-500 hover:bg-orange-50 hover:shadow-lg transition-all group"
                         >
-                            <div className="p-4 bg-blue-100 rounded-full mb-3 group-hover:scale-110 group-hover:bg-blue-200 transition-all">
-                                <Camera className="h-10 w-10 text-blue-600" />
+                            <div className="p-4 bg-orange-100 rounded-full mb-3 group-hover:scale-110 group-hover:bg-orange-200 transition-all">
+                                <Camera className="h-10 w-10 text-orange-600" />
                             </div>
-                            <span className="font-bold text-gray-800 group-hover:text-blue-600">Camera</span>
+                            <span className="font-bold text-gray-800 group-hover:text-orange-600">Camera</span>
                             <span className="text-xs text-gray-500 mt-1">Take new photo</span>
                         </button>
 
@@ -350,12 +350,12 @@ export const AttachField: React.FC<AttachFieldProps> = ({
                                 document.getElementById(inputId)?.click();
                                 setShowOptionsModal(false);
                             }}
-                            className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-2xl hover:border-green-500 hover:bg-green-50 hover:shadow-lg transition-all group"
+                            className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-2xl hover:border-amber-500 hover:bg-amber-50 hover:shadow-lg transition-all group"
                         >
-                            <div className="p-4 bg-green-100 rounded-full mb-3 group-hover:scale-110 group-hover:bg-green-200 transition-all">
-                                <Library className="h-10 w-10 text-green-600" />
+                            <div className="p-4 bg-amber-100 rounded-full mb-3 group-hover:scale-110 group-hover:bg-amber-200 transition-all">
+                                <Library className="h-10 w-10 text-amber-600" />
                             </div>
-                            <span className="font-bold text-gray-800 group-hover:text-green-600">Library</span>
+                            <span className="font-bold text-gray-800 group-hover:text-amber-600">Library</span>
                             <span className="text-xs text-gray-500 mt-1">Choose from device</span>
                         </button>
                     </div>
@@ -384,14 +384,14 @@ export const AttachField: React.FC<AttachFieldProps> = ({
             <Dialog open={showPreviewDialog} onOpenChange={setShowPreviewDialog}>
                 <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                        <DialogTitle className="text-xl font-bold">Review Your Photo</DialogTitle>
+                        <DialogTitle className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Review Your Photo</DialogTitle>
                         <p className="text-sm text-gray-500 mt-1">Review the captured image before uploading</p>
                     </DialogHeader>
 
                     <div className="space-y-4 py-4">
                         {/* Image Preview */}
                         {previewUrl && (
-                            <div className="rounded-lg overflow-hidden border-2 border-gray-200 bg-gray-100">
+                            <div className="rounded-lg overflow-hidden border-2 border-orange-200 bg-orange-50/30">
                                 <img
                                     src={previewUrl}
                                     alt="Preview"
@@ -402,24 +402,24 @@ export const AttachField: React.FC<AttachFieldProps> = ({
 
                         {/* Location Details */}
                         {currentLocation && (
-                            <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                                <h4 className="text-sm font-semibold text-slate-700 mb-3">Embedded Information</h4>
+                            <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                                <h4 className="text-sm font-semibold text-orange-900 mb-3">Embedded Information</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                                     <div>
-                                        <p className="text-slate-500 mb-1">Coordinates</p>
-                                        <p className="text-slate-900 font-mono text-xs">
+                                        <p className="text-orange-600 mb-1">Coordinates</p>
+                                        <p className="text-orange-900 font-mono text-xs">
                                             {currentLocation.lat.toFixed(6)}°N, {currentLocation.lng.toFixed(6)}°E
                                         </p>
                                     </div>
                                     <div>
-                                        <p className="text-slate-500 mb-1">Timestamp</p>
-                                        <p className="text-slate-900 text-xs">
+                                        <p className="text-orange-600 mb-1">Timestamp</p>
+                                        <p className="text-orange-900 text-xs">
                                             {new Date().toLocaleString()}
                                         </p>
                                     </div>
                                     <div className="md:col-span-2">
-                                        <p className="text-slate-500 mb-1">Location</p>
-                                        <p className="text-slate-900 text-xs">{locationAddress}</p>
+                                        <p className="text-orange-600 mb-1">Location</p>
+                                        <p className="text-orange-900 text-xs">{locationAddress}</p>
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +430,7 @@ export const AttachField: React.FC<AttachFieldProps> = ({
                             <Button
                                 onClick={handleRetakeFromPreview}
                                 variant="outline"
-                                className="flex-1 min-w-[120px]"
+                                className="flex-1 min-w-[120px] border-orange-200 text-orange-700 hover:bg-orange-50"
                             >
                                 <RefreshCw className="mr-2 h-4 w-4" />
                                 Retake
@@ -439,7 +439,7 @@ export const AttachField: React.FC<AttachFieldProps> = ({
                             <Button
                                 onClick={handleDownloadPreview}
                                 variant="outline"
-                                className="flex-1 min-w-[120px]"
+                                className="flex-1 min-w-[120px] border-amber-200 text-amber-700 hover:bg-amber-50"
                             >
                                 <Download className="mr-2 h-4 w-4" />
                                 Download
@@ -456,7 +456,7 @@ export const AttachField: React.FC<AttachFieldProps> = ({
 
                             <Button
                                 onClick={handleSubmitFromPreview}
-                                className="flex-1 min-w-[120px] bg-green-600 hover:bg-green-700"
+                                className="flex-1 min-w-[120px] bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                             >
                                 <CheckCircle className="mr-2 h-4 w-4" />
                                 Upload

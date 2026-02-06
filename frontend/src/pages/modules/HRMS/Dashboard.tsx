@@ -212,7 +212,7 @@ const HRMSDashboard: React.FC = () => {
     value: leaveTypeData[key]
   })).sort((a, b) => b.value - a.value).slice(0, 6)
 
-  const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316']
+  const COLORS = ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#ffedd5', '#ea580c', '#c2410c', '#9a3412']
 
   // Monthly Hiring Trend (Mock data - replace with actual data from backend)
   const monthlyHiringData = [
@@ -241,19 +241,21 @@ const HRMSDashboard: React.FC = () => {
       icon: Plus,
       action: () => navigate("/hrms/employee/new"),
       variant: "default" as const,
-      className: "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground shadow-lg shadow-primary/30",
+      className: "bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-200",
     },
     {
       label: "Job Opening",
       icon: Briefcase,
       action: () => navigate("/hrms/recruitment/job-openings"),
       variant: "outline" as const,
+      className: "border-orange-200 text-orange-600 hover:bg-orange-50",
     },
     {
       label: "Leave Request",
       icon: Calendar,
       action: () => navigate("/hrms/leave-applications"),
       variant: "outline" as const,
+      className: "border-orange-200 text-orange-600 hover:bg-orange-50",
       badge: leaveApplicationsCount,
     },
   ]
@@ -262,70 +264,70 @@ const HRMSDashboard: React.FC = () => {
   const stats = (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {/* Total Employees Card */}
-      <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-t-4 border-t-primary">
-        <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 group-hover:scale-110 transition-transform duration-500" />
-        <CardHeader className="relative z-10 flex flex-row items-center justify-between space-y-0 pb-2">
+      <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white overflow-hidden group hover:shadow-xl transition-all duration-300">
+        <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-semibold text-gray-700">Total Employees</CardTitle>
-          <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary to-primary/90 shadow-md shadow-primary/40">
-            <Users className="h-5 w-5 text-white" />
+          <div className="p-2.5 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100">
+            <Users className="h-5 w-5 text-orange-600" />
           </div>
         </CardHeader>
-        <CardContent className="relative z-10">
-          <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+        <CardContent>
+          <div className="text-3xl font-bold text-orange-600">
             {employeesCount}
           </div>
-          <p className="text-xs text-muted-foreground mt-1 font-medium">Active workforce</p>
+          <p className="text-xs text-gray-600 mt-1 font-medium">Active workforce</p>
         </CardContent>
       </Card>
 
       {/* Open Positions Card */}
-      <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-t-4 border-t-secondary">
-        <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-gradient-to-br from-secondary/10 to-secondary/5 group-hover:scale-110 transition-transform duration-500" />
-        <CardHeader className="relative z-10 flex flex-row items-center justify-between space-y-0 pb-2">
+      <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white overflow-hidden group hover:shadow-xl transition-all duration-300">
+        <div className="bg-gradient-to-r from-amber-500 to-yellow-500 h-2 rounded-t-2xl"></div>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-semibold text-gray-700">Open Positions</CardTitle>
-          <div className="p-2.5 rounded-xl bg-gradient-to-br from-secondary to-secondary/90 shadow-md shadow-secondary/40">
-            <Briefcase className="h-5 w-5 text-white" />
+          <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
+            <Briefcase className="h-5 w-5 text-amber-600" />
           </div>
         </CardHeader>
-        <CardContent className="relative z-10">
-          <div className="text-3xl font-bold bg-gradient-to-r from-secondary to-secondary/80 bg-clip-text text-transparent">
+        <CardContent>
+          <div className="text-3xl font-bold text-amber-600">
             {jobOpeningsCount}
           </div>
-          <p className="text-xs text-muted-foreground mt-1 font-medium">Hiring now</p>
+          <p className="text-xs text-gray-600 mt-1 font-medium">Hiring now</p>
         </CardContent>
       </Card>
 
       {/* Pending Leaves Card */}
-      <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-t-4 border-t-orange-500">
-        <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/5 group-hover:scale-110 transition-transform duration-500" />
-        <CardHeader className="relative z-10 flex flex-row items-center justify-between space-y-0 pb-2">
+      <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white overflow-hidden group hover:shadow-xl transition-all duration-300">
+        <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-semibold text-gray-700">Pending Leaves</CardTitle>
-          <div className="p-2.5 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 shadow-md shadow-orange-500/40">
-            <Clock className="h-5 w-5 text-white" />
+          <div className="p-2.5 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100">
+            <Clock className="h-5 w-5 text-orange-600" />
           </div>
         </CardHeader>
-        <CardContent className="relative z-10">
-          <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-700 bg-clip-text text-transparent">
+        <CardContent>
+          <div className="text-3xl font-bold text-orange-600">
             {leaveApplicationsCount}
           </div>
-          <p className="text-xs text-muted-foreground mt-1 font-medium">Awaiting approval</p>
+          <p className="text-xs text-gray-600 mt-1 font-medium">Awaiting approval</p>
         </CardContent>
       </Card>
 
       {/* Present Today Card */}
-      <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-t-4 border-t-purple-500">
-        <div className="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-gradient-to-br from-purple-500/10 to-purple-600/5 group-hover:scale-110 transition-transform duration-500" />
-        <CardHeader className="relative z-10 flex flex-row items-center justify-between space-y-0 pb-2">
+      <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white overflow-hidden group hover:shadow-xl transition-all duration-300">
+        <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-semibold text-gray-700">Present Today</CardTitle>
-          <div className="p-2.5 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-md shadow-purple-500/40">
-            <UserCheck className="h-5 w-5 text-white" />
+          <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100">
+            <UserCheck className="h-5 w-5 text-amber-600" />
           </div>
         </CardHeader>
-        <CardContent className="relative z-10">
-          <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent">
+        <CardContent>
+          <div className="text-3xl font-bold text-amber-600">
             {attendanceCount}
           </div>
-          <p className="text-xs text-muted-foreground mt-1 font-medium">
+          <p className="text-xs text-gray-600 mt-1 font-medium">
             {employeesCount > 0 ? `${((attendanceCount / employeesCount) * 100).toFixed(1)}% attendance` : 'No data'}
           </p>
         </CardContent>
@@ -345,11 +347,11 @@ const HRMSDashboard: React.FC = () => {
         />
       }
       stats={stats}
-    // modules={hrmsModules}
     >
       <div className="space-y-6">
         {/* Enhanced Action Bar */}
-        <Card className="border-2 shadow-md">
+        <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white overflow-hidden">
+          <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
           <CardContent className="p-4 sm:p-6">
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
               {/* Quick Actions */}
@@ -376,28 +378,30 @@ const HRMSDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Today's Summary - Mobile Optimized */}
-            <div className="mt-6 pt-6 border-t border-gray-200">
+            {/* Today's Summary */}
+            <div className="mt-6 pt-6 border-t border-orange-100">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-3">
-                  <CalendarDays className="h-5 w-5 text-primary" />
+                  <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl border border-orange-100">
+                    <CalendarDays className="h-5 w-5 text-orange-600" />
+                  </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-700">Today's Overview</p>
-                    <p className="text-xs text-muted-foreground">{format(new Date(), "EEEE, MMMM d, yyyy")}</p>
+                    <p className="text-xs text-gray-600">{format(new Date(), "EEEE, MMMM d, yyyy")}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 sm:gap-6">
                   <div className="text-center">
-                    <p className="text-xl sm:text-2xl font-bold text-primary">{employeesCount}</p>
-                    <p className="text-xs text-muted-foreground">Employees</p>
+                    <p className="text-xl sm:text-2xl font-bold text-orange-600">{employeesCount}</p>
+                    <p className="text-xs text-gray-600">Employees</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-xl sm:text-2xl font-bold text-secondary">{attendanceCount}</p>
-                    <p className="text-xs text-muted-foreground">Present</p>
+                    <p className="text-xl sm:text-2xl font-bold text-amber-600">{attendanceCount}</p>
+                    <p className="text-xs text-gray-600">Present</p>
                   </div>
                   <div className="text-center">
                     <p className="text-xl sm:text-2xl font-bold text-orange-600">{leaveApplicationsCount}</p>
-                    <p className="text-xs text-muted-foreground">Leaves</p>
+                    <p className="text-xs text-gray-600">Leaves</p>
                   </div>
                 </div>
               </div>
@@ -405,12 +409,12 @@ const HRMSDashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Enhanced Tabs - Mobile Optimized */}
+        {/* Enhanced Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-gray-100 rounded-xl">
+          <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-orange-50 rounded-xl border-2 border-orange-200">
             <TabsTrigger
               value="overview"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm"
+              className="data-[state=active]:bg-white data-[state=active]:text-orange-600 data-[state=active]:shadow-lg rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm text-gray-600"
             >
               <LayoutGrid className="h-4 w-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Overview</span>
@@ -418,7 +422,7 @@ const HRMSDashboard: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger
               value="analytics"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm"
+              className="data-[state=active]:bg-white data-[state=active]:text-orange-600 data-[state=active]:shadow-lg rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm text-gray-600"
             >
               <BarChart3 className="h-4 w-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Analytics</span>
@@ -426,7 +430,7 @@ const HRMSDashboard: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger
               value="activities"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm"
+              className="data-[state=active]:bg-white data-[state=active]:text-orange-600 data-[state=active]:shadow-lg rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm text-gray-600"
             >
               <Activity className="h-4 w-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Activities</span>
@@ -434,7 +438,7 @@ const HRMSDashboard: React.FC = () => {
             </TabsTrigger>
             <TabsTrigger
               value="modules"
-              className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm"
+              className="data-[state=active]:bg-white data-[state=active]:text-orange-600 data-[state=active]:shadow-lg rounded-lg py-2 sm:py-3 font-semibold transition-all text-xs sm:text-sm text-gray-600"
             >
               <Grid3x3 className="h-4 w-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Modules</span>
@@ -445,44 +449,47 @@ const HRMSDashboard: React.FC = () => {
           {/* ============ OVERVIEW TAB ============ */}
           <TabsContent value="overview" className="space-y-6 mt-6">
             {/* HR Lifecycle Pipeline Stats */}
-            <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20">
+            <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                  <Target className="h-5 w-5 text-primary" />
+                  <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                    <Target className="h-5 w-5 text-orange-600" />
+                  </div>
                   HR Lifecycle Pipeline
                 </CardTitle>
                 <CardDescription>Track candidates through the complete hiring journey</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
-                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-primary/20 hover:shadow-md transition-shadow">
-                    <Briefcase className="h-6 sm:h-8 w-6 sm:w-8 text-primary mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-primary">{jobOpeningsCount}</div>
-                    <p className="text-xs text-center text-muted-foreground mt-1">Job Openings</p>
+                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-orange-200 hover:shadow-md transition-shadow">
+                    <Briefcase className="h-6 sm:h-8 w-6 sm:w-8 text-orange-600 mb-2" />
+                    <div className="text-xl sm:text-2xl font-bold text-orange-600">{jobOpeningsCount}</div>
+                    <p className="text-xs text-center text-gray-600 mt-1">Job Openings</p>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-secondary/20 hover:shadow-md transition-shadow">
-                    <Users className="h-6 sm:h-8 w-6 sm:w-8 text-secondary mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-secondary">{jobApplicantsCount}</div>
-                    <p className="text-xs text-center text-muted-foreground mt-1">Active Applicants</p>
+                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-amber-200 hover:shadow-md transition-shadow">
+                    <Users className="h-6 sm:h-8 w-6 sm:w-8 text-amber-600 mb-2" />
+                    <div className="text-xl sm:text-2xl font-bold text-amber-600">{jobApplicantsCount}</div>
+                    <p className="text-xs text-center text-gray-600 mt-1">Active Applicants</p>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-primary/20 hover:shadow-md transition-shadow">
-                    <MessageSquare className="h-6 sm:h-8 w-6 sm:w-8 text-primary mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-primary">{interviewsCount}</div>
-                    <p className="text-xs text-center text-muted-foreground mt-1">Scheduled Interviews</p>
+                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-orange-200 hover:shadow-md transition-shadow">
+                    <MessageSquare className="h-6 sm:h-8 w-6 sm:w-8 text-orange-600 mb-2" />
+                    <div className="text-xl sm:text-2xl font-bold text-orange-600">{interviewsCount}</div>
+                    <p className="text-xs text-center text-gray-600 mt-1">Scheduled Interviews</p>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-green-200/50 hover:shadow-md transition-shadow">
-                    <FileText className="h-6 sm:h-8 w-6 sm:w-8 text-green-600 mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-green-600">{jobOffersCount}</div>
-                    <p className="text-xs text-center text-muted-foreground mt-1">Pending Offers</p>
+                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-amber-200 hover:shadow-md transition-shadow">
+                    <FileText className="h-6 sm:h-8 w-6 sm:w-8 text-amber-600 mb-2" />
+                    <div className="text-xl sm:text-2xl font-bold text-amber-600">{jobOffersCount}</div>
+                    <p className="text-xs text-center text-gray-600 mt-1">Pending Offers</p>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-teal-200 hover:shadow-md transition-shadow col-span-2 sm:col-span-3 md:col-span-1">
-                    <CheckCircle className="h-6 sm:h-8 w-6 sm:w-8 text-teal-600 mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-teal-600">{employeesCount}</div>
-                    <p className="text-xs text-center text-muted-foreground mt-1">Active Employees</p>
+                  <div className="flex flex-col items-center justify-center p-3 sm:p-4 bg-white rounded-lg shadow-sm border-2 border-orange-200 hover:shadow-md transition-shadow col-span-2 sm:col-span-3 md:col-span-1">
+                    <CheckCircle className="h-6 sm:h-8 w-6 sm:w-8 text-orange-600 mb-2" />
+                    <div className="text-xl sm:text-2xl font-bold text-orange-600">{employeesCount}</div>
+                    <p className="text-xs text-center text-gray-600 mt-1">Active Employees</p>
                   </div>
                 </div>
               </CardContent>
@@ -490,49 +497,61 @@ const HRMSDashboard: React.FC = () => {
 
             {/* Additional HR Metrics */}
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-              <Card className="border-t-4 border-t-amber-500 hover:shadow-md transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-yellow-500 h-2 rounded-t-2xl"></div>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Performance Reviews</CardTitle>
-                  <Award className="h-4 w-4 text-amber-500" />
+                  <CardTitle className="text-sm font-medium text-gray-700">Performance Reviews</CardTitle>
+                  <div className="p-2 bg-gradient-to-br from-amber-50 to-yellow-50 rounded-lg border border-amber-100">
+                    <Award className="h-4 w-4 text-amber-600" />
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-amber-600">{appraisalsCount}</div>
-                  <p className="text-xs text-muted-foreground mt-1">Pending appraisals</p>
+                  <p className="text-xs text-gray-600 mt-1">Pending appraisals</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-t-4 border-t-cyan-500 hover:shadow-md transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Training Events</CardTitle>
-                  <ClipboardCheck className="h-4 w-4 text-cyan-500" />
+                  <CardTitle className="text-sm font-medium text-gray-700">Training Events</CardTitle>
+                  <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                    <ClipboardCheck className="h-4 w-4 text-orange-600" />
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-cyan-600">{trainingEventsCount}</div>
-                  <p className="text-xs text-muted-foreground mt-1">Scheduled & ongoing</p>
+                  <div className="text-2xl font-bold text-orange-600">{trainingEventsCount}</div>
+                  <p className="text-xs text-gray-600 mt-1">Scheduled & ongoing</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-t-4 border-t-rose-500 hover:shadow-md transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Leave Balance</CardTitle>
-                  <Calendar className="h-4 w-4 text-rose-500" />
+                  <CardTitle className="text-sm font-medium text-gray-700">Leave Balance</CardTitle>
+                  <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                    <Calendar className="h-4 w-4 text-amber-600" />
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-rose-600">{leaveApplicationsCount}</div>
-                  <p className="text-xs text-muted-foreground mt-1">Requests to review</p>
+                  <div className="text-2xl font-bold text-amber-600">{leaveApplicationsCount}</div>
+                  <p className="text-xs text-gray-600 mt-1">Requests to review</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-t-4 border-t-emerald-500 hover:shadow-md transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Attendance Rate</CardTitle>
-                  <Zap className="h-4 w-4 text-emerald-500" />
+                  <CardTitle className="text-sm font-medium text-gray-700">Attendance Rate</CardTitle>
+                  <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                    <Zap className="h-4 w-4 text-orange-600" />
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-emerald-600">
+                  <div className="text-2xl font-bold text-orange-600">
                     {employeesCount > 0 ? `${((attendanceCount / employeesCount) * 100).toFixed(1)}%` : '0%'}
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">Today's attendance</p>
+                  <p className="text-xs text-gray-600 mt-1">Today's attendance</p>
                 </CardContent>
               </Card>
             </div>
@@ -540,10 +559,13 @@ const HRMSDashboard: React.FC = () => {
             {/* Charts Section */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
               {/* Department Distribution */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <BarChart3 className="h-5 w-5 text-primary" />
+                    <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <BarChart3 className="h-5 w-5 text-orange-600" />
+                    </div>
                     Employees by Department
                   </CardTitle>
                   <CardDescription>Workforce distribution across departments</CardDescription>
@@ -553,7 +575,7 @@ const HRMSDashboard: React.FC = () => {
                     config={{
                       value: {
                         label: "Employees",
-                        color: "hsl(var(--primary))",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                     }}
                     className="h-[280px] sm:h-[300px] w-full"
@@ -570,7 +592,7 @@ const HRMSDashboard: React.FC = () => {
                         />
                         <YAxis tick={{ fontSize: 12 }} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Bar dataKey="value" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+                        <Bar dataKey="value" fill="#f97316" radius={[8, 8, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   </ChartContainer>
@@ -578,10 +600,13 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Recruitment Pipeline */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <PieChartIcon className="h-5 w-5 text-purple-600" />
+                    <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                      <PieChartIcon className="h-5 w-5 text-amber-600" />
+                    </div>
                     Recruitment Pipeline Status
                   </CardTitle>
                   <CardDescription>Distribution of applicants by status</CardDescription>
@@ -591,7 +616,7 @@ const HRMSDashboard: React.FC = () => {
                     config={{
                       value: {
                         label: "Count",
-                        color: "hsl(217, 91%, 60%)",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                     }}
                     className="h-[280px] sm:h-[300px]"
@@ -620,10 +645,13 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Employment Type Distribution */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <PieChartIcon className="h-5 w-5 text-green-600" />
+                    <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <PieChartIcon className="h-5 w-5 text-orange-600" />
+                    </div>
                     Employment Type Distribution
                   </CardTitle>
                   <CardDescription>Full-time, part-time, contract breakdown</CardDescription>
@@ -633,7 +661,7 @@ const HRMSDashboard: React.FC = () => {
                     config={{
                       value: {
                         label: "Count",
-                        color: "hsl(142, 76%, 36%)",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                     }}
                     className="h-[280px] sm:h-[300px]"
@@ -662,10 +690,13 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Leave Type Distribution */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <BarChart3 className="h-5 w-5 text-orange-600" />
+                    <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                      <BarChart3 className="h-5 w-5 text-amber-600" />
+                    </div>
                     Leave Type Distribution
                   </CardTitle>
                   <CardDescription>Most common leave types requested</CardDescription>
@@ -675,7 +706,7 @@ const HRMSDashboard: React.FC = () => {
                     config={{
                       value: {
                         label: "Leave Requests",
-                        color: "hsl(24, 95%, 53%)",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                     }}
                     className="h-[280px] sm:h-[300px] w-full"
@@ -701,64 +732,74 @@ const HRMSDashboard: React.FC = () => {
           </TabsContent>
 
           {/* ============ ANALYTICS TAB ============ */}
-          <TabsContent value="analytics" className="space-y-6 mt-6">
-            <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+          <TabsContent value="analytics" className="space-y-4 sm:space-y-6 mt-4 sm:mt-6">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
               {/* Monthly Hiring Trend */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <TrendingUp className="h-5 w-5 text-green-600" />
-                    Monthly Hiring Trend
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="flex items-center gap-2 text-sm sm:text-base lg:text-lg">
+                    <div className="p-1.5 sm:p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600" />
+                    </div>
+                    <span className="truncate">Monthly Hiring Trend</span>
                   </CardTitle>
-                  <CardDescription>Recruitment activity over the past 6 months</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">Recruitment activity over the past 6 months</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-2 sm:p-4 lg:p-6">
                   <ChartContainer
                     config={{
                       hires: {
                         label: "New Hires",
-                        color: "hsl(217, 91%, 60%)",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                       interviews: {
                         label: "Interviews",
-                        color: "hsl(142, 76%, 36%)",
+                        color: "hsl(45 93% 47%)",
                       },
                       offers: {
                         label: "Offers",
-                        color: "hsl(45, 93%, 47%)",
+                        color: "hsl(32.1 94.6% 43.7%)",
                       },
                     }}
-                    className="h-[280px] sm:h-[300px]"
+                    className="h-[220px] sm:h-[280px] lg:h-[300px] w-full"
                   >
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={monthlyHiringData}>
+                      <LineChart data={monthlyHiringData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200" />
-                        <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-                        <YAxis tick={{ fontSize: 12 }} />
+                        <XAxis
+                          dataKey="month"
+                          tick={{ fontSize: window.innerWidth < 640 ? 10 : 12 }}
+                          interval={window.innerWidth < 640 ? 1 : 0}
+                        />
+                        <YAxis tick={{ fontSize: window.innerWidth < 640 ? 10 : 12 }} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Legend wrapperStyle={{ fontSize: '12px' }} />
+                        <Legend
+                          wrapperStyle={{ fontSize: window.innerWidth < 640 ? '10px' : '12px' }}
+                          iconSize={window.innerWidth < 640 ? 8 : 14}
+                        />
                         <Line
                           type="monotone"
                           dataKey="hires"
-                          stroke="#3b82f6"
-                          strokeWidth={2}
-                          dot={{ r: 4 }}
+                          stroke="#f97316"
+                          strokeWidth={window.innerWidth < 640 ? 1.5 : 2}
+                          dot={{ r: window.innerWidth < 640 ? 3 : 4 }}
                           name="New Hires"
                         />
                         <Line
                           type="monotone"
                           dataKey="interviews"
-                          stroke="#10b981"
-                          strokeWidth={2}
-                          dot={{ r: 4 }}
+                          stroke="#fbbf24"
+                          strokeWidth={window.innerWidth < 640 ? 1.5 : 2}
+                          dot={{ r: window.innerWidth < 640 ? 3 : 4 }}
                           name="Interviews"
                         />
                         <Line
                           type="monotone"
                           dataKey="offers"
-                          stroke="#f59e0b"
-                          strokeWidth={2}
-                          dot={{ r: 4 }}
+                          stroke="#fb923c"
+                          strokeWidth={window.innerWidth < 640 ? 1.5 : 2}
+                          dot={{ r: window.innerWidth < 640 ? 3 : 4 }}
                           name="Offers"
                         />
                       </LineChart>
@@ -768,42 +809,52 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Attendance Trend */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Activity className="h-5 w-5 text-secondary" />
-                    Attendance Trend
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="flex items-center gap-2 text-sm sm:text-base lg:text-lg">
+                    <div className="p-1.5 sm:p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                      <Activity className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
+                    </div>
+                    <span className="truncate">Attendance Trend</span>
                   </CardTitle>
-                  <CardDescription>Monthly attendance patterns</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">Monthly attendance patterns</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-2 sm:p-4 lg:p-6">
                   <ChartContainer
                     config={{
                       present: {
                         label: "Present",
-                        color: "hsl(217, 91%, 60%)",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                       absent: {
                         label: "Absent",
-                        color: "hsl(0, 84%, 60%)",
+                        color: "hsl(0 84.2% 60.2%)",
                       },
                       leave: {
                         label: "On Leave",
-                        color: "hsl(45, 93%, 47%)",
+                        color: "hsl(45 93% 47%)",
                       },
                     }}
-                    className="h-[280px] sm:h-[300px]"
+                    className="h-[220px] sm:h-[280px] lg:h-[300px] w-full"
                   >
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={attendanceTrendData}>
+                      <BarChart data={attendanceTrendData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200" />
-                        <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-                        <YAxis tick={{ fontSize: 12 }} />
+                        <XAxis
+                          dataKey="month"
+                          tick={{ fontSize: window.innerWidth < 640 ? 10 : 12 }}
+                          interval={window.innerWidth < 640 ? 1 : 0}
+                        />
+                        <YAxis tick={{ fontSize: window.innerWidth < 640 ? 10 : 12 }} />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Legend wrapperStyle={{ fontSize: '12px' }} />
-                        <Bar dataKey="present" stackId="a" fill="#3b82f6" name="Present" />
+                        <Legend
+                          wrapperStyle={{ fontSize: window.innerWidth < 640 ? '10px' : '12px' }}
+                          iconSize={window.innerWidth < 640 ? 8 : 14}
+                        />
+                        <Bar dataKey="present" stackId="a" fill="#f97316" name="Present" />
                         <Bar dataKey="absent" stackId="a" fill="#ef4444" name="Absent" />
-                        <Bar dataKey="leave" stackId="a" fill="#f59e0b" name="On Leave" />
+                        <Bar dataKey="leave" stackId="a" fill="#fbbf24" name="On Leave" />
                       </BarChart>
                     </ResponsiveContainer>
                   </ChartContainer>
@@ -811,23 +862,26 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Gender Distribution */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <PieChartIcon className="h-5 w-5 text-purple-600" />
-                    Gender Distribution
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="flex items-center gap-2 text-sm sm:text-base lg:text-lg">
+                    <div className="p-1.5 sm:p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <PieChartIcon className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600" />
+                    </div>
+                    <span className="truncate">Gender Distribution</span>
                   </CardTitle>
-                  <CardDescription>Workforce diversity overview</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">Workforce diversity overview</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-2 sm:p-4 lg:p-6">
                   <ChartContainer
                     config={{
                       value: {
                         label: "Count",
-                        color: "hsl(217, 91%, 60%)",
+                        color: "hsl(24.6 95% 53.1%)",
                       },
                     }}
-                    className="h-[280px] sm:h-[300px]"
+                    className="h-[220px] sm:h-[280px] lg:h-[300px] w-full"
                   >
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
@@ -836,8 +890,12 @@ const HRMSDashboard: React.FC = () => {
                           cx="50%"
                           cy="50%"
                           labelLine={false}
-                          label={({ name, percent }) => `${name}: ${((percent || 0) * 100).toFixed(0)}%`}
-                          outerRadius={window.innerWidth < 640 ? 70 : 90}
+                          label={({ name, percent }) =>
+                            window.innerWidth < 640
+                              ? `${((percent || 0) * 100).toFixed(0)}%`
+                              : `${name}: ${((percent || 0) * 100).toFixed(0)}%`
+                          }
+                          outerRadius={window.innerWidth < 400 ? 50 : window.innerWidth < 640 ? 60 : window.innerWidth < 1024 ? 70 : 90}
                           fill="#8884d8"
                           dataKey="value"
                         >
@@ -846,6 +904,12 @@ const HRMSDashboard: React.FC = () => {
                           ))}
                         </Pie>
                         <ChartTooltip content={<ChartTooltipContent />} />
+                        {window.innerWidth < 640 && (
+                          <Legend
+                            wrapperStyle={{ fontSize: '10px' }}
+                            iconSize={8}
+                          />
+                        )}
                       </PieChart>
                     </ResponsiveContainer>
                   </ChartContainer>
@@ -853,46 +917,47 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* HR Metrics Summary */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-base sm:text-lg">Key HR Metrics</CardTitle>
-                  <CardDescription>Performance indicators at a glance</CardDescription>
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
+                <CardHeader className="p-4 sm:p-6">
+                  <CardTitle className="text-sm sm:text-base lg:text-lg">Key HR Metrics</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Performance indicators at a glance</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3 sm:space-y-4">
-                  <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200 hover:shadow-sm transition-shadow">
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                      <span className="font-medium text-sm sm:text-base">Employee Retention</span>
+                <CardContent className="space-y-2 sm:space-y-3 p-4 sm:p-6">
+                  <div className="flex justify-between items-center p-2 sm:p-3 bg-white rounded-lg border-2 border-orange-200 hover:shadow-sm transition-shadow">
+                    <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                      <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600 flex-shrink-0" />
+                      <span className="font-medium text-xs sm:text-sm lg:text-base truncate">Employee Retention</span>
                     </div>
-                    <span className="text-blue-600 font-bold text-lg sm:text-xl">94%</span>
+                    <span className="text-orange-600 font-bold text-base sm:text-lg lg:text-xl ml-2 flex-shrink-0">94%</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200 hover:shadow-sm transition-shadow">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
-                      <span className="font-medium text-sm sm:text-base">Attendance Rate</span>
+                  <div className="flex justify-between items-center p-2 sm:p-3 bg-white rounded-lg border-2 border-amber-200 hover:shadow-sm transition-shadow">
+                    <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                      <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 flex-shrink-0" />
+                      <span className="font-medium text-xs sm:text-sm lg:text-base truncate">Attendance Rate</span>
                     </div>
-                    <span className="text-green-600 font-bold text-lg sm:text-xl">96%</span>
+                    <span className="text-amber-600 font-bold text-base sm:text-lg lg:text-xl ml-2 flex-shrink-0">96%</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg border border-orange-200 hover:shadow-sm transition-shadow">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-orange-600 flex-shrink-0" />
-                      <span className="font-medium text-sm sm:text-base">Avg Time to Hire</span>
+                  <div className="flex justify-between items-center p-2 sm:p-3 bg-white rounded-lg border-2 border-orange-200 hover:shadow-sm transition-shadow">
+                    <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                      <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600 flex-shrink-0" />
+                      <span className="font-medium text-xs sm:text-sm lg:text-base truncate">Avg Time to Hire</span>
                     </div>
-                    <span className="text-orange-600 font-bold text-lg sm:text-xl">18d</span>
+                    <span className="text-orange-600 font-bold text-base sm:text-lg lg:text-xl ml-2 flex-shrink-0">18d</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg border border-purple-200 hover:shadow-sm transition-shadow">
-                    <div className="flex items-center gap-2">
-                      <Award className="h-5 w-5 text-purple-600 flex-shrink-0" />
-                      <span className="font-medium text-sm sm:text-base">Training Complete</span>
+                  <div className="flex justify-between items-center p-2 sm:p-3 bg-white rounded-lg border-2 border-amber-200 hover:shadow-sm transition-shadow">
+                    <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                      <Award className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 flex-shrink-0" />
+                      <span className="font-medium text-xs sm:text-sm lg:text-base truncate">Training Complete</span>
                     </div>
-                    <span className="text-purple-600 font-bold text-lg sm:text-xl">89%</span>
+                    <span className="text-amber-600 font-bold text-base sm:text-lg lg:text-xl ml-2 flex-shrink-0">89%</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-cyan-50 rounded-lg border border-cyan-200 hover:shadow-sm transition-shadow">
-                    <div className="flex items-center gap-2">
-                      <Users className="h-5 w-5 text-cyan-600 flex-shrink-0" />
-                      <span className="font-medium text-sm sm:text-base">Satisfaction</span>
+                  <div className="flex justify-between items-center p-2 sm:p-3 bg-white rounded-lg border-2 border-orange-200 hover:shadow-sm transition-shadow">
+                    <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
+                      <Users className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600 flex-shrink-0" />
+                      <span className="font-medium text-xs sm:text-sm lg:text-base truncate">Satisfaction</span>
                     </div>
-                    <span className="text-cyan-600 font-bold text-lg sm:text-xl">4.2/5</span>
+                    <span className="text-orange-600 font-bold text-base sm:text-lg lg:text-xl ml-2 flex-shrink-0">4.2/5</span>
                   </div>
                 </CardContent>
               </Card>
@@ -904,37 +969,42 @@ const HRMSDashboard: React.FC = () => {
             {/* Recruitment Activities */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
               {/* Pending Job Offers */}
-              <Card className="border-t-4 border-t-green-500 hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <FileText className="h-5 w-5 text-green-600" />
+                    <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <FileText className="h-5 w-5 text-orange-600" />
+                    </div>
                     Pending Job Offers
                   </CardTitle>
                   <CardDescription>Offers awaiting candidate response</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
                     {recentJobOffers && recentJobOffers.length > 0 ? (
                       recentJobOffers.map((offer) => (
                         <div
                           key={offer.name}
-                          className="flex items-start justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-all hover:shadow-md cursor-pointer"
+                          className="flex items-start justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all cursor-pointer"
                           onClick={() => navigate(`/app/job-offer/${offer.name}`)}
                         >
                           <div className="flex items-start space-x-3 flex-1 min-w-0">
-                            <CheckCircle className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                            <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100 flex-shrink-0">
+                              <CheckCircle className="h-4 w-4 text-orange-600" />
+                            </div>
                             <div className="space-y-1 flex-1 min-w-0">
-                              <p className="text-sm font-semibold truncate">{offer.applicant_name}</p>
-                              <p className="text-sm text-muted-foreground truncate">{offer.designation}</p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-sm font-semibold truncate text-gray-900">{offer.applicant_name}</p>
+                              <p className="text-sm text-gray-600 truncate">{offer.designation}</p>
+                              <p className="text-xs text-gray-500">
                                 Offered: {new Date(offer.offer_date || offer.modified).toLocaleDateString()}
                               </p>
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0 ml-2">
-                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium ${offer.status === 'Accepted' ? 'bg-green-100 text-green-800' :
-                              offer.status === 'Awaiting Response' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-blue-100 text-blue-800'
+                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium border ${offer.status === 'Accepted' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                              offer.status === 'Awaiting Response' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                'bg-orange-50 text-orange-700 border-orange-200'
                               }`}>
                               {offer.status}
                             </span>
@@ -942,8 +1012,10 @@ const HRMSDashboard: React.FC = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <FileText className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                      <div className="text-center py-8 text-gray-600">
+                        <div className="p-4 bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl inline-block mb-3 border border-orange-100">
+                          <FileText className="h-12 w-12 text-orange-300" />
+                        </div>
                         <p className="text-sm">No pending job offers</p>
                       </div>
                     )}
@@ -952,37 +1024,42 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Upcoming Interviews */}
-              <Card className="border-t-4 border-t-purple-500 hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Calendar className="h-5 w-5 text-purple-600" />
+                    <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                      <Calendar className="h-5 w-5 text-amber-600" />
+                    </div>
                     Upcoming Interviews
                   </CardTitle>
                   <CardDescription>Scheduled interviews to conduct</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
                     {recentInterviews && recentInterviews.length > 0 ? (
                       recentInterviews.map((interview) => (
                         <div
                           key={interview.name}
-                          className="flex items-start justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-all hover:shadow-md cursor-pointer"
+                          className="flex items-start justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-xl hover:bg-amber-50 hover:border-amber-200 transition-all cursor-pointer"
                           onClick={() => navigate(`/app/interview/${interview.name}`)}
                         >
                           <div className="flex items-start space-x-3 flex-1 min-w-0">
-                            <MessageSquare className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                            <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100 flex-shrink-0">
+                              <MessageSquare className="h-4 w-4 text-amber-600" />
+                            </div>
                             <div className="space-y-1 flex-1 min-w-0">
-                              <p className="text-sm font-semibold truncate">{interview.job_applicant}</p>
-                              <p className="text-sm text-muted-foreground truncate">{interview.designation || interview.interview_round}</p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-sm font-semibold truncate text-gray-900">{interview.job_applicant}</p>
+                              <p className="text-sm text-gray-600 truncate">{interview.designation || interview.interview_round}</p>
+                              <p className="text-xs text-gray-500">
                                 {new Date(interview.scheduled_on).toLocaleString()}
                               </p>
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0 ml-2">
-                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium ${interview.status === 'Cleared' ? 'bg-green-100 text-green-800' :
-                              interview.status === 'Under Review' ? 'bg-blue-100 text-blue-800' :
-                                'bg-yellow-100 text-yellow-800'
+                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium border ${interview.status === 'Cleared' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                              interview.status === 'Under Review' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                'bg-orange-50 text-orange-700 border-orange-200'
                               }`}>
                               {interview.status}
                             </span>
@@ -990,8 +1067,10 @@ const HRMSDashboard: React.FC = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <Calendar className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                      <div className="text-center py-8 text-gray-600">
+                        <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl inline-block mb-3 border border-amber-100">
+                          <Calendar className="h-12 w-12 text-amber-300" />
+                        </div>
                         <p className="text-sm">No upcoming interviews</p>
                       </div>
                     )}
@@ -1003,40 +1082,44 @@ const HRMSDashboard: React.FC = () => {
             {/* Leave Management & Performance Activities */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
               {/* Leave Requests Pending Approval */}
-              <Card className="border-t-4 border-t-orange-500 hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Clock className="h-5 w-5 text-orange-600" />
+                    <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <Clock className="h-5 w-5 text-orange-600" />
+                    </div>
                     Leave Requests
                   </CardTitle>
                   <CardDescription>Pending approval and recently approved</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
                     {recentLeaves && recentLeaves.length > 0 ? (
                       recentLeaves.map((leave) => (
                         <div
                           key={leave.name}
-                          className="flex items-start justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-all hover:shadow-md cursor-pointer"
+                          className="flex items-start justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all cursor-pointer"
                           onClick={() => navigate(`/app/leave-application/${leave.name}`)}
                         >
                           <div className="flex items-start space-x-3 flex-1 min-w-0">
-                            <AlertCircle className={`h-5 w-5 mt-1 flex-shrink-0 ${leave.status === 'Open' ? 'text-orange-600' : 'text-green-600'
-                              }`} />
+                            <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100 flex-shrink-0">
+                              <AlertCircle className={`h-4 w-4 ${leave.status === 'Open' ? 'text-orange-600' : 'text-amber-600'}`} />
+                            </div>
                             <div className="space-y-1 flex-1 min-w-0">
-                              <p className="text-sm font-semibold truncate">{leave.employee_name}</p>
-                              <p className="text-sm text-muted-foreground truncate">{leave.leave_type}</p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-sm font-semibold truncate text-gray-900">{leave.employee_name}</p>
+                              <p className="text-sm text-gray-600 truncate">{leave.leave_type}</p>
+                              <p className="text-xs text-gray-500">
                                 {new Date(leave.from_date).toLocaleDateString()} - {new Date(leave.to_date).toLocaleDateString()}
                               </p>
-                              <p className="text-xs font-medium text-gray-600">
+                              <p className="text-xs font-medium text-gray-700">
                                 {leave.total_leave_days} day{leave.total_leave_days > 1 ? 's' : ''}
                               </p>
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0 ml-2">
-                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium ${leave.status === 'Approved' ? 'bg-green-100 text-green-800' :
-                              'bg-orange-100 text-orange-800'
+                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium border ${leave.status === 'Approved' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                              'bg-amber-50 text-amber-700 border-amber-200'
                               }`}>
                               {leave.status}
                             </span>
@@ -1044,8 +1127,10 @@ const HRMSDashboard: React.FC = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <Clock className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                      <div className="text-center py-8 text-gray-600">
+                        <div className="p-4 bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl inline-block mb-3 border border-orange-100">
+                          <Clock className="h-12 w-12 text-orange-300" />
+                        </div>
                         <p className="text-sm">No leave requests</p>
                       </div>
                     )}
@@ -1054,36 +1139,41 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Performance Appraisals */}
-              <Card className="border-t-4 border-t-amber-500 hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Award className="h-5 w-5 text-amber-600" />
+                    <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                      <Award className="h-5 w-5 text-amber-600" />
+                    </div>
                     Performance Appraisals
                   </CardTitle>
                   <CardDescription>Reviews and evaluations in progress</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
                     {recentAppraisals && recentAppraisals.length > 0 ? (
                       recentAppraisals.map((appraisal) => (
                         <div
                           key={appraisal.name}
-                          className="flex items-start justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-all hover:shadow-md cursor-pointer"
+                          className="flex items-start justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-xl hover:bg-amber-50 hover:border-amber-200 transition-all cursor-pointer"
                           onClick={() => navigate(`/app/appraisal/${appraisal.name}`)}
                         >
                           <div className="flex items-start space-x-3 flex-1 min-w-0">
-                            <Award className="h-5 w-5 text-amber-600 mt-1 flex-shrink-0" />
+                            <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100 flex-shrink-0">
+                              <Award className="h-4 w-4 text-amber-600" />
+                            </div>
                             <div className="space-y-1 flex-1 min-w-0">
-                              <p className="text-sm font-semibold truncate">{appraisal.employee_name}</p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-sm font-semibold truncate text-gray-900">{appraisal.employee_name}</p>
+                              <p className="text-xs text-gray-500">
                                 Period: {new Date(appraisal.start_date).toLocaleDateString()} - {new Date(appraisal.end_date).toLocaleDateString()}
                               </p>
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0 ml-2">
-                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium ${appraisal.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                              appraisal.status === 'Pending' ? 'bg-blue-100 text-blue-800' :
-                                'bg-gray-100 text-gray-800'
+                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium border ${appraisal.status === 'Completed' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                              appraisal.status === 'Pending' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                'bg-orange-50 text-orange-700 border-orange-200'
                               }`}>
                               {appraisal.status}
                             </span>
@@ -1091,8 +1181,10 @@ const HRMSDashboard: React.FC = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <Award className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                      <div className="text-center py-8 text-gray-600">
+                        <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl inline-block mb-3 border border-amber-100">
+                          <Award className="h-12 w-12 text-amber-300" />
+                        </div>
                         <p className="text-sm">No appraisals in progress</p>
                       </div>
                     )}
@@ -1104,37 +1196,42 @@ const HRMSDashboard: React.FC = () => {
             {/* Training & Development Activities */}
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
               {/* Training Events */}
-              <Card className="border-t-4 border-t-cyan-500 hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <ClipboardCheck className="h-5 w-5 text-cyan-600" />
+                    <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                      <ClipboardCheck className="h-5 w-5 text-orange-600" />
+                    </div>
                     Training Events
                   </CardTitle>
                   <CardDescription>Scheduled learning and development sessions</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
                     {recentTrainings && recentTrainings.length > 0 ? (
                       recentTrainings.map((training) => (
                         <div
                           key={training.name}
-                          className="flex items-start justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-all hover:shadow-md cursor-pointer"
+                          className="flex items-start justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all cursor-pointer"
                           onClick={() => navigate(`/app/training-event/${training.name}`)}
                         >
                           <div className="flex items-start space-x-3 flex-1 min-w-0">
-                            <ClipboardCheck className="h-5 w-5 text-cyan-600 mt-1 flex-shrink-0" />
+                            <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100 flex-shrink-0">
+                              <ClipboardCheck className="h-4 w-4 text-orange-600" />
+                            </div>
                             <div className="space-y-1 flex-1 min-w-0">
-                              <p className="text-sm font-semibold truncate">{training.event_name}</p>
-                              <p className="text-xs text-muted-foreground truncate">{training.location || 'Location TBD'}</p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-sm font-semibold truncate text-gray-900">{training.event_name}</p>
+                              <p className="text-xs text-gray-600 truncate">{training.location || 'Location TBD'}</p>
+                              <p className="text-xs text-gray-500">
                                 {new Date(training.start_time).toLocaleString()}
                               </p>
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0 ml-2">
-                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium ${training.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                              training.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                                'bg-cyan-100 text-cyan-800'
+                            <span className={`text-xs px-2 sm:px-3 py-1 rounded-full font-medium border ${training.status === 'Completed' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                              training.status === 'In Progress' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                'bg-orange-50 text-orange-700 border-orange-200'
                               }`}>
                               {training.status}
                             </span>
@@ -1142,8 +1239,10 @@ const HRMSDashboard: React.FC = () => {
                         </div>
                       ))
                     ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <ClipboardCheck className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                      <div className="text-center py-8 text-gray-600">
+                        <div className="p-4 bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl inline-block mb-3 border border-orange-100">
+                          <ClipboardCheck className="h-12 w-12 text-orange-300" />
+                        </div>
                         <p className="text-sm">No training events scheduled</p>
                       </div>
                     )}
@@ -1152,44 +1251,51 @@ const HRMSDashboard: React.FC = () => {
               </Card>
 
               {/* Recent Employee Onboarding */}
-              <Card className="border-t-4 border-t-blue-500 hover:shadow-lg transition-shadow">
+              <Card className="border-2 border-amber-400 shadow-lg rounded-2xl bg-white hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-t-2xl"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <UserPlus className="h-5 w-5 text-blue-600" />
+                    <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100">
+                      <UserPlus className="h-5 w-5 text-amber-600" />
+                    </div>
                     Recent Employees
                   </CardTitle>
                   <CardDescription>Newly joined team members</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
                     {recentEmployees && recentEmployees.length > 0 ? (
                       recentEmployees.map((employee) => (
                         <div
                           key={employee.name}
-                          className="flex items-start justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 transition-all hover:shadow-md cursor-pointer"
+                          className="flex items-start justify-between p-3 sm:p-4 bg-white border border-gray-100 rounded-xl hover:bg-amber-50 hover:border-amber-200 transition-all cursor-pointer"
                           onClick={() => navigate(`/app/employee/${employee.name}`)}
                         >
                           <div className="flex items-start space-x-3 flex-1 min-w-0">
-                            <UserPlus className="h-5 w-5 text-blue-600 mt-1 flex-shrink-0" />
+                            <div className="p-2 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-100 flex-shrink-0">
+                              <UserPlus className="h-4 w-4 text-amber-600" />
+                            </div>
                             <div className="space-y-1 flex-1 min-w-0">
-                              <p className="text-sm font-semibold truncate">{employee.employee_name}</p>
-                              <p className="text-sm text-muted-foreground truncate">{employee.designation}</p>
-                              <p className="text-xs text-muted-foreground truncate">{employee.department}</p>
+                              <p className="text-sm font-semibold truncate text-gray-900">{employee.employee_name}</p>
+                              <p className="text-sm text-gray-600 truncate">{employee.designation}</p>
+                              <p className="text-xs text-gray-500 truncate">{employee.department}</p>
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0 ml-2">
-                            <p className="text-xs text-muted-foreground mb-1">
+                            <p className="text-xs text-gray-500 mb-1">
                               {new Date(employee.date_of_joining).toLocaleDateString()}
                             </p>
-                            <span className="text-xs px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-medium inline-block">
+                            <span className="text-xs px-2 sm:px-3 py-1 bg-orange-50 text-orange-700 border border-orange-200 rounded-full font-medium inline-block">
                               Active
                             </span>
                           </div>
                         </div>
                       ))
                     ) : (
-                      <div className="text-center py-8 text-muted-foreground">
-                        <UserPlus className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                      <div className="text-center py-8 text-gray-600">
+                        <div className="p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl inline-block mb-3 border border-amber-100">
+                          <UserPlus className="h-12 w-12 text-amber-300" />
+                        </div>
                         <p className="text-sm">No recent hires</p>
                       </div>
                     )}
@@ -1199,46 +1305,49 @@ const HRMSDashboard: React.FC = () => {
             </div>
 
             {/* Overall HR Activity Summary */}
-            <Card className="bg-gradient-to-br from-slate-50 to-blue-50 border-2 border-blue-100">
+            <Card className="border-2 border-orange-400 shadow-lg rounded-2xl bg-white overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                  <Activity className="h-5 w-5 text-blue-600" />
+                  <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                    <Activity className="h-5 w-5 text-orange-600" />
+                  </div>
                   HR Activity Summary
                 </CardTitle>
                 <CardDescription>Quick overview of current HR operations</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
-                  <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                    <div className="p-3 bg-blue-100 rounded-full flex-shrink-0">
-                      <Briefcase className="h-6 w-6 text-blue-600" />
+                  <div className="flex items-center space-x-4 p-4 bg-white rounded-2xl shadow-sm border-2 border-orange-200 hover:shadow-md transition-shadow">
+                    <div className="p-3 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl border border-orange-100 flex-shrink-0">
+                      <Briefcase className="h-6 w-6 text-orange-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-muted-foreground">Recruitment</p>
-                      <p className="text-xl sm:text-2xl font-bold text-blue-600">{jobApplicantsCount + interviewsCount + jobOffersCount}</p>
-                      <p className="text-xs text-muted-foreground truncate">Active candidates</p>
+                      <p className="text-sm font-medium text-gray-600">Recruitment</p>
+                      <p className="text-xl sm:text-2xl font-bold text-orange-600">{jobApplicantsCount + interviewsCount + jobOffersCount}</p>
+                      <p className="text-xs text-gray-500 truncate">Active candidates</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                    <div className="p-3 bg-orange-100 rounded-full flex-shrink-0">
-                      <Clock className="h-6 w-6 text-orange-600" />
+                  <div className="flex items-center space-x-4 p-4 bg-white rounded-2xl shadow-sm border-2 border-amber-200 hover:shadow-md transition-shadow">
+                    <div className="p-3 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-100 flex-shrink-0">
+                      <Clock className="h-6 w-6 text-amber-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-muted-foreground">Leaves</p>
-                      <p className="text-xl sm:text-2xl font-bold text-orange-600">{leaveApplicationsCount}</p>
-                      <p className="text-xs text-muted-foreground truncate">To review</p>
+                      <p className="text-sm font-medium text-gray-600">Leaves</p>
+                      <p className="text-xl sm:text-2xl font-bold text-amber-600">{leaveApplicationsCount}</p>
+                      <p className="text-xs text-gray-500 truncate">To review</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                    <div className="p-3 bg-amber-100 rounded-full flex-shrink-0">
-                      <Award className="h-6 w-6 text-amber-600" />
+                  <div className="flex items-center space-x-4 p-4 bg-white rounded-2xl shadow-sm border-2 border-orange-200 hover:shadow-md transition-shadow">
+                    <div className="p-3 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl border border-orange-100 flex-shrink-0">
+                      <Award className="h-6 w-6 text-orange-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-muted-foreground">Development</p>
-                      <p className="text-xl sm:text-2xl font-bold text-amber-600">{appraisalsCount + trainingEventsCount}</p>
-                      <p className="text-xs text-muted-foreground truncate">In progress</p>
+                      <p className="text-sm font-medium text-gray-600">Development</p>
+                      <p className="text-xl sm:text-2xl font-bold text-orange-600">{appraisalsCount + trainingEventsCount}</p>
+                      <p className="text-xs text-gray-500 truncate">In progress</p>
                     </div>
                   </div>
                 </div>
@@ -1256,6 +1365,23 @@ const HRMSDashboard: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #fff7ed;
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #f97316, #fb923c);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #ea580c, #f97316);
+        }
+      `}</style>
     </DashboardLayout>
   )
 }

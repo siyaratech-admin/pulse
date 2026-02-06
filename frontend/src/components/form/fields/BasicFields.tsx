@@ -76,7 +76,7 @@ export const DataField: React.FC<ExtendedFormFieldProps> = ({
                         error && 'border-red-300 focus:border-red-500 focus:ring-red-500/20',
                         // Removed green border on success as per user request
                         isReadOnly && 'bg-gray-100 text-gray-800 cursor-not-allowed opacity-90 font-medium',
-                        isFocused && 'ring-2 ring-blue-500/20'
+                        isFocused && !error && 'ring-2 ring-orange-500/20 border-orange-300'
                     )}
                 />
 
@@ -84,7 +84,7 @@ export const DataField: React.FC<ExtendedFormFieldProps> = ({
                     <div
                         className={cn(
                             'absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono',
-                            isNearLimit ? 'text-amber-600' : 'text-muted-foreground'
+                            isNearLimit ? 'text-orange-600 font-semibold' : 'text-muted-foreground'
                         )}
                     >
                         {currentLength}/{maxLength}
@@ -133,7 +133,9 @@ export const IntField: React.FC<ExtendedFormFieldProps> = ({
                 disabled={disabled || isReadOnly}
                 placeholder={getFieldPlaceholder(field)}
                 className={cn(
+                    'transition-all duration-200',
                     error && 'border-red-500 focus:ring-red-500',
+                    !error && 'focus:ring-orange-500/20 focus:border-orange-300',
                     isReadOnly && 'bg-gray-50 cursor-not-allowed'
                 )}
             />
@@ -180,7 +182,9 @@ export const FloatField: React.FC<ExtendedFormFieldProps> = ({
                 disabled={disabled || isReadOnly}
                 placeholder={getFieldPlaceholder(field)}
                 className={cn(
+                    'transition-all duration-200',
                     error && 'border-red-500 focus:ring-red-500',
+                    !error && 'focus:ring-orange-500/20 focus:border-orange-300',
                     isReadOnly && 'bg-gray-50 cursor-not-allowed'
                 )}
             />
@@ -214,7 +218,7 @@ export const CurrencyField: React.FC<ExtendedFormFieldProps> = ({
             className={className}
         >
             <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">$</span>
                 <Input
                     id={field.fieldname}
                     name={field.fieldname}
@@ -229,8 +233,9 @@ export const CurrencyField: React.FC<ExtendedFormFieldProps> = ({
                     disabled={disabled || isReadOnly}
                     placeholder="0.00"
                     className={cn(
-                        'pl-8',
+                        'pl-8 transition-all duration-200',
                         error && 'border-red-500 focus:ring-red-500',
+                        !error && 'focus:ring-orange-500/20 focus:border-orange-300',
                         isReadOnly && 'bg-gray-50 cursor-not-allowed'
                     )}
                 />
@@ -273,7 +278,9 @@ export const PasswordField: React.FC<ExtendedFormFieldProps> = ({
                 disabled={disabled || isReadOnly}
                 placeholder={getFieldPlaceholder(field)}
                 className={cn(
+                    'transition-all duration-200',
                     error && 'border-red-500 focus:ring-red-500',
+                    !error && 'focus:ring-orange-500/20 focus:border-orange-300',
                     isReadOnly && 'bg-gray-50 cursor-not-allowed'
                 )}
             />

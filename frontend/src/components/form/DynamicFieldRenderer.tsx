@@ -25,7 +25,7 @@ const TableFieldLazy = React.lazy(() => import('./fields/TableField').then(modul
 const ReadOnlyField: React.FC<FormFieldProps> = ({ field, value, className }) => (
     <div className={className}>
         <label className="text-sm font-medium text-gray-700">{field.label}</label>
-        <div className="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded border">
+        <div className="mt-1 text-sm text-gray-900 bg-orange-50 p-2 rounded border border-orange-200">
             {value || '—'}
         </div>
     </div>
@@ -49,14 +49,15 @@ const ColorField: React.FC<FormFieldProps> = ({ field, value, onChange, error, d
                     value={value || '#000000'}
                     onChange={(e) => onChange(e.target.value)}
                     disabled={disabled || isReadOnly}
-                    className="h-10 w-20 rounded border border-gray-300"
+                    className="h-10 w-20 rounded border border-orange-300 hover:border-orange-400 transition-colors"
                 />
                 <input
                     type="text"
                     value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     placeholder="#000000"
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+                    disabled={disabled || isReadOnly}
+                    className="flex-1 px-3 py-2 border border-orange-200 rounded-md focus:border-orange-400 focus:ring-1 focus:ring-orange-400 outline-none transition-colors"
                 />
             </div>
             {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
@@ -137,7 +138,14 @@ export const DynamicFieldRenderer: React.FC<FormFieldProps> = (props) => {
         case FrappeFieldType.TABLE:
             // case FrappeFieldType.TABLE_MULTISELECT:
             return (
-                <React.Suspense fallback={<div>Loading table...</div>}>
+                <React.Suspense fallback={
+                    <div className="flex items-center justify-center p-4 bg-orange-50 border border-orange-200 rounded-md">
+                        <div className="flex items-center gap-2 text-orange-600">
+                            <div className="h-4 w-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                            <span className="text-sm">Loading table...</span>
+                        </div>
+                    </div>
+                }>
                     <TableFieldLazy {...props} parentDoctype={props.parentDoctype} formData={props.formData} />
                 </React.Suspense>
             );
@@ -160,12 +168,11 @@ export const DynamicFieldRenderer: React.FC<FormFieldProps> = (props) => {
         case FrappeFieldType.DURATION:
             return <DurationField {...props} />;
 
-        // Unsupported field types
-        case FrappeFieldType.BARCODE:
+        // Geolocation field
         case FrappeFieldType.GEOLOCATION:
             return <GeolocationField {...props} />;
 
-        // Unsupported field types
+        // Barcode field (not yet supported)
         case FrappeFieldType.BARCODE:
             return (
                 <div className={props.className}>
@@ -173,10 +180,25 @@ export const DynamicFieldRenderer: React.FC<FormFieldProps> = (props) => {
                         {field.label}
                         {!!field.reqd && <span className="text-red-500 ml-1">*</span>}
                     </label>
-                    <div className="mt-1 p-3 bg-yellow-50 border border-yellow-200 rounded">
-                        <p className="text-sm text-yellow-800">
-                            This field type is not yet supported
-                        </p>
+                    <div className="mt-1 p-3 bg-amber-50 border border-amber-300 rounded-md">
+                        <div className="flex items-start gap-2">
+                            <svg
+                                className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                />
+                            </svg>
+                            <p className="text-sm text-amber-800 font-medium">
+                                Barcode field type is not yet supported
+                            </p>
+                        </div>
                     </div>
                 </div>
             );
@@ -188,10 +210,30 @@ export const DynamicFieldRenderer: React.FC<FormFieldProps> = (props) => {
                         {field.label}
                         {!!field.reqd && <span className="text-red-500 ml-1">*</span>}
                     </label>
-                    <div className="mt-1 p-3 bg-red-50 border border-red-200 rounded">
-                        <p className="text-sm text-red-800">
-                            Unsupported field type
-                        </p>
+                    <div className="mt-1 p-3 bg-red-50 border border-red-200 rounded-md">
+                        <div className="flex items-start gap-2">
+                            <svg
+                                className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                            <div>
+                                <p className="text-sm text-red-800 font-semibold">
+                                    Unsupported field type: {field.fieldtype}
+                                </p>
+                                <p className="text-xs text-red-600 mt-1">
+                                    This field cannot be rendered in the current form
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );

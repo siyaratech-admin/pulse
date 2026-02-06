@@ -80,7 +80,6 @@ export const TextField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
-
     const safeLabel = getSafeLabel(field.label);
 
     return (
@@ -129,7 +128,6 @@ export const SmallTextField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
-
     // ✅ FIX: Safely handle null/undefined label
     const safeLabel = getSafeLabel(field.label);
 
@@ -180,7 +178,6 @@ export const LongTextField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
-
     // ✅ FIX: Safely handle null/undefined label
     const safeLabel = getSafeLabel(field.label);
 
@@ -229,7 +226,6 @@ export const CodeField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
-
     // ✅ FIX: Safely handle null/undefined label
     const safeLabel = getSafeLabel(field.label);
 
@@ -310,10 +306,12 @@ export const TextEditorField: React.FC<TextFieldPropsExtended> = ({
                 disabled={disabled || Boolean(field.read_only)}
                 className="w-full"
             >
-                <div className={cn(
-                    "relative",
-                    error && "ring-2 ring-red-500 rounded-md"
-                )}>
+                <div
+                    className={cn(
+                        "relative",
+                        error && "ring-2 ring-red-500 rounded-md"
+                    )}
+                >
                     <RichTextEditor
                         value={value || ''}
                         onChange={handleChange}

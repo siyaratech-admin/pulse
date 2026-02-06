@@ -33,7 +33,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     const [isQuickActionsCollapsed, setIsQuickActionsCollapsed] = useState(false);
 
     return (
-        <div className="min-h-screen bg-background flex flex-col">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50/30 to-yellow-50 flex flex-col">
             {/* Header */}
             <StandardHeader title={title} subtitle={subtitle} icon={icon} />
 
@@ -58,7 +58,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     {!hideSidebar && modules && modules.length > 0 && (
                         <Button
                             onClick={() => setIsMobileSidebarOpen(true)}
-                            className="xl:hidden fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 z-40"
+                            className="xl:hidden fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white z-40"
                             size="icon"
                         >
                             <Menu className="h-6 w-6" />
@@ -72,32 +72,39 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                             isQuickActionsCollapsed ? "w-16" : "w-80"
                         )}>
                             <Card className={cn(
-                                "h-[calc(100vh-8rem)] border shadow-md sticky top-6 bg-white/50 backdrop-blur-sm flex flex-col transition-all duration-300 overflow-hidden",
+                                "h-[calc(100vh-8rem)] border-2 border-orange-400 shadow-lg rounded-2xl sticky top-6 bg-white flex flex-col transition-all duration-300 overflow-hidden",
                                 isQuickActionsCollapsed && "items-center"
                             )}>
+                                {/* Orange accent strip */}
+                                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2"></div>
+
                                 <CardHeader className={cn(
-                                    "pb-4 border-b bg-gradient-to-r from-gray-50 to-white transition-all duration-300",
+                                    "pb-4 border-b border-orange-100 transition-all duration-300",
                                     isQuickActionsCollapsed ? "p-3" : "px-4 py-3"
                                 )}>
                                     <div className="flex items-center justify-between">
                                         {!isQuickActionsCollapsed && (
                                             <div className="flex-1">
                                                 <CardTitle className="flex items-center gap-2 text-lg font-semibold text-gray-800">
-                                                    <Settings className="h-5 w-5 text-primary" />
+                                                    <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                                                        <Settings className="h-5 w-5 text-orange-600" />
+                                                    </div>
                                                     Quick Actions
                                                 </CardTitle>
-                                                <CardDescription className="text-xs">Navigate to modules</CardDescription>
+                                                <CardDescription className="text-xs text-gray-600 mt-1">Navigate to modules</CardDescription>
                                             </div>
                                         )}
                                         {isQuickActionsCollapsed && (
-                                            <Settings className="h-5 w-5 text-primary" />
+                                            <div className="p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border border-orange-100">
+                                                <Settings className="h-5 w-5 text-orange-600" />
+                                            </div>
                                         )}
                                         <Button
                                             variant="ghost"
                                             size="icon"
                                             onClick={() => setIsQuickActionsCollapsed(!isQuickActionsCollapsed)}
                                             className={cn(
-                                                "h-8 w-8 hover:bg-white transition-transform duration-300",
+                                                "h-8 w-8 hover:bg-orange-50 transition-transform duration-300 text-orange-600",
                                                 !isQuickActionsCollapsed && "ml-2"
                                             )}
                                             title={isQuickActionsCollapsed ? "Expand Quick Actions" : "Collapse Quick Actions"}
@@ -125,8 +132,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                             size="icon"
                                                             className={cn(
                                                                 "w-12 h-12 rounded-lg transition-all duration-200",
-                                                                "hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10",
-                                                                "text-gray-600 hover:text-primary"
+                                                                "hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50",
+                                                                "text-gray-600 hover:text-orange-600 border border-transparent hover:border-orange-200"
                                                             )}
                                                             onClick={() => navigate(module.route)}
                                                             title={module.label}
@@ -145,22 +152,22 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                         <AccordionItem
                                                             key={module.id}
                                                             value={module.id}
-                                                            className="border-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                                                            className="border-0 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:border-orange-200"
                                                         >
                                                             <AccordionTrigger
                                                                 className={cn(
                                                                     "hover:no-underline py-3 px-4 rounded-lg transition-all duration-200 group",
-                                                                    "hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10",
-                                                                    "data-[state=open]:bg-gradient-to-r data-[state=open]:from-primary/10 data-[state=open]:to-secondary/10"
+                                                                    "hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50",
+                                                                    "data-[state=open]:bg-gradient-to-r data-[state=open]:from-orange-50 data-[state=open]:to-amber-50"
                                                                 )}
                                                             >
                                                                 <div className="flex items-center gap-3 text-left w-full">
                                                                     <div
                                                                         className={cn(
                                                                             "p-2 rounded-md transition-all duration-200 shadow-sm",
-                                                                            "bg-white border border-gray-100",
-                                                                            "group-hover:border-primary/20 group-hover:shadow-md group-hover:scale-110",
-                                                                            "text-gray-600 group-hover:text-primary"
+                                                                            "bg-white border border-orange-100",
+                                                                            "group-hover:border-orange-300 group-hover:shadow-md group-hover:scale-110",
+                                                                            "text-gray-600 group-hover:text-orange-600"
                                                                         )}
                                                                     >
                                                                         {React.isValidElement(module.icon) &&
@@ -169,11 +176,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                             })}
                                                                     </div>
                                                                     <div className="flex flex-col flex-1">
-                                                                        <span className="font-semibold text-sm text-gray-700 group-hover:text-primary transition-colors">
+                                                                        <span className="font-semibold text-sm text-gray-700 group-hover:text-orange-600 transition-colors">
                                                                             {module.label}
                                                                         </span>
                                                                         {module.description && (
-                                                                            <span className="text-xs text-muted-foreground font-normal line-clamp-1">
+                                                                            <span className="text-xs text-gray-600 font-normal line-clamp-1">
                                                                                 {module.description}
                                                                             </span>
                                                                         )}
@@ -181,7 +188,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                 </div>
                                                             </AccordionTrigger>
                                                             <AccordionContent className="pb-3 pt-2 px-4">
-                                                                <div className="flex flex-col gap-1.5 pl-4 border-l-2 border-primary/20 ml-4 mt-2">
+                                                                <div className="flex flex-col gap-1.5 pl-4 border-l-2 border-orange-300 ml-4 mt-2">
                                                                     {module.children?.map((child) => (
                                                                         <Button
                                                                             key={child.id}
@@ -189,7 +196,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                             size="sm"
                                                                             className={cn(
                                                                                 "justify-start h-9 px-3 text-gray-600 font-normal w-full rounded-md",
-                                                                                "hover:text-primary hover:bg-primary/5 hover:pl-4 transition-all duration-200"
+                                                                                "hover:text-orange-600 hover:bg-orange-50 hover:pl-4 transition-all duration-200"
                                                                             )}
                                                                             onClick={() => navigate(child.route)}
                                                                         >
@@ -203,7 +210,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                         <Button
                                                                             variant="ghost"
                                                                             size="sm"
-                                                                            className="justify-start h-9 px-3 text-gray-600 hover:text-primary hover:bg-primary/5 w-full rounded-md"
+                                                                            className="justify-start h-9 px-3 text-gray-600 hover:text-orange-600 hover:bg-orange-50 w-full rounded-md"
                                                                             onClick={() => navigate(module.route)}
                                                                         >
                                                                             Open {module.label}
@@ -241,51 +248,54 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                     isMobileSidebarOpen ? "translate-x-0" : "translate-x-full"
                                 )}
                             >
+                                {/* Orange accent strip */}
+                                <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2"></div>
+
                                 {/* Mobile Header */}
-                                <div className="flex items-center justify-between p-4 border-b bg-gradient-to-r from-primary/5 to-secondary/5 flex-shrink-0">
+                                <div className="flex items-center justify-between p-4 border-b border-orange-100 bg-gradient-to-r from-orange-50 to-amber-50 flex-shrink-0">
                                     <div className="flex items-center gap-2">
-                                        <div className="p-2 bg-white rounded-lg shadow-sm">
-                                            <Settings className="h-5 w-5 text-primary" />
+                                        <div className="p-2 bg-white rounded-lg shadow-sm border border-orange-100">
+                                            <Settings className="h-5 w-5 text-orange-600" />
                                         </div>
                                         <div>
                                             <h2 className="text-lg font-semibold text-gray-800">Quick Actions</h2>
-                                            <p className="text-xs text-muted-foreground">Navigate to modules</p>
+                                            <p className="text-xs text-gray-600">Navigate to modules</p>
                                         </div>
                                     </div>
                                     <Button
                                         variant="ghost"
                                         size="icon"
                                         onClick={() => setIsMobileSidebarOpen(false)}
-                                        className="h-9 w-9 hover:bg-white"
+                                        className="h-9 w-9 hover:bg-white text-orange-600"
                                     >
                                         <X className="h-5 w-5" />
                                     </Button>
                                 </div>
 
                                 {/* Mobile Content - Scrollable */}
-                                <div className="flex-1 overflow-y-auto">
+                                <div className="flex-1 overflow-y-auto bg-gradient-to-br from-orange-50/20 via-white to-amber-50/20">
                                     <div className="p-4">
                                         <Accordion type="single" collapsible className="w-full space-y-3">
                                             {modules.map((module) => (
                                                 <AccordionItem
                                                     key={module.id}
                                                     value={module.id}
-                                                    className="border-0 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-sm hover:shadow-md transition-all"
+                                                    className="border-0 bg-white rounded-xl shadow-sm hover:shadow-md transition-all border border-gray-100 hover:border-orange-200"
                                                 >
                                                     <AccordionTrigger
                                                         className={cn(
                                                             "hover:no-underline py-4 px-4 rounded-xl transition-all duration-200 group",
-                                                            "hover:bg-gradient-to-r hover:from-primary/10 hover:to-secondary/10",
-                                                            "data-[state=open]:bg-gradient-to-r data-[state=open]:from-primary/10 data-[state=open]:to-secondary/10"
+                                                            "hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50",
+                                                            "data-[state=open]:bg-gradient-to-r data-[state=open]:from-orange-50 data-[state=open]:to-amber-50"
                                                         )}
                                                     >
                                                         <div className="flex items-center gap-4 text-left w-full">
                                                             <div
                                                                 className={cn(
                                                                     "p-3 rounded-xl transition-all duration-200 shadow-sm",
-                                                                    "bg-white border border-gray-100",
-                                                                    "group-hover:border-primary/20 group-hover:shadow-md group-hover:scale-110",
-                                                                    "text-gray-600 group-hover:text-primary"
+                                                                    "bg-white border border-orange-100",
+                                                                    "group-hover:border-orange-300 group-hover:shadow-md group-hover:scale-110",
+                                                                    "text-gray-600 group-hover:text-orange-600"
                                                                 )}
                                                             >
                                                                 {React.isValidElement(module.icon) &&
@@ -294,11 +304,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                     })}
                                                             </div>
                                                             <div className="flex flex-col flex-1">
-                                                                <span className="font-semibold text-base text-gray-700 group-hover:text-primary transition-colors">
+                                                                <span className="font-semibold text-base text-gray-700 group-hover:text-orange-600 transition-colors">
                                                                     {module.label}
                                                                 </span>
                                                                 {module.description && (
-                                                                    <span className="text-xs text-muted-foreground font-normal line-clamp-1 mt-0.5">
+                                                                    <span className="text-xs text-gray-600 font-normal line-clamp-1 mt-0.5">
                                                                         {module.description}
                                                                     </span>
                                                                 )}
@@ -306,7 +316,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                         </div>
                                                     </AccordionTrigger>
                                                     <AccordionContent className="pb-4 pt-2 px-4">
-                                                        <div className="flex flex-col gap-2 pl-5 border-l-2 border-primary/20 ml-5 mt-2">
+                                                        <div className="flex flex-col gap-2 pl-5 border-l-2 border-orange-300 ml-5 mt-2">
                                                             {module.children?.map((child) => (
                                                                 <Button
                                                                     key={child.id}
@@ -314,7 +324,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                     size="sm"
                                                                     className={cn(
                                                                         "justify-start h-10 px-4 text-gray-600 font-normal w-full rounded-lg",
-                                                                        "hover:text-primary hover:bg-primary/5 hover:pl-5 transition-all duration-200",
+                                                                        "hover:text-orange-600 hover:bg-orange-50 hover:pl-5 transition-all duration-200",
                                                                         "active:scale-95"
                                                                     )}
                                                                     onClick={() => {
@@ -332,7 +342,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                                                                 <Button
                                                                     variant="ghost"
                                                                     size="sm"
-                                                                    className="justify-start h-10 px-4 text-gray-600 hover:text-primary hover:bg-primary/5 w-full rounded-lg"
+                                                                    className="justify-start h-10 px-4 text-gray-600 hover:text-orange-600 hover:bg-orange-50 w-full rounded-lg"
                                                                     onClick={() => {
                                                                         navigate(module.route);
                                                                         setIsMobileSidebarOpen(false);
@@ -353,6 +363,23 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     )}
                 </div>
             </div>
+
+            <style jsx>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: #fff7ed;
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: linear-gradient(to bottom, #f97316, #fb923c);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: linear-gradient(to bottom, #ea580c, #f97316);
+                }
+            `}</style>
         </div>
     );
 };

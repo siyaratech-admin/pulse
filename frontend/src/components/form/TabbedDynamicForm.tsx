@@ -1,7 +1,6 @@
-// ============================================
+//============================================
 // IMPROVED TabbedDynamicForm.tsx
-// ============================================
-
+//============================================
 import React, { useState, useMemo, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DynamicForm } from './DynamicForm';
@@ -42,16 +41,12 @@ interface TabbedDynamicFormProps {
 const isHTMLEmpty = (html: string | null | undefined): boolean => {
     if (!html || html.trim() === '') return true;
     const text = html.replace(/<[^>]*>/g, '').trim();
-    const cleanText = text
-        .replace(/&nbsp;/g, '')
-        .replace(/\u00a0/g, '')
-        .replace(/\s+/g, '')
-        .trim();
+    const cleanText = text.replace(/&nbsp;/g, '').replace(/\u00a0/g, '').replace(/\s+/g, '').trim();
     return cleanText.length === 0;
 };
 
 // ✅ NEW: Helper function to check if a table field has valid data
-// Now handles field name casing issues (e.g., "Date" vs "date")
+// Now handles fieldname casing issues (e.g., "Date" vs "date")
 const hasValidTableData = (value: any): boolean => {
     console.log('🔍 [hasValidTableData] Checking value:', value);
 
@@ -68,11 +63,11 @@ const hasValidTableData = (value: any): boolean => {
 
         // Get all keys from the row
         const allKeys = Object.keys(row);
-        console.log(`   All keys:`, allKeys);
+        console.log(`All keys:`, allKeys);
 
         // Filter out internal fields (starting with __)
         const dataFields = allKeys.filter(key => !key.startsWith('__'));
-        console.log(`   Data fields (excluding __):`, dataFields);
+        console.log(`Data fields (excluding __):`, dataFields);
 
         // ✅ FIX: Group fields by lowercase name to handle casing issues
         // Problem: ERPNext may create both "Date" (null) and "date" (actual value)
@@ -84,8 +79,7 @@ const hasValidTableData = (value: any): boolean => {
             }
             fieldsByLowercase.get(lowerKey)!.push(key);
         });
-
-        console.log(`   Fields grouped by lowercase:`, Object.fromEntries(fieldsByLowercase));
+        console.log(`Fields grouped by lowercase:`, Object.fromEntries(fieldsByLowercase));
 
         // Check if at least one field has a non-empty value
         // When there are duplicate fields (e.g., "Date" and "date"), prefer the lowercase version
@@ -94,44 +88,44 @@ const hasValidTableData = (value: any): boolean => {
             const keyToCheck = keys.find(k => k === lowerKey) || keys[0];
             const cellValue = row[keyToCheck];
 
-            console.log(`   Checking field "${keyToCheck}" (from group: ${keys.join(', ')}):`, cellValue, `(type: ${typeof cellValue})`);
+            console.log(`Checking field "${keyToCheck}" (from group: ${keys.join(', ')}):`, cellValue, `(type: ${typeof cellValue})`);
 
             // Check for null/undefined/empty string
             if (cellValue === null || cellValue === undefined || cellValue === '') {
-                console.log(`      ❌ Empty or null`);
+                console.log(`❌ Empty or null`);
                 return false;
             }
 
             // For numbers, 0 is valid
             if (typeof cellValue === 'number') {
-                console.log(`      ✅ Valid number: ${cellValue}`);
+                console.log(`✅ Valid number: ${cellValue}`);
                 return true;
             }
 
             // For booleans, any value is valid
             if (typeof cellValue === 'boolean') {
-                console.log(`      ✅ Valid boolean: ${cellValue}`);
+                console.log(`✅ Valid boolean: ${cellValue}`);
                 return true;
             }
 
             // For strings, check if not just whitespace
             if (typeof cellValue === 'string') {
                 const hasContent = cellValue.trim().length > 0;
-                console.log(`      ${hasContent ? '✅' : '❌'} String content: "${cellValue}" (trimmed: "${cellValue.trim()}")`);
+                console.log(`${hasContent ? '✅' : '❌'} String content: "${cellValue}" (trimmed: "${cellValue.trim()}")`);
                 return hasContent;
             }
 
             // For objects/arrays
             if (typeof cellValue === 'object') {
-                console.log(`      ⚠️ Object/Array value:`, cellValue);
+                console.log(`⚠️ Object/Array value:`, cellValue);
                 return true; // Consider objects as valid data
             }
 
-            console.log(`      ⚠️ Unknown type, considering valid`);
+            console.log(`⚠️ Unknown type, considering valid`);
             return true;
         });
 
-        console.log(`   Row ${rowIndex} has data: ${hasNonEmptyField}`);
+        console.log(`Row ${rowIndex} has data: ${hasNonEmptyField}`);
         return hasNonEmptyField;
     });
 
@@ -140,24 +134,27 @@ const hasValidTableData = (value: any): boolean => {
 };
 
 export const TabbedDynamicForm = forwardRef<any, TabbedDynamicFormProps>(
-    ({
-        fields,
-        initialData = {},
-        onSubmit,
-        onCancel,
-        loading = false,
-        className,
-        doctype,
-        docname,
-        onFieldChange,
-        onSubmitDoc,
-        onCancelDoc,
-        onAmendDoc,
-        customTabs = [],
-        additionalTabContent = {},
-        validationErrors = {},
-        renderHeaderActions
-    }, ref) => {
+    (
+        {
+            fields,
+            initialData = {},
+            onSubmit,
+            onCancel,
+            loading = false,
+            className,
+            doctype,
+            docname,
+            onFieldChange,
+            onSubmitDoc,
+            onCancelDoc,
+            onAmendDoc,
+            customTabs = [],
+            additionalTabContent = {},
+            validationErrors = {},
+            renderHeaderActions
+        },
+        ref
+    ) => {
         const [activeTab, setActiveTab] = useState<string>('0');
         const [formData, setFormData] = useState<FormData>(initialData);
         const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -265,15 +262,9 @@ export const TabbedDynamicForm = forwardRef<any, TabbedDynamicFormProps>(
 
         const handleFieldChange = async (field: FieldMetadata, value: any) => {
             const fieldName = field.fieldname;
-            const currentFormDataWithChange = {
-                ...formData,
-                [fieldName]: value
-            };
+            const currentFormDataWithChange = { ...formData, [fieldName]: value };
 
-            setFormData(prev => ({
-                ...prev,
-                [fieldName]: value
-            }));
+            setFormData(prev => ({ ...prev, [fieldName]: value }));
 
             // Clear error for this field when it's changed
             if (fieldErrors[fieldName]) {
@@ -321,139 +312,146 @@ export const TabbedDynamicForm = forwardRef<any, TabbedDynamicFormProps>(
         };
 
         // ✅ FIXED: Use the data parameter passed from DynamicForm, not the stale formData state
-        const handleSubmit = useCallback(async (data: FormData, e?: React.BaseSyntheticEvent) => {
-            if (e && e.preventDefault) {
-                e.preventDefault();
-            }
-
-            console.log('🔍 TabbedDynamicForm validation starting...');
-            console.log('📦 TabbedDynamicForm received data:', data);
-            console.log('📊 Data keys:', Object.keys(data));
-            setHasAttemptedSubmit(true);
-
-            // ✅ CRITICAL: Use the data parameter, not formData state
-            // Evaluate conditions for all fields using the passed data
-            const conditions = ConditionEvaluator.evaluateFields(fields, data);
-
-            // Validate all required fields across all tabs
-            const errors: Record<string, string> = {};
-            const errorFieldsByTab: Record<string, string[]> = {};
-
-            fields.forEach(field => {
-                const fieldConditions = conditions[field.fieldname];
-
-                // Skip hidden or invisible fields
-                if (field.hidden || (fieldConditions && !fieldConditions.visible)) {
-                    return;
+        const handleSubmit = useCallback(
+            async (data: FormData, e?: React.BaseSyntheticEvent) => {
+                if (e && e.preventDefault) {
+                    e.preventDefault();
                 }
 
-                // Skip read-only fields
-                if (field.read_only || (fieldConditions && fieldConditions.readOnly)) {
-                    return;
-                }
+                console.log('🔍 TabbedDynamicForm validation starting...');
+                console.log('📦 TabbedDynamicForm received data:', data);
+                console.log('📊 Data keys:', Object.keys(data));
 
-                const isRequired = field.reqd || (fieldConditions && fieldConditions.required);
+                setHasAttemptedSubmit(true);
 
-                if (isRequired) {
-                    // ✅ CRITICAL: Use data parameter, not formData state
-                    const value = data[field.fieldname];
-                    console.log(`🔍 TabbedDynamicForm checking required field: ${field.fieldname}`, {
-                        value,
-                        fieldtype: field.fieldtype,
-                        isArray: Array.isArray(value),
-                        arrayLength: Array.isArray(value) ? value.length : 'N/A'
-                    });
+                // ✅ CRITICAL: Use the data parameter, not formData state
+                // Evaluate conditions for all fields using the passed data
+                const conditions = ConditionEvaluator.evaluateFields(fields, data);
 
-                    let isEmpty = false;
+                // Validate all required fields across all tabs
+                const errors: Record<string, string> = {};
+                const errorFieldsByTab: Record<string, string[]> = {};
 
-                    // ✅ FIXED: Proper validation based on field type
-                    if (field.fieldtype === 'Text Editor' || field.fieldtype === 'HTML Editor') {
-                        isEmpty = isHTMLEmpty(value);
-                    } else if (field.fieldtype === 'Table' || field.fieldtype === 'Table MultiSelect') {
-                        // ✅ FIXED: Check if table has valid data, not just if array exists
-                        isEmpty = !hasValidTableData(value);
+                fields.forEach(field => {
+                    const fieldConditions = conditions[field.fieldname];
+
+                    // Skip hidden or invisible fields
+                    if (field.hidden || (fieldConditions && !fieldConditions.visible)) {
+                        return;
+                    }
+
+                    // Skip read-only fields
+                    if (field.read_only || (fieldConditions && fieldConditions.readOnly)) {
+                        return;
+                    }
+
+                    const isRequired = field.reqd || (fieldConditions && fieldConditions.required);
+
+                    if (isRequired) {
+                        // ✅ CRITICAL: Use data parameter, not formData state
+                        const value = data[field.fieldname];
+
+                        console.log(`🔍 TabbedDynamicForm checking required field: ${field.fieldname}`, {
+                            value,
+                            fieldtype: field.fieldtype,
+                            isArray: Array.isArray(value),
+                            arrayLength: Array.isArray(value) ? value.length : 'N/A'
+                        });
+
+                        let isEmpty = false;
+
+                        // ✅ FIXED: Proper validation based on field type
+                        if (field.fieldtype === 'Text Editor' || field.fieldtype === 'HTML Editor') {
+                            isEmpty = isHTMLEmpty(value);
+                        } else if (field.fieldtype === 'Table' || field.fieldtype === 'Table MultiSelect') {
+                            // ✅ FIXED: Check if table has valid data, not just if array exists
+                            isEmpty = !hasValidTableData(value);
+                            if (isEmpty) {
+                                console.log(`❌ [TabbedDynamicForm] Table field ${field.fieldname} is empty or has no valid data`);
+                            } else {
+                                console.log(`✅ [TabbedDynamicForm] Table field ${field.fieldname} has valid data`);
+                            }
+                        } else {
+                            // Standard empty check for other field types
+                            isEmpty =
+                                value === null ||
+                                value === undefined ||
+                                value === '' ||
+                                (Array.isArray(value) && value.length === 0);
+                        }
 
                         if (isEmpty) {
-                            console.log(`❌ [TabbedDynamicForm] Table field ${field.fieldname} is empty or has no valid data`);
-                        } else {
-                            console.log(`✅ [TabbedDynamicForm] Table field ${field.fieldname} has valid data`);
-                        }
-                    } else {
-                        // Standard empty check for other field types
-                        isEmpty = value === null ||
-                            value === undefined ||
-                            value === '' ||
-                            (Array.isArray(value) && value.length === 0);
-                    }
+                            errors[field.fieldname] =
+                                field.fieldtype === 'Table' || field.fieldtype === 'Table MultiSelect'
+                                    ? `${field.label} requires at least one complete entry`
+                                    : `${field.label} is required`;
 
-                    if (isEmpty) {
-                        errors[field.fieldname] = field.fieldtype === 'Table' || field.fieldtype === 'Table MultiSelect'
-                            ? `${field.label} requires at least one complete entry`
-                            : `${field.label} is required`;
-
-                        // Track which tab this error belongs to
-                        tabSections.forEach((section, index) => {
-                            if (section.fields.some(f => f.fieldname === field.fieldname)) {
-                                if (!errorFieldsByTab[index.toString()]) {
-                                    errorFieldsByTab[index.toString()] = [];
+                            // Track which tab this error belongs to
+                            tabSections.forEach((section, index) => {
+                                if (section.fields.some(f => f.fieldname === field.fieldname)) {
+                                    if (!errorFieldsByTab[index.toString()]) {
+                                        errorFieldsByTab[index.toString()] = [];
+                                    }
+                                    errorFieldsByTab[index.toString()].push(field.fieldname);
                                 }
-                                errorFieldsByTab[index.toString()].push(field.fieldname);
-                            }
-                        });
-                    }
-                }
-            });
-
-            if (Object.keys(errors).length > 0) {
-                console.log('❌ Validation errors found:', errors);
-                console.log('📋 Errors by tab:', errorFieldsByTab);
-                setFieldErrors(errors);
-
-                // Find the first tab with errors
-                const firstErrorTab = Object.keys(errorFieldsByTab)[0];
-                const errorCount = Object.keys(errors).length;
-
-                if (firstErrorTab) {
-                    console.log(`🎯 Switching to tab ${firstErrorTab} with errors`);
-                    setActiveTab(firstErrorTab);
-
-                    // Wait for tab to render, then scroll to first error
-                    setTimeout(() => {
-                        const firstErrorField = errorFieldsByTab[firstErrorTab][0];
-
-                        // Emit custom event to notify DynamicForm to scroll
-                        const scrollEvent = new CustomEvent('scrollToError', {
-                            detail: { fieldname: firstErrorField }
-                        });
-                        window.dispatchEvent(scrollEvent);
-
-                        // Show toast notification
-                        const errorFields = Object.keys(errors)
-                            .slice(0, 3)
-                            .map(key => {
-                                const field = fields.find(f => f.fieldname === key);
-                                return field?.label || key;
                             });
+                        }
+                    }
+                });
 
-                        const moreCount = errorCount > 3 ? errorCount - 3 : 0;
+                if (Object.keys(errors).length > 0) {
+                    console.log('❌ Validation errors found:', errors);
+                    console.log('📋 Errors by tab:', errorFieldsByTab);
 
-                        toast.error('Please fill in all required fields', {
-                            description: `${errorCount} field${errorCount !== 1 ? 's' : ''} required: ${errorFields.join(', ')}${moreCount > 0 ? ` and ${moreCount} more` : ''}`,
-                            duration: 5000,
-                            position: "bottom-right",
-                        });
-                    }, 300);
+                    setFieldErrors(errors);
+
+                    // Find the first tab with errors
+                    const firstErrorTab = Object.keys(errorFieldsByTab)[0];
+                    const errorCount = Object.keys(errors).length;
+
+                    if (firstErrorTab) {
+                        console.log(`🎯 Switching to tab ${firstErrorTab} with errors`);
+                        setActiveTab(firstErrorTab);
+
+                        // Wait for tab to render, then scroll to first error
+                        setTimeout(() => {
+                            const firstErrorField = errorFieldsByTab[firstErrorTab][0];
+
+                            // Emit custom event to notify DynamicForm to scroll
+                            const scrollEvent = new CustomEvent('scrollToError', {
+                                detail: { fieldname: firstErrorField }
+                            });
+                            window.dispatchEvent(scrollEvent);
+
+                            // Show toast notification
+                            const errorFields = Object.keys(errors)
+                                .slice(0, 3)
+                                .map(key => {
+                                    const field = fields.find(f => f.fieldname === key);
+                                    return field?.label || key;
+                                });
+
+                            const moreCount = errorCount > 3 ? errorCount - 3 : 0;
+
+                            toast.error('Please fill in all required fields', {
+                                description: `${errorCount} field${errorCount !== 1 ? 's' : ''} required: ${errorFields.join(', ')}${moreCount > 0 ? ` and ${moreCount} more` : ''}`,
+                                duration: 5000,
+                                position: "bottom-right",
+                            });
+                        }, 300);
+                    }
+
+                    return;
                 }
 
-                return;
-            }
+                console.log('✅ Validation passed, submitting...');
+                setFieldErrors({});
 
-            console.log('✅ Validation passed, submitting...');
-            setFieldErrors({});
-
-            // ✅ Pass the data parameter to onSubmit, not formData state
-            await onSubmit(data);
-        }, [fields, tabSections, onSubmit]);
+                // ✅ Pass the data parameter to onSubmit, not formData state
+                await onSubmit(data);
+            },
+            [fields, tabSections, onSubmit]
+        );
 
         // Single section optimization
         if (tabSections.length === 1 && customTabs.length === 0 && Object.keys(additionalTabContent).length === 0) {
@@ -488,7 +486,7 @@ export const TabbedDynamicForm = forwardRef<any, TabbedDynamicFormProps>(
                             <TabsTrigger
                                 key={index}
                                 value={index.toString()}
-                                className="relative h-10 rounded-none px-4 font-medium text-muted-foreground hover:text-foreground bg-transparent border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:text-primary shadow-none transition-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                                className="relative h-10 rounded-none px-4 font-medium text-muted-foreground hover:text-foreground bg-transparent border-b-2 border-transparent data-[state=active]:border-orange-500 data-[state=active]:text-orange-600 shadow-none transition-none focus-visible:ring-0 focus-visible:ring-offset-0"
                             >
                                 <span className="text-sm">{section.label}</span>
                                 {tabsWithErrors[index.toString()] && (
@@ -505,7 +503,7 @@ export const TabbedDynamicForm = forwardRef<any, TabbedDynamicFormProps>(
                             <TabsTrigger
                                 key={`custom-${index}`}
                                 value={`custom-${index}`}
-                                className="relative h-10 rounded-t-md border-b-2 border-transparent px-4 font-medium text-muted-foreground hover:text-foreground data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:border-none bg-transparent shadow-none transition-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                                className="relative h-10 rounded-t-md border-b-2 border-transparent px-4 font-medium text-muted-foreground hover:text-foreground data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:border-none bg-transparent shadow-none transition-none focus-visible:ring-0 focus-visible:ring-offset-0"
                             >
                                 <span className="text-sm">{tab.label}</span>
                             </TabsTrigger>
@@ -555,10 +553,9 @@ export const TabbedDynamicForm = forwardRef<any, TabbedDynamicFormProps>(
                                     showTitle={false}
                                     headerActions={renderHeaderActions?.(section.label)}
                                 />
+
                                 {additionalTabContent[section.label] && (
-                                    <div className="mt-6">
-                                        {additionalTabContent[section.label]}
-                                    </div>
+                                    <div className="mt-6">{additionalTabContent[section.label]}</div>
                                 )}
                             </div>
                         </TabsContent>

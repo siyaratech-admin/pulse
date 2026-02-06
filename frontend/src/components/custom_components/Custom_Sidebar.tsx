@@ -5,9 +5,31 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
-  Home, Users, Shield, Building2, Package, X, Layers,
-  Settings, UserCircle, CheckCircle, ClipboardCheck,
-  Briefcase, Warehouse, Activity, Zap, ChevronDown, LayoutDashboard, Computer, GanttChart, Kanban, UserCog, User2, Database, Phone, MessageSquare
+  Home,
+  Users,
+  Shield,
+  Building2,
+  Package,
+  X,
+  Layers,
+  Settings,
+  UserCircle,
+  CheckCircle,
+  ClipboardCheck,
+  Briefcase,
+  Warehouse,
+  Activity,
+  Zap,
+  ChevronDown,
+  LayoutDashboard,
+  Computer,
+  GanttChart,
+  Kanban,
+  UserCog,
+  User2,
+  Database,
+  Phone,
+  MessageSquare
 } from "lucide-react"
 import { useFrappeAuth } from "frappe-react-sdk"
 import { motion, AnimatePresence } from "framer-motion"
@@ -18,8 +40,18 @@ export const navigationGroups = [
   {
     group: "Dashboards",
     items: [
-      { title: "Employee Dashboard", href: "/employee-main-dashboard", icon: Home, color: "text-purple-600" },
-      { title: "Performance Dashboard", href: "/performance-main-dashboard", icon: Activity, color: "text-purple-500" },
+      {
+        title: "Employee Dashboard",
+        href: "/employee-main-dashboard",
+        icon: Home,
+        color: "text-orange-600"
+      },
+      {
+        title: "Performance Dashboard",
+        href: "/performance-main-dashboard",
+        icon: Activity,
+        color: "text-orange-500"
+      },
     ]
   },
   {
@@ -28,7 +60,7 @@ export const navigationGroups = [
       {
         title: "CRM",
         icon: Users,
-        color: "text-purple-600",
+        color: "text-orange-600",
         roles: ["Sales User", "Sales Manager", "System Manager", "Administrator"],
         subItems: [
           { title: "Dashboard", href: "/crm/dashboard" },
@@ -90,7 +122,6 @@ export const navigationGroups = [
           { title: "Main Dashboard", href: "/task-manager" },
           { title: "Create Task", href: "/task-manager/new" },
           { title: "Schedule Tasks", href: "/task-manager/library-selection" },
-
         ]
       },
       {
@@ -451,7 +482,7 @@ export const navigationGroups = [
           { title: "Safety Dashboard", href: "/safety" },
           { title: "Incident Reporting", href: "/safety/new-incident-report" },
           { title: "Safety Inspection Template", href: "/safety/safety-checklist-template" },
-          // {title: "Perm Level Test", href:"/safety/perm-level-test"},
+          // { title: "Perm Level Test", href: "/safety/perm-level-test" },
           {
             title: "Setup",
             subItems: [
@@ -482,7 +513,6 @@ export const navigationGroups = [
       }
     ]
   },
-
 ]
 
 interface SidebarProps {
@@ -492,10 +522,14 @@ interface SidebarProps {
   className?: string
 }
 
-const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onToggle, isMobile, className }) => {
+const Custom_Sidebar: React.FC<SidebarProps> = ({
+  isCollapsed: _isCollapsed,
+  onToggle,
+  isMobile,
+  className
+}) => {
   // IGNORE collapsed prop, always expanded
   const isCollapsed = false;
-
   const location = useLocation()
   const { currentUser } = useFrappeAuth()
   const { hasRole, userRoles, error: rolesError, debugData } = useAccessControl();
@@ -525,6 +559,7 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
         // Wrapper for hasRole
         return hasRole((item as any).roles);
       });
+
       return { ...group, items: filteredItems };
     }).filter(group => group.items.length > 0);
   }, [userRoles, hasRole]);
@@ -557,7 +592,6 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
     );
   };
 
-
   const isItemActive = (item: any): boolean => {
     if (item.href && location.pathname === item.href) return true;
     if (item.subItems) {
@@ -565,7 +599,6 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
     }
     return false;
   };
-
 
   const renderMenuItem = (item: any, level = 0) => {
     const hasSubItems = item.subItems && item.subItems.length > 0;
@@ -577,24 +610,26 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
       <div key={item.title} className="w-full">
         {isLeaf ? (
           <Link to={item.href} className="block w-full">
-            <div className={cn(
-              "group flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200",
-              // Different styling for top-level vs nested
-              level === 0 ? "mb-1 py-2.5" : "text-sm",
-              isActive
-                ? "bg-primary text-primary-foreground shadow-md"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-
-            )}>
+            <div
+              className={cn(
+                "group flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200",
+                // Different styling for top-level vs nested
+                level === 0 ? "mb-1 py-2.5" : "text-sm",
+                isActive
+                  ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-200"
+                  : "text-slate-600 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-900"
+              )}
+            >
               {/* Icon only for top level */}
               {level === 0 && item.icon && (
-                <item.icon className={cn("h-5 w-5 shrink-0 transition-colors", isActive ? "text-white" : item.color)} />
+                <item.icon
+                  className={cn(
+                    "h-5 w-5 shrink-0 transition-colors",
+                    isActive ? "text-white" : item.color
+                  )}
+                />
               )}
-
-              <span className={cn("truncate font-medium")}>
-                {item.title}
-              </span>
-
+              <span className={cn("truncate font-medium")}>{item.title}</span>
               {isActive && (
                 <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               )}
@@ -607,18 +642,30 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
               className={cn(
                 "w-full flex items-center justify-between px-3 py-2 rounded-xl transition-all duration-200 group",
                 level === 0 ? "mb-1 py-2.5" : "text-sm",
-                isActive && !isExpanded ? "bg-primary/10 text-primary" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                isActive && !isExpanded
+                  ? "bg-gradient-to-r from-orange-50 to-amber-50 text-orange-900"
+                  : "text-slate-600 hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 hover:text-orange-900"
               )}
             >
               <div className="flex items-center gap-3 overflow-hidden">
                 {level === 0 && item.icon && (
-                  <item.icon className={cn("h-5 w-5 shrink-0 transition-colors", isActive ? "text-primary" : item.color)} />
+                  <item.icon
+                    className={cn(
+                      "h-5 w-5 shrink-0 transition-colors",
+                      isActive ? "text-orange-600" : item.color
+                    )}
+                  />
                 )}
                 <span className="truncate font-medium">{item.title}</span>
               </div>
-              <ChevronDown size={14} className={cn("transition-transform duration-200 shrink-0 opacity-50", isExpanded ? "rotate-180" : "")} />
+              <ChevronDown
+                size={14}
+                className={cn(
+                  "transition-transform duration-200 shrink-0 opacity-50",
+                  isExpanded ? "rotate-180" : ""
+                )}
+              />
             </button>
-
             <AnimatePresence>
               {isExpanded && (
                 <motion.div
@@ -628,7 +675,7 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <div className="ml-4 pl-3 border-l border-slate-200 space-y-1 mt-1 mb-1">
+                  <div className="ml-4 pl-3 border-l border-orange-200 space-y-1 mt-1 mb-1">
                     {item.subItems.map((sub: any) => renderMenuItem(sub, level + 1))}
                   </div>
                 </motion.div>
@@ -641,24 +688,32 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
   };
 
   return (
-    <div className={cn(
-      "h-full bg-white border-r border-slate-200 flex flex-col transition-all duration-300 ease-in-out z-50",
-      "w-[280px]", // Fixed width
-      isMobile && "fixed inset-y-0 left-0 shadow-2xl",
-      className
-    )}>
+    <div
+      className={cn(
+        "h-full bg-white border-r border-orange-200/30 flex flex-col transition-all duration-300 ease-in-out z-50",
+        "w-[280px]", // Fixed width
+        isMobile && "fixed inset-y-0 left-0 shadow-2xl",
+        className
+      )}
+    >
       {/* Header */}
-      <div className="h-20 flex items-center justify-between px-6 shrink-0 border-b border-slate-50">
+      <div className="h-20 flex items-center justify-between px-6 shrink-0 border-b border-orange-200/30 bg-gradient-to-r from-orange-50/50 to-amber-50/50">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-            <Building2 className="h-6 w-6 text-primary-foreground" />
+          <div className="h-10 w-10 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-200">
+            <Building2 className="h-6 w-6 text-white" />
           </div>
           <div className="animate-in fade-in duration-500">
             <h1 className="font-black text-lg tracking-tight text-slate-900 leading-none">Pulse</h1>
-            <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-wider">Enterprise Suite</p>
+            <p className="text-[10px] bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent font-bold uppercase mt-1 tracking-wider">
+              Enterprise Suite
+            </p>
           </div>
         </div>
-        {isMobile && <Button variant="ghost" size="icon" onClick={onToggle}><X className="h-5 w-5" /></Button>}
+        {isMobile && (
+          <Button variant="ghost" size="icon" onClick={onToggle} className="hover:bg-orange-50">
+            <X className="h-5 w-5" />
+          </Button>
+        )}
       </div>
 
       {/* Navigation Content */}
@@ -666,12 +721,11 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
         {filteredNavigationGroups.map((group, idx) => (
           <div key={idx} className="space-y-3">
             <div className="flex items-center gap-2 px-3">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[2px] whitespace-nowrap">
+              <span className="text-[10px] font-black text-orange-600/70 uppercase tracking-[2px] whitespace-nowrap">
                 {group.group}
               </span>
-              <div className="h-[1px] w-full bg-slate-100" />
+              <div className="h-[1px] w-full bg-orange-200/50" />
             </div>
-
             <div className="space-y-1">
               {group.items.map((item: any) => renderMenuItem(item))}
             </div>
@@ -680,33 +734,29 @@ const Custom_Sidebar: React.FC<SidebarProps> = ({ isCollapsed: _isCollapsed, onT
       </div>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-100 bg-slate-50/50">
+      <div className="p-4 border-t border-orange-200/30 bg-gradient-to-r from-orange-50/30 to-amber-50/30">
         <div
           className={cn(
-            "flex items-center gap-3 p-2 rounded-2xl bg-white border border-slate-200 shadow-sm",
-            "hover:border-cyan-400 hover:shadow-md hover:shadow-cyan-100 transition-all"
+            "flex items-center gap-3 p-2 rounded-2xl bg-white border border-orange-200 shadow-sm",
+            "hover:border-orange-400 hover:shadow-md hover:shadow-orange-100 transition-all"
           )}
         >
-
-          <Avatar className="h-9 w-9 shrink-0 shadow-sm bg-primary p-[2px]">
-
-            <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">
-
+          <Avatar className="h-9 w-9 shrink-0 shadow-sm bg-gradient-to-br from-orange-500 to-amber-500 p-[2px]">
+            <AvatarFallback className="bg-gradient-to-br from-orange-500 to-amber-500 text-white font-bold text-xs">
               {currentUser?.charAt(0).toUpperCase() || "A"}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-black text-slate-900 truncate leading-tight">{currentUser || "Admin User"}</p>
-            <div className="flex items-center gap-1 mt-0.5">
-            </div>
+            <p className="text-sm font-black text-slate-900 truncate leading-tight">
+              {currentUser || "Admin User"}
+            </p>
+            <div className="flex items-center gap-1 mt-0.5"></div>
           </div>
-          <Settings className="h-4 w-4 text-slate-400" />
+          <Settings className="h-4 w-4 text-orange-600/70 hover:text-orange-600 transition-colors cursor-pointer" />
         </div>
-
       </div>
     </div>
   )
 }
-
 
 export default Custom_Sidebar
