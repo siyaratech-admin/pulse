@@ -1,0 +1,117 @@
+// ==================== CENTRAL HUB ROUTES ====================
+      
+      // --- Main Central Hub Dashboard ---
+      {
+        path: "central-hub",
+        element: <CentralHubDashboard />,
+      },
+
+      // --- Stock Module Dashboard ---
+      {
+        path: "central-hub/stock",
+        element: <StockDashboard />,
+      },
+
+      // --- Assets Module Dashboard ---
+      {
+        path: "central-hub/assets",
+        element: <AssetsDashboard />,
+      },
+
+      // ==================== STOCK ROUTES ====================
+
+      // --- Items & Pricing Routes ---
+      { path: "central-hub/stock/items/item", element: <GenericList doctype="Item" listFields={['item_code', 'item_name', 'item_group', 'stock_uom']} /> },
+      { path: "central-hub/stock/items/item/:id", element: <GenericForm doctype="Item" /> },
+      { path: "central-hub/stock/items/item-group", element: <GenericList doctype="Item Group" /> },
+      { path: "central-hub/stock/items/item-group/:id", element: <GenericForm doctype="Item Group" /> },
+      { path: "central-hub/stock/items/item-attribute", element: <GenericList doctype="Item Attribute" /> },
+      { path: "central-hub/stock/items/item-attribute/:id", element: <GenericForm doctype="Item Attribute" /> },
+      { path: "central-hub/stock/items/manufacturer", element: <GenericList doctype="Manufacturer" /> },
+      { path: "central-hub/stock/items/manufacturer/:id", element: <GenericForm doctype="Manufacturer" /> },
+      { path: "central-hub/stock/items/brand", element: <GenericList doctype="Brand" /> },
+      { path: "central-hub/stock/items/brand/:id", element: <GenericForm doctype="Brand" /> },
+      { path: "central-hub/stock/items/uom", element: <GenericList doctype="UOM" /> },
+      { path: "central-hub/stock/items/uom/:id", element: <GenericForm doctype="UOM" /> },
+
+      // --- Stock Transactions Routes ---
+      { path: "central-hub/stock/transactions/stock-entry", element: <GenericList doctype="Stock Entry" listFields={['name', 'stock_entry_type', 'posting_date', 'from_warehouse', 'to_warehouse']} /> },
+      { path: "central-hub/stock/transactions/stock-entry/:id", element: <GenericForm doctype="Stock Entry" /> },
+      { path: "central-hub/stock/transactions/material-request", element: <GenericList doctype="Material Request" listFields={['name', 'material_request_type', 'status', 'transaction_date']} /> },
+      { path: "central-hub/stock/transactions/material-request/:id", element: <GenericForm doctype="Material Request" /> },
+      { path: "central-hub/stock/transactions/delivery-note", element: <GenericList doctype="Delivery Note" listFields={['name', 'customer', 'posting_date', 'status']} /> },
+      { path: "central-hub/stock/transactions/delivery-note/:id", element: <GenericForm doctype="Delivery Note" /> },
+      { path: "central-hub/stock/transactions/purchase-receipt", element: <GenericList doctype="Purchase Receipt" listFields={['name', 'supplier', 'posting_date', 'status']} /> },
+      { path: "central-hub/stock/transactions/purchase-receipt/:id", element: <GenericForm doctype="Purchase Receipt" /> },
+      { path: "central-hub/stock/transactions/stock-reconciliation", element: <GenericList doctype="Stock Reconciliation" /> },
+      { path: "central-hub/stock/transactions/stock-reconciliation/:id", element: <GenericForm doctype="Stock Reconciliation" /> },
+      { path: "central-hub/stock/transactions/pick-list", element: <GenericList doctype="Pick List" /> },
+      { path: "central-hub/stock/transactions/pick-list/:id", element: <GenericForm doctype="Pick List" /> },
+      { path: "central-hub/stock/transactions/packing-slip", element: <GenericList doctype="Packing Slip" /> },
+      { path: "central-hub/stock/transactions/packing-slip/:id", element: <GenericForm doctype="Packing Slip" /> },
+      { path: "central-hub/stock/transactions/delivery-trip", element: <GenericList doctype="Delivery Trip" /> },
+      { path: "central-hub/stock/transactions/delivery-trip/:id", element: <GenericForm doctype="Delivery Trip" /> },
+
+      // --- Warehouse Management Routes ---
+      { path: "central-hub/stock/warehouse/warehouse", element: <GenericList doctype="Warehouse" listFields={['name', 'warehouse_name', 'warehouse_type', 'company']} /> },
+      { path: "central-hub/stock/warehouse/warehouse/:id", element: <GenericForm doctype="Warehouse" /> },
+      { path: "central-hub/stock/warehouse/warehouse-type", element: <GenericList doctype="Warehouse Type" /> },
+      { path: "central-hub/stock/warehouse/warehouse-type/:id", element: <GenericForm doctype="Warehouse Type" /> },
+      { path: "central-hub/stock/warehouse/serial-no", element: <GenericList doctype="Serial No" listFields={['name', 'item_code', 'warehouse', 'status']} /> },
+      { path: "central-hub/stock/warehouse/serial-no/:id", element: <GenericForm doctype="Serial No" /> },
+      { path: "central-hub/stock/warehouse/batch", element: <GenericList doctype="Batch" listFields={['name', 'item', 'batch_qty', 'expiry_date']} /> },
+      { path: "central-hub/stock/warehouse/batch/:id", element: <GenericForm doctype="Batch" /> },
+
+      // --- Quality Management Routes ---
+      { path: "central-hub/stock/quality/quality-inspection", element: <GenericList doctype="Quality Inspection" listFields={['name', 'inspection_type', 'item_code', 'status']} /> },
+      { path: "central-hub/stock/quality/quality-inspection/:id", element: <GenericForm doctype="Quality Inspection" /> },
+      { path: "central-hub/stock/quality/quality-inspection-template", element: <GenericList doctype="Quality Inspection Template" /> },
+      { path: "central-hub/stock/quality/quality-inspection-template/:id", element: <GenericForm doctype="Quality Inspection Template" /> },
+
+      // --- Pricing Routes ---
+      { path: "central-hub/stock/pricing/price-list", element: <GenericList doctype="Price List" listFields={['name', 'currency', 'enabled']} /> },
+      { path: "central-hub/stock/pricing/price-list/:id", element: <GenericForm doctype="Price List" /> },
+      { path: "central-hub/stock/pricing/item-price", element: <GenericList doctype="Item Price" listFields={['item_code', 'price_list', 'price_list_rate']} /> },
+      { path: "central-hub/stock/pricing/item-price/:id", element: <GenericForm doctype="Item Price" /> },
+
+      // --- Settings Routes ---
+      { path: "central-hub/stock/settings/stock-settings", element: <GenericForm doctype="Stock Settings" /> },
+      { path: "central-hub/stock/settings/delivery-settings", element: <GenericForm doctype="Delivery Settings" /> },
+      { path: "central-hub/stock/settings/item-variant-settings", element: <GenericForm doctype="Item Variant Settings" /> },
+      { path: "central-hub/stock/settings/stock-entry-type", element: <GenericList doctype="Stock Entry Type" /> },
+      { path: "central-hub/stock/settings/stock-entry-type/:id", element: <GenericForm doctype="Stock Entry Type" /> },
+
+      // --- Reports & Tools Routes ---
+      { path: "central-hub/stock/reports/stock-ledger-entry", element: <GenericList doctype="Stock Ledger Entry" listFields={['posting_date', 'item_code', 'warehouse', 'actual_qty', 'qty_after_transaction']} /> },
+      { path: "central-hub/stock/reports/repost-item-valuation", element: <GenericList doctype="Repost Item Valuation" /> },
+      { path: "central-hub/stock/reports/repost-item-valuation/:id", element: <GenericForm doctype="Repost Item Valuation" /> },
+
+      // ==================== ASSETS ROUTES ====================
+
+      // --- Asset Management Routes ---
+      { path: "central-hub/assets/management/asset", element: <GenericList doctype="Asset" listFields={['asset_name', 'asset_category', 'location', 'status']} /> },
+      { path: "central-hub/assets/management/asset/:id", element: <GenericForm doctype="Asset" /> },
+      { path: "central-hub/assets/management/asset-category", element: <GenericList doctype="Asset Category" listFields={['asset_category_name', 'enable_cwip_accounting']} /> },
+      { path: "central-hub/assets/management/asset-category/:id", element: <GenericForm doctype="Asset Category" /> },
+      { path: "central-hub/assets/management/location", element: <GenericList doctype="Location" /> },
+      { path: "central-hub/assets/management/location/:id", element: <GenericForm doctype="Location" /> },
+
+      // --- Asset Maintenance Routes ---
+      { path: "central-hub/assets/maintenance/asset-maintenance", element: <GenericList doctype="Asset Maintenance" listFields={['asset_name', 'maintenance_status', 'next_due_date']} /> },
+      { path: "central-hub/assets/maintenance/asset-maintenance/:id", element: <GenericForm doctype="Asset Maintenance" /> },
+      { path: "central-hub/assets/maintenance/asset-maintenance-log", element: <GenericList doctype="Asset Maintenance Log" listFields={['asset_name', 'task', 'maintenance_status', 'due_date']} /> },
+      { path: "central-hub/assets/maintenance/asset-maintenance-log/:id", element: <GenericForm doctype="Asset Maintenance Log" /> },
+      { path: "central-hub/assets/maintenance/asset-repair", element: <GenericList doctype="Asset Repair" listFields={['asset_name', 'failure_date', 'repair_status']} /> },
+      { path: "central-hub/assets/maintenance/asset-repair/:id", element: <GenericForm doctype="Asset Repair" /> },
+
+      // --- Asset Movement & Capitalization Routes ---
+      { path: "central-hub/assets/movement/asset-movement", element: <GenericList doctype="Asset Movement" listFields={['asset', 'from_location', 'to_location', 'transaction_date']} /> },
+      { path: "central-hub/assets/movement/asset-movement/:id", element: <GenericForm doctype="Asset Movement" /> },
+      { path: "central-hub/assets/movement/asset-capitalization", element: <GenericList doctype="Asset Capitalization" /> },
+      { path: "central-hub/assets/movement/asset-capitalization/:id", element: <GenericForm doctype="Asset Capitalization" /> },
+
+      // --- Depreciation & Valuation Routes ---
+      { path: "central-hub/assets/depreciation/asset-depreciation-schedule", element: <GenericList doctype="Asset Depreciation Schedule" /> },
+      { path: "central-hub/assets/depreciation/asset-depreciation-schedule/:id", element: <GenericForm doctype="Asset Depreciation Schedule" /> },
+      { path: "central-hub/assets/depreciation/asset-value-adjustment", element: <GenericList doctype="Asset Value Adjustment" /> },
+      { path: "central-hub/assets/depreciation/asset-value-adjustment/:id", element: <GenericForm doctype="Asset Value Adjustment" /> },

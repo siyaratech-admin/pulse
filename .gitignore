@@ -1,0 +1,12 @@
+.DS_Store
+*.history
+*.pyc
+*.egg-info
+*.swp
+tags
+node_modules
+__pycache__
+kbweb/public/frontend/*
+kbweb/www/kbweb.html
+frontend/.env
+*Zone.Identifier

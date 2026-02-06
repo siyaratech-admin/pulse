@@ -1,0 +1,59 @@
+"use client"
+
+import React, { useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { useFrappePostCall } from "frappe-react-sdk"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { 
+  Loader2, 
+  CheckCircle, 
+  ArrowLeft, 
+  Download, 
+  Upload, 
+  FileSpreadsheet,
+  AlertCircle,
+  X,
+  Check
+} from "lucide-react"
+import { toast } from "sonner"
+import * as XLSX from "xlsx"
+
+interface TaskRow {
+  Subject: string
+  Description?: string
+  Priority?: string
+  Status?: string
+  "Expected Start Date"?: string
+  "Expected End Date"?: string
+  Progress?: number
+  "Base Points"?: number
+  "Is Group"?: number
+}
+
+interface ValidatedTask {
+  data: TaskRow
+  errors: string[]
+  isValid: boolean
+}
+
+const BulkTaskCreate: React.FC = () => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
+  const projectFromUrl = searchParams.get("project") || ""
+  const parentTaskFromUrl = searchParams.get("parentTask") || ""
+  const returnUrlParam = searchParams.get("returnUrl")
+  const returnUrl = returnUrlParam ? decodeURIComponent(returnUrlParam) : "/task-manager/tree"
+
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [parsedTasks, setParsedTasks] = useState<ValidatedTask[]>([])
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [createdTasks, setCreatedTasks] = useState<any[]>([])
+  const [failedTasks, setFailedTasks] = useState<any[]>([])
+
+  const { call: bulkCreateTasks, loading: creatingTasks } = useFrappePostCall(
+    "kb_task.api.bulk_task_management.bulk_create_tasks"
+  )
