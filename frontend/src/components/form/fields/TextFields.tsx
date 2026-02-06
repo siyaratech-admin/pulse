@@ -32,6 +32,23 @@ const renderError = (error?: string) =>
 const renderDescription = (description?: string) =>
     description && <p className="text-xs text-gray-500 mt-1">{description}</p>;
 
+// Custom hook for auto-resizing textarea
+const useAutoResize = (value: any) => {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        // Reset height to auto to get the correct scrollHeight
+        textarea.style.height = 'auto';
+        // Set new height based on content
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    }, [value]);
+
+    return textareaRef;
+};
+
 // Custom hook for error scrolling
 const useErrorScroll = (
     error: string | undefined,
@@ -80,6 +97,7 @@ export const TextField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
+    const textareaRef = useAutoResize(value);
     const safeLabel = getSafeLabel(field.label);
 
     return (
@@ -94,8 +112,10 @@ export const TextField: React.FC<TextFieldPropsExtended> = ({
                 className="w-full"
             >
                 <Textarea
+                    ref={textareaRef}
                     id={field.fieldname}
                     name={field.fieldname}
+                    data-fieldname={field.fieldname || ''}
                     value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     onBlur={onBlur}
@@ -104,6 +124,7 @@ export const TextField: React.FC<TextFieldPropsExtended> = ({
                     rows={3}
                     maxLength={field.length || 1000}
                     className={cn(
+                        "resize-none overflow-hidden min-h-[80px]", // Auto-resize styles
                         error && "border-red-500 focus:ring-red-500 focus:border-red-500",
                         field.read_only && "bg-gray-100 text-gray-800 cursor-not-allowed opacity-90 font-medium"
                     )}
@@ -128,6 +149,7 @@ export const SmallTextField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
+    const textareaRef = useAutoResize(value);
     // ✅ FIX: Safely handle null/undefined label
     const safeLabel = getSafeLabel(field.label);
 
@@ -143,8 +165,10 @@ export const SmallTextField: React.FC<TextFieldPropsExtended> = ({
                 className="w-full"
             >
                 <Textarea
+                    ref={textareaRef}
                     id={field.fieldname}
                     name={field.fieldname}
+                    data-fieldname={field.fieldname || ''}
                     value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     onBlur={onBlur}
@@ -153,7 +177,7 @@ export const SmallTextField: React.FC<TextFieldPropsExtended> = ({
                     rows={2}
                     maxLength={field.length || 500}
                     className={cn(
-                        "resize-none",
+                        "resize-none overflow-hidden min-h-[60px]",
                         error && "border-red-500 focus:ring-red-500 focus:border-red-500",
                         field.read_only && "bg-gray-100 text-gray-800 cursor-not-allowed opacity-90 font-medium"
                     )}
@@ -178,6 +202,7 @@ export const LongTextField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
+    const textareaRef = useAutoResize(value);
     // ✅ FIX: Safely handle null/undefined label
     const safeLabel = getSafeLabel(field.label);
 
@@ -193,8 +218,10 @@ export const LongTextField: React.FC<TextFieldPropsExtended> = ({
                 className="w-full"
             >
                 <Textarea
+                    ref={textareaRef}
                     id={field.fieldname}
                     name={field.fieldname}
+                    data-fieldname={field.fieldname || ''}
                     value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     onBlur={onBlur}
@@ -202,6 +229,7 @@ export const LongTextField: React.FC<TextFieldPropsExtended> = ({
                     placeholder={field.description || `Enter ${safeLabel}`}
                     rows={8}
                     className={cn(
+                        "resize-none overflow-hidden min-h-[150px]",
                         error && "border-red-500 focus:ring-red-500 focus:border-red-500",
                         field.read_only && "bg-gray-100 text-gray-800 cursor-not-allowed opacity-90 font-medium"
                     )}
@@ -226,6 +254,7 @@ export const CodeField: React.FC<TextFieldPropsExtended> = ({
     isFirstError = false,
 }) => {
     const fieldRef = useErrorScroll(error, isFirstError, scrollToError);
+    const textareaRef = useAutoResize(value);
     // ✅ FIX: Safely handle null/undefined label
     const safeLabel = getSafeLabel(field.label);
 
@@ -241,8 +270,10 @@ export const CodeField: React.FC<TextFieldPropsExtended> = ({
                 className="w-full"
             >
                 <Textarea
+                    ref={textareaRef}
                     id={field.fieldname}
                     name={field.fieldname}
+                    data-fieldname={field.fieldname || ''}
                     value={value || ''}
                     onChange={(e) => onChange(e.target.value)}
                     onBlur={onBlur}
@@ -250,7 +281,7 @@ export const CodeField: React.FC<TextFieldPropsExtended> = ({
                     placeholder={field.description || `Enter ${safeLabel}`}
                     rows={6}
                     className={cn(
-                        "font-mono text-sm",
+                        "font-mono text-sm resize-none overflow-hidden min-h-[150px]",
                         error && "border-red-500 focus:ring-red-500 focus:border-red-500",
                         field.read_only && "bg-gray-100 text-gray-800 cursor-not-allowed opacity-90 font-medium"
                     )}

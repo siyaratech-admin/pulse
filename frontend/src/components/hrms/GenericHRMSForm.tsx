@@ -195,9 +195,30 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             filteredFields = filteredFields.filter((field: any) => !(field.reqd === 1 && field.read_only === 1));
         }
 
-        return filteredFields.map((field: any) =>
-            field.fieldname === 'name' && !isNew ? { ...field, read_only: 1 } : field
-        );
+        return filteredFields.map((field: any) => {
+            // Make 'name' field read-only for existing records
+            if (field.fieldname === 'name' && !isNew) {
+                return { ...field, read_only: 1 };
+            }
+
+            // Custom rendering for feedback field in Interview Feedback
+            if (doctype === 'Interview Feedback' && field.fieldname === 'feedback') {
+                return {
+                    ...field,
+                    // Add custom CSS class for monospace font
+                    _customProps: {
+                        className: 'font-mono text-sm leading-relaxed',
+                        style: {
+                            fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+                            lineHeight: '1.6',
+                            whiteSpace: 'pre-wrap'
+                        }
+                    }
+                };
+            }
+
+            return field;
+        });
     }, [metaData, excludeDocTypes, excludeFields, isNew]);
 
     // Get actions from context
