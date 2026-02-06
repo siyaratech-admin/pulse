@@ -33,7 +33,7 @@ export const StandardHeader: React.FC<StandardHeaderProps> = ({
     };
 
     return (
-        <div className={`relative flex items-center justify-between bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-lg ${className}`}>
+        <div className={`relative flex items-center justify-between bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg ${className}`}>
             <div className="px-3 py-3 md:px-6 md:py-8 flex items-center gap-2 md:gap-4 min-w-0 flex-1">
                 {showBack && (
                     <Button
@@ -47,7 +47,7 @@ export const StandardHeader: React.FC<StandardHeaderProps> = ({
                 )}
                 <div className="min-w-0 flex-1">
                     <h1 className="text-base md:text-2xl font-bold tracking-tight truncate">{title}</h1>
-                    {subtitle && <p className="text-white/80 mt-0.5 md:mt-1 text-[10px] md:text-xs truncate hidden sm:block">{subtitle}</p>}
+                    {subtitle && <p className="text-white/90 mt-0.5 md:mt-1 text-[10px] md:text-xs truncate hidden sm:block">{subtitle}</p>}
                 </div>
             </div>
             <div className="flex items-center gap-1 md:gap-2 px-2 md:px-6 flex-shrink-0">

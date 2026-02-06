@@ -110,9 +110,9 @@ export const Combobox: React.FC<ComboboxProps> = ({
     };
 
     const variantClasses = {
-        default: 'border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        ghost: 'border-transparent bg-transparent hover:bg-accent hover:text-accent-foreground',
-        outline: 'border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        default: 'border-input bg-background hover:bg-orange-50/50 hover:text-foreground',
+        ghost: 'border-transparent bg-transparent hover:bg-orange-50/50 hover:text-foreground',
+        outline: 'border-2 border-input bg-background hover:bg-orange-50/50 hover:text-foreground',
     };
 
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -142,9 +142,9 @@ export const Combobox: React.FC<ComboboxProps> = ({
                         sizeClasses[size],
                         variantClasses[variant],
                         !displayValue && "text-muted-foreground",
-                        error && "border-destructive ring-2 ring-destructive/20",
+                        error && "border-red-500 ring-2 ring-red-500/20",
                         disabled && "bg-gray-100 text-gray-800 cursor-not-allowed opacity-90 font-medium pointer-events-none",
-                        open && "ring-2 ring-ring ring-offset-2",
+                        open && "ring-2 ring-orange-500 ring-offset-2 border-orange-500",
                         isMobile && "min-h-[44px]",
                         className
                     )}
@@ -169,7 +169,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                 role="button"
                                 aria-label="Clear selection"
                                 className={cn(
-                                    "h-4 w-4 p-0 hover:bg-destructive/10 rounded-full flex items-center justify-center cursor-pointer transition-colors",
+                                    "h-4 w-4 p-0 hover:bg-red-50 rounded-full flex items-center justify-center cursor-pointer transition-colors",
                                     isMobile && "h-6 w-6"
                                 )}
                                 onClick={(e) => {
@@ -179,7 +179,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                 }}
                                 tabIndex={-1}
                             >
-                                <X className="h-3 w-3" />
+                                <X className="h-3 w-3 text-red-600" />
                                 <span className="sr-only">Clear selection</span>
                             </div>
                         )}
@@ -194,7 +194,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
             </PopoverTrigger>
             <PopoverContent
                 className={cn(
-                    'p-0 shadow-lg border z-[9999]',
+                    'p-0 shadow-lg border border-gray-300 z-[9999]',
                     'w-[var(--radix-popover-trigger-width)] min-w-[200px] max-w-[600px]',
                     isMobile && 'w-[95vw] max-w-[95vw]'
                 )}
@@ -202,14 +202,14 @@ export const Combobox: React.FC<ComboboxProps> = ({
                 sideOffset={4}
             >
                 <Command className="w-full">
-                    <div className="relative w-full">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none z-10" />
+                    <div className="relative w-full bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-200">
+                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-orange-600/70 pointer-events-none z-10" />
                         <CommandInput
                             placeholder={searchPlaceholder}
                             value={searchValue}
                             onValueChange={onSearchValueChange}
                             className={cn(
-                                "pl-10 border-0 border-b focus:ring-0 w-full",
+                                "pl-10 border-0 border-b focus:ring-0 w-full bg-transparent",
                                 isMobile && "h-12 text-base"
                             )}
                         />
@@ -226,7 +226,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                         {isLoading ? (
                             <div className="flex items-center justify-center py-8">
                                 <div className="flex flex-col items-center gap-2">
-                                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                    <div className="h-6 w-6 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
                                     <div className="text-sm text-muted-foreground">{loadingText}</div>
                                 </div>
                             </div>
@@ -242,11 +242,12 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                         <Button
                                             variant="ghost"
                                             size="sm"
-                                            className="mt-2"
+                                            className="mt-2 hover:bg-orange-50 hover:text-orange-700"
                                             onClick={() => onSelect(searchValue)}
                                             type="button"
                                         >
-                                            + Add
+                                            <Plus className="h-3 w-3 mr-1" />
+                                            Add "{searchValue}"
                                         </Button>
                                     )}
                                 </div>
@@ -257,6 +258,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                     <CommandGroup
                                         key={category}
                                         heading={category !== 'Default' ? category : undefined}
+                                        className="[&_[cmdk-group-heading]]:text-orange-700 [&_[cmdk-group-heading]]:font-semibold"
                                     >
                                         {categoryOptions.map((option) => (
                                             <CommandItem
@@ -268,15 +270,15 @@ export const Combobox: React.FC<ComboboxProps> = ({
                                                 }}
                                                 className={cn(
                                                     "cursor-pointer transition-colors duration-150",
-                                                    "focus:bg-accent focus:text-accent-foreground",
+                                                    "hover:bg-orange-50 focus:bg-orange-50 focus:text-orange-900",
                                                     isMobile && "min-h-[44px] px-4",
                                                     option.disabled && "opacity-50 cursor-not-allowed",
-                                                    safeValue === option.value && "bg-accent text-accent-foreground"
+                                                    safeValue === option.value && "bg-gradient-to-r from-orange-50 to-amber-50 text-orange-900 font-medium"
                                                 )}
                                             >
                                                 <Check
                                                     className={cn(
-                                                        'mr-3 h-4 w-4 shrink-0 transition-opacity duration-150',
+                                                        'mr-3 h-4 w-4 shrink-0 transition-opacity duration-150 text-orange-600',
                                                         safeValue === option.value ? 'opacity-100' : 'opacity-0'
                                                     )}
                                                 />

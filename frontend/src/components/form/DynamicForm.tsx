@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
@@ -18,11 +17,7 @@ import { buildFetchFromMap, autoPopulateFetchFromFields } from '../../utils/link
 const isHTMLEmpty = (html: string | null | undefined): boolean => {
     if (!html || html.trim() === '') return true;
     const text = html.replace(/<[^>]*>/g, '').trim();
-    const cleanText = text
-        .replace(/&nbsp;/g, '')
-        .replace(/\u00a0/g, '')
-        .replace(/\s+/g, '')
-        .trim();
+    const cleanText = text.replace(/&nbsp;/g, '').replace(/\u00a0/g, '').replace(/\s+/g, '').trim();
     return cleanText.length === 0;
 };
 
@@ -57,7 +52,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     const [validationError, setValidationError] = useState<string | null>(null);
     const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-    // CRITICAL: Track if initialData effect should run
+    // CRITICAL: Track if initial Data effect should run
     const shouldProcessInitialDataRef = useRef(true);
 
     const initFormData = () => {
@@ -85,7 +80,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         logicFields.forEach(field => {
             if (field.default !== undefined && dataWithDefaults[field.fieldname] === undefined) {
                 let defaultValue = field.default;
-
                 if (field.fieldtype === 'Date') {
                     if (typeof defaultValue === 'string') {
                         const lowerDefault = defaultValue.toLowerCase().trim();
@@ -115,7 +109,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                         }
                     }
                 }
-
                 dataWithDefaults[field.fieldname] = defaultValue;
             }
         });
@@ -128,7 +121,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     const [errors, setErrors] = useState<FormErrors>({});
     const [showAutoSaveRestore, setShowAutoSaveRestore] = useState(false);
     const [isInitialLoad, setIsInitialLoad] = useState(true);
-
     const [isPageRefresh] = useState(() => {
         const key = 'kbweb_page_loaded';
         const wasLoaded = sessionStorage.getItem(key);
@@ -203,10 +195,8 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         const handleScrollToError = (e: CustomEvent) => {
             const { fieldname } = e.detail;
             const fieldElement = fieldRefs.current[fieldname];
-
             if (fieldElement) {
                 fieldElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-
                 setTimeout(() => {
                     const inputElement = fieldElement.querySelector('input, textarea, select') as HTMLElement;
                     if (inputElement) {
@@ -247,7 +237,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         }
 
         console.log("📥 [DynamicForm] Processing initialData effect");
-
         const dataWithDefaults = { ...initialData };
 
         logicFields.forEach(field => {
@@ -321,15 +310,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         });
 
         // Store current form data WITH the change for auto-populate
-        const currentFormDataWithChange = {
-            ...formData,
-            [fieldName]: value
-        };
+        const currentFormDataWithChange = { ...formData, [fieldName]: value };
 
         // Auto-populate logic for Link fields
         if (field.fieldtype === 'Link' && value && field.options) {
             const linkDoctype = typeof field.options === 'string' ? field.options : String(field.options);
-
             try {
                 const updatedFormData = await autoPopulateFetchFromFields(
                     fieldName,
@@ -345,7 +330,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                 if (JSON.stringify(updatedFormData) !== JSON.stringify(currentFormDataWithChange)) {
                     console.log("⚡ [DynamicForm] Applying auto-populated values");
                     setFormData(updatedFormData);
-
                     setTimeout(() => {
                         saveToAutoSave(updatedFormData);
                     }, 0);
@@ -387,7 +371,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
     // ✅ FIXED: Improved validation for Table fields with casing handling
     const validateField = useCallback((field: FieldMetadata, value: any): string | null => {
         const conditions = fieldConditions[field.fieldname];
-
         if (!conditions?.visible) {
             return null;
         }
@@ -414,7 +397,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                     return `${field.label} is required`;
                 }
 
-                // ✅ FIX: Check if table rows have actual data, handling field name casing issues
+                // ✅ FIX: Check if table rows have actual data, handling fieldname casing issues
                 const hasValidData = value.some((row, rowIndex) => {
                     console.log(`🔍 [DynamicForm] Validating row ${rowIndex} of ${field.fieldname}:`, row);
 
@@ -433,7 +416,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                         fieldsByLowercase.get(lowerKey)!.push(key);
                     });
 
-                    console.log(`   Fields grouped:`, Object.fromEntries(fieldsByLowercase));
+                    console.log(`Fields grouped:`, Object.fromEntries(fieldsByLowercase));
 
                     // Check if at least one field has a non-empty value
                     // When duplicates exist (e.g., "Date" and "date"), prefer lowercase version
@@ -442,7 +425,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                         const keyToCheck = keys.find(k => k === lowerKey) || keys[0];
                         const cellValue = row[keyToCheck];
 
-                        console.log(`   Checking "${keyToCheck}" (from ${keys.join(', ')}):`, cellValue);
+                        console.log(`Checking "${keyToCheck}" (from ${keys.join(', ')}):`, cellValue);
 
                         // Check for non-empty values
                         if (cellValue === null || cellValue === undefined || cellValue === '') {
@@ -463,7 +446,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                         return true;
                     });
 
-                    console.log(`   Row ${rowIndex} has data: ${hasNonEmptyField}`);
+                    console.log(`Row ${rowIndex} has data: ${hasNonEmptyField}`);
                     return hasNonEmptyField;
                 });
 
@@ -546,14 +529,14 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
 
     const validateForm = useCallback((): boolean => {
         console.log("🔍 [DynamicForm] validateForm called");
-        console.log("📝 [DynamicForm] Current Form Data keys:", Object.keys(formData));
-        console.log("📝 [DynamicForm] Current Form Data:", formData);
+        console.log("📝 [DynamicForm] Current FormData keys:", Object.keys(formData));
+        console.log("📝 [DynamicForm] Current FormData:", formData);
 
         const newErrors: FormErrors = {};
         let isValid = true;
 
         fields.forEach(field => {
-            if (['Section Break', 'Column Break', 'Tab Break', 'HTML', 'Button'].includes(field.fieldtype)) {
+            if (['SectionBreak', 'ColumnBreak', 'TabBreak', 'HTML', 'Button'].includes(field.fieldtype)) {
                 return;
             }
 
@@ -636,10 +619,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                         }
                     }
                 } else {
-                    isEmpty = value === undefined ||
-                        value === null ||
-                        value === '' ||
-                        (Array.isArray(value) && value.length === 0);
+                    isEmpty = value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0);
                 }
 
                 if (isEmpty) {
@@ -678,7 +658,6 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
 
     // Add this enhanced cleanFormDataForSubmission function to your DynamicForm.tsx
     // Replace the existing cleanFormDataForSubmission function with this version
-
     const cleanFormDataForSubmission = useCallback((data: FormData) => {
         const cleanedData: any = {};
 
@@ -763,8 +742,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                         const lowerValue = cellValue.toLowerCase().trim();
 
                                         // If field name contains 'date' and value is "Today"
-                                        if (rowKey.toLowerCase().includes('date') &&
-                                            (lowerValue === 'today' || lowerValue === 'now')) {
+                                        if (rowKey.toLowerCase().includes('date') && (lowerValue === 'today' || lowerValue === 'now')) {
                                             cellValue = getTodayDate();
                                             console.log(`🔄 [cleanFormData] Converted child table "${rowKey}" from "Today" to ${cellValue}`);
                                         }
@@ -876,8 +854,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                     const lowerValue = value.toLowerCase().trim();
 
                     // Check if it's a date-like field name with "Today"
-                    if (key.toLowerCase().includes('date') &&
-                        (lowerValue === 'today' || lowerValue === 'now')) {
+                    if (key.toLowerCase().includes('date') && (lowerValue === 'today' || lowerValue === 'now')) {
                         console.warn(`⚠️ [cleanFormData] Field "${key}" not in metadata but contains "Today" - converting`);
                         cleanedData[key] = getTodayDate();
                     }
@@ -885,8 +862,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                     else if (key.toLowerCase().includes('datetime') && lowerValue === 'now') {
                         console.warn(`⚠️ [cleanFormData] Field "${key}" not in metadata but contains "Now" - converting`);
                         cleanedData[key] = getCurrentDateTime();
-                    }
-                    else {
+                    } else {
                         cleanedData[key] = value;
                     }
                 } else if (typeof value !== 'object' || value instanceof Date) {
@@ -956,12 +932,12 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         let currentGroup: { title?: string; fields: FieldMetadata[] } = { fields: [] };
 
         fields.forEach(field => {
-            if (field.fieldtype === 'Section Break') {
+            if (field.fieldtype === 'SectionBreak') {
                 if (currentGroup.fields.length > 0) {
                     groups.push(currentGroup);
                 }
                 currentGroup = { title: field.label, fields: [] };
-            } else if (!['Column Break', 'Tab Break', 'HTML', 'Button'].includes(field.fieldtype)) {
+            } else if (!['ColumnBreak', 'TabBreak', 'HTML', 'Button'].includes(field.fieldtype)) {
                 const conditions = fieldConditions[field.fieldname];
                 if (!field.hidden && conditions?.visible !== false) {
                     currentGroup.fields.push(field);
@@ -974,7 +950,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
         }
 
         const visibleFields = fields.filter(f => {
-            if (['Section Break', 'Column Break', 'Tab Break', 'HTML', 'Button'].includes(f.fieldtype)) {
+            if (['SectionBreak', 'ColumnBreak', 'TabBreak', 'HTML', 'Button'].includes(f.fieldtype)) {
                 return false;
             }
             if (f.hidden) return false;
@@ -1005,8 +981,8 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
                     <div className="bg-white rounded-lg p-8 shadow-2xl max-w-sm w-full mx-4">
                         <div className="text-center space-y-4">
-                            <div className="mx-auto w-16 h-16 bg-blue-50 rounded-full border-2 border-blue-200 flex items-center justify-center">
-                                <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                            <div className="mx-auto w-16 h-16 bg-orange-50 rounded-full border-2 border-orange-200 flex items-center justify-center">
+                                <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
                             </div>
                             <div className="space-y-2">
                                 <h3 className="text-lg font-semibold text-gray-900">Submitting Form...</h3>
@@ -1066,11 +1042,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
 
             {/* Auto-save Restore Banner */}
             {showAutoSaveRestore && (
-                <div className="bg-blue-50 border-b border-blue-200 px-6 py-3">
+                <div className="bg-orange-50 border-b border-orange-200 px-6 py-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <RotateCcw className="h-4 w-4 text-blue-600" />
-                            <span className="text-sm text-blue-800">
+                            <RotateCcw className="h-4 w-4 text-orange-600" />
+                            <span className="text-sm text-orange-800">
                                 Found auto-saved data from{' '}
                                 {autoSaveTimestamp ? new Date(autoSaveTimestamp).toLocaleString() : 'earlier'}
                             </span>
@@ -1090,7 +1066,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                     console.log("🔄 [DynamicForm] Restore button clicked");
                                     restoreAutoSaveData();
                                 }}
-                                className="text-xs h-7"
+                                className="text-xs h-7 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                             >
                                 Restore Data
                             </Button>
@@ -1113,7 +1089,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                             ? "bg-green-50 text-green-700 border-green-200"
                                             : formData.docstatus === 2
                                                 ? "bg-red-50 text-red-700 border-red-200"
-                                                : "bg-gray-100 text-gray-700 border-gray-200"
+                                                : "bg-orange-50 text-orange-600 border-orange-200"
                                     )}
                                 >
                                     {formData.docstatus === 1 ? "Submitted" : formData.docstatus === 2 ? "Cancelled" : "Draft"}
@@ -1143,7 +1119,11 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                             <div className="p-4 space-y-4">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                                     {group.fields.map((field) => {
-                                        const conditions = fieldConditions[field.fieldname] || { visible: true, required: false, readOnly: false };
+                                        const conditions = fieldConditions[field.fieldname] || {
+                                            visible: true,
+                                            required: false,
+                                            readOnly: false
+                                        };
 
                                         if (!conditions.visible) {
                                             return null;
@@ -1161,8 +1141,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                                 className={cn(
                                                     "w-full transition-all duration-200 relative",
                                                     field.fieldtype === 'Table' && "sm:col-span-2",
-                                                    ['Text', 'Long Text', 'Text Editor', 'Code'].includes(field.fieldtype) && "sm:col-span-2",
-                                                    (field.fieldname === 'terms' || field.label?.includes('Terms and Conditions')) && "min-h-[400px] sm:col-span-2",
+                                                    ['Text', 'LongText', 'TextEditor', 'Code'].includes(field.fieldtype) && "sm:col-span-2",
+                                                    (field.fieldname === 'terms' || field.label?.includes('Terms and Conditions')) &&
+                                                    "min-h-[400px] sm:col-span-2",
                                                     hasError && hasAttemptedSubmit && "ring-2 ring-red-500 rounded-lg p-3 -m-3 bg-red-50/50"
                                                 )}
                                             >
@@ -1228,7 +1209,10 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                     </AlertDescription>
                                 </Alert>
                             )}
-                            <AutoSaveStatus isAutoSaveEnabled={true} lastSaved={autoSaveTimestamp} />
+                            <AutoSaveStatus
+                                isAutoSaveEnabled={true}
+                                lastSaved={autoSaveTimestamp}
+                            />
                         </div>
 
                         <div className="flex items-center gap-2 flex-shrink-0">
@@ -1289,7 +1273,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                                 }
                                             }}
                                             disabled={loading || submissionStatus !== 'idle'}
-                                            className="min-w-[100px] bg-gradient-to-r from-blue-600 to-blue-400 text-white hover:from-blue-700 hover:to-blue-600 disabled:opacity-60 disabled:cursor-not-allowed"
+                                            className="min-w-[100px] bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-600 hover:to-amber-600 disabled:opacity-60 disabled:cursor-not-allowed"
                                         >
                                             {submissionStatus === 'submitting' ? (
                                                 <>
@@ -1351,7 +1335,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                                         }
                                     }}
                                     disabled={loading || submissionStatus !== 'idle'}
-                                    className="min-w-[100px]"
+                                    className="min-w-[100px] bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                                 >
                                     {submissionStatus === 'amending' ? (
                                         <>

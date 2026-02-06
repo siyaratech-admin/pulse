@@ -73,7 +73,7 @@ const FieldSelector: React.FC<FieldSelectorProps> = ({ value, onChange, availabl
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="h-8 justify-between text-xs font-normal w-full"
+                    className="h-8 justify-between text-xs font-normal w-full border-orange-200 hover:bg-orange-50"
                 >
                     <span className="truncate">
                         {selectedField ? (selectedField.label || selectedField.fieldname) : "Select field..."}
@@ -131,15 +131,9 @@ interface FilterRowProps {
     onRemove: (index: number) => void;
 }
 
-const FilterRow: React.FC<FilterRowProps> = ({
-    filter,
-    index,
-    availableFields,
-    onUpdate,
-    onRemove
-}) => {
+const FilterRow: React.FC<FilterRowProps> = ({ filter, index, availableFields, onUpdate, onRemove }) => {
     return (
-        <div className="flex gap-2 items-center p-2.5 bg-muted/20 rounded-md border border-border/40">
+        <div className="flex gap-2 items-center p-2.5 bg-orange-50/50 rounded-md border border-orange-200/40">
             {/* Field Selection with Search */}
             <div className="flex-1 min-w-0">
                 <FieldSelector
@@ -151,11 +145,8 @@ const FilterRow: React.FC<FilterRowProps> = ({
 
             {/* Operator Selection */}
             <div className="w-[130px]">
-                <Select
-                    value={filter.operator}
-                    onValueChange={(value) => onUpdate(index, { operator: value })}
-                >
-                    <SelectTrigger className="h-8 text-xs">
+                <Select value={filter.operator} onValueChange={(value) => onUpdate(index, { operator: value })}>
+                    <SelectTrigger className="h-8 text-xs border-orange-200 hover:bg-orange-50">
                         <SelectValue placeholder="Operator" />
                     </SelectTrigger>
                     <SelectContent className="max-h-[300px]">
@@ -177,14 +168,10 @@ const FilterRow: React.FC<FilterRowProps> = ({
             {/* Value Input */}
             <div className="flex-1 min-w-0">
                 <Input
-                    placeholder={
-                        filter.operator === 'in' || filter.operator === 'not in'
-                            ? "val1, val2, val3"
-                            : "Enter value"
-                    }
+                    placeholder={filter.operator === 'in' || filter.operator === 'not in' ? "val1, val2, val3" : "Enter value"}
                     value={filter.value}
                     onChange={(e) => onUpdate(index, { value: e.target.value })}
-                    className="h-8 text-xs"
+                    className="h-8 text-xs border-orange-200 focus:border-orange-400 focus:ring-orange-400"
                 />
             </div>
 
@@ -216,10 +203,10 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
     const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
 
     // Fetch DocType metadata to get available fields
-    const { data: metaData } = useFrappeGetCall(
-        'frappe.client.get',
-        { doctype: 'DocType', name: doctype }
-    );
+    const { data: metaData } = useFrappeGetCall('frappe.client.get', {
+        doctype: 'DocType',
+        name: doctype
+    });
 
     // Convert filters to Frappe format: [[field, operator, value], ...]
     const frappeFilters = useMemo(() => {
@@ -248,16 +235,13 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
     }, [filters]);
 
     // Fetch all fields to avoid errors with missing columns
-    const { data, isLoading, error, mutate } = useFrappeGetCall(
-        'frappe.client.get_list',
-        {
-            doctype: doctype,
-            fields: ['*'],
-            filters: frappeFilters,
-            limit_page_length: 50,
-            order_by: 'modified desc'
-        }
-    );
+    const { data, isLoading, error, mutate } = useFrappeGetCall('frappe.client.get_list', {
+        doctype: doctype,
+        fields: ['*'],
+        filters: frappeFilters,
+        limit_page_length: 50,
+        order_by: 'modified desc'
+    });
 
     const { deleteDoc, loading: deleteLoading } = useFrappeDeleteDoc();
 
@@ -277,6 +261,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
     const filteredData = useMemo(() => {
         const items = data?.message || [];
         if (!searchTerm) return items;
+
         return items.filter((item: any) =>
             Object.values(item).some((val: any) => {
                 if (val === null || val === undefined) return false;
@@ -347,7 +332,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                             variant="outline"
                             size="icon"
                             onClick={() => mutate()}
-                            className="h-10 w-10 border-border/60 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-colors"
+                            className="h-10 w-10 border-orange-200 bg-white text-orange-600 hover:bg-orange-50 shadow-sm transition-colors"
                             title="Refresh Data"
                             disabled={isLoading}
                         >
@@ -357,7 +342,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                         {/* New Record Button */}
                         <Button
                             onClick={() => navigate(`${location.pathname}/new`)}
-                            className="h-10 px-4 text-sm font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-all duration-300"
+                            className="h-10 px-4 text-sm font-semibold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-200 transition-all duration-300"
                         >
                             <Plus className="h-4 w-4 mr-2" />
                             New {title || doctype}
@@ -368,30 +353,31 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
 
             {/* ========== MAIN CONTENT WITH PROPER MARGINS ========== */}
             <div className="p-6 mt-4 max-w-[1600px] mx-auto w-full space-y-6">
-                <Card className="border-border/60 shadow-sm overflow-hidden bg-card/50 backdrop-blur-sm">
-                    <CardHeader className="pb-4 border-b border-border/40 bg-muted/20">
+                <Card className="border-2 border-orange-400 shadow-lg overflow-hidden rounded-2xl bg-white">
+                    <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
+                    <CardHeader className="pb-4 border-b border-orange-100 bg-orange-50/30">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                             <div className="flex items-center gap-3">
-                                <div className="p-2.5 rounded-lg bg-primary/10 text-primary">
-                                    <ListIcon className="h-5 w-5" />
+                                <div className="p-2.5 rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100">
+                                    <ListIcon className="h-5 w-5 text-orange-600" />
                                 </div>
-                                <CardTitle className="text-lg font-semibold">All Records</CardTitle>
+                                <CardTitle className="text-lg font-semibold text-gray-900">All Records</CardTitle>
                             </div>
 
                             <div className="flex items-center gap-3 w-full md:w-auto flex-wrap">
                                 {/* Search Input */}
                                 <div className="relative flex-1 md:w-72 min-w-[200px]">
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/70" />
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-400" />
                                     <Input
                                         placeholder="Search records..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="pl-10 pr-10 h-10 bg-background/50 border-border/60 focus:bg-background transition-all"
+                                        className="pl-10 pr-10 h-10 bg-white border-orange-200 focus:border-orange-400 focus:ring-orange-400 transition-all"
                                     />
                                     {searchTerm && (
                                         <button
                                             onClick={() => setSearchTerm('')}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-orange-400 hover:text-orange-600 transition-colors"
                                             title="Clear search"
                                         >
                                             <X className="h-4 w-4" />
@@ -400,11 +386,11 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                 </div>
 
                                 {/* View Mode Toggle */}
-                                <div className="flex items-center border border-border/60 rounded-md bg-background/50 overflow-hidden">
+                                <div className="flex items-center border-2 border-orange-200 rounded-md bg-white overflow-hidden">
                                     <Button
                                         variant={viewMode === 'list' ? 'secondary' : 'ghost'}
                                         size="sm"
-                                        className="px-3 rounded-none h-10"
+                                        className={`px-3 rounded-none h-10 ${viewMode === 'list' ? 'bg-orange-100 text-orange-600' : 'text-gray-600 hover:bg-orange-50'}`}
                                         onClick={() => setViewMode('list')}
                                         title="List View"
                                     >
@@ -413,7 +399,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                     <Button
                                         variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
                                         size="sm"
-                                        className="px-3 rounded-none h-10"
+                                        className={`px-3 rounded-none h-10 ${viewMode === 'grid' ? 'bg-orange-100 text-orange-600' : 'text-gray-600 hover:bg-orange-50'}`}
                                         onClick={() => setViewMode('grid')}
                                         title="Grid View"
                                     >
@@ -428,12 +414,14 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                             <Button
                                                 variant="outline"
                                                 size="sm"
-                                                className={`h-10 px-4 border-border/60 ${filters.length > 0 ? "bg-primary/10 text-primary border-primary/20" : ""}`}
+                                                className={`h-10 px-4 border-2 ${filters.length > 0
+                                                    ? "bg-orange-100 text-orange-600 border-orange-300"
+                                                    : "border-orange-200 text-orange-600 hover:bg-orange-50"}`}
                                             >
                                                 <Filter className="h-4 w-4 mr-2" />
                                                 Add Filters
                                                 {filters.length > 0 && (
-                                                    <span className="ml-2 px-1.5 py-0.5 bg-primary text-primary-foreground rounded-full text-xs font-bold">
+                                                    <span className="ml-2 px-1.5 py-0.5 bg-orange-500 text-white rounded-full text-xs font-bold">
                                                         {filters.length}
                                                     </span>
                                                 )}
@@ -452,19 +440,14 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                             )}
                                         </div>
                                     </PopoverTrigger>
-                                    <PopoverContent
-                                        className="w-[650px] p-0"
-                                        align="end"
-                                        side="bottom"
-                                        sideOffset={8}
-                                    >
+                                    <PopoverContent className="w-[650px] p-0" align="end" side="bottom" sideOffset={8}>
                                         <div className="flex flex-col h-full">
                                             {/* Header */}
-                                            <div className="px-4 py-3 border-b bg-muted/30 flex-shrink-0">
+                                            <div className="px-4 py-3 border-b bg-orange-50/50 flex-shrink-0">
                                                 <div className="flex items-center justify-between">
                                                     <div>
                                                         <h3 className="text-sm font-semibold flex items-center gap-2">
-                                                            <Filter className="h-4 w-4 text-primary" />
+                                                            <Filter className="h-4 w-4 text-orange-600" />
                                                             Add Filters
                                                         </h3>
                                                         <p className="text-xs text-muted-foreground mt-0.5">
@@ -487,9 +470,11 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                                 <div className="px-4 py-3 space-y-2.5">
                                                     {tempFilters.length === 0 ? (
                                                         <div className="text-center py-8 text-muted-foreground">
-                                                            <Filter className="h-10 w-10 mx-auto mb-2 opacity-30" />
+                                                            <Filter className="h-10 w-10 mx-auto mb-2 opacity-30 text-orange-300" />
                                                             <p className="text-xs">No filters added yet</p>
-                                                            <p className="text-xs text-muted-foreground/60 mt-1">Click "Add a Filter" below to start</p>
+                                                            <p className="text-xs text-muted-foreground/60 mt-1">
+                                                                Click "Add a Filter" below to start
+                                                            </p>
                                                         </div>
                                                     ) : (
                                                         tempFilters.map((filter, index) => (
@@ -507,17 +492,16 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                             </div>
 
                                             {/* Footer - FIXED AT BOTTOM */}
-                                            <div className="px-4 py-3 border-t bg-muted/20 flex items-center justify-between gap-2 flex-shrink-0">
+                                            <div className="px-4 py-3 border-t bg-orange-50/30 flex items-center justify-between gap-2 flex-shrink-0">
                                                 <Button
                                                     variant="ghost"
                                                     size="sm"
                                                     onClick={addTempFilter}
-                                                    className="text-xs h-8"
+                                                    className="text-xs h-8 text-orange-600 hover:bg-orange-50"
                                                 >
                                                     <Plus className="h-3.5 w-3.5 mr-1.5" />
                                                     Add a Filter
                                                 </Button>
-
                                                 <div className="flex gap-2">
                                                     {tempFilters.length > 0 && (
                                                         <Button
@@ -533,14 +517,14 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                                         variant="outline"
                                                         size="sm"
                                                         onClick={() => setShowFilterPopover(false)}
-                                                        className="text-xs h-8"
+                                                        className="text-xs h-8 border-orange-200"
                                                     >
                                                         Cancel
                                                     </Button>
                                                     <Button
                                                         onClick={applyFilters}
                                                         size="sm"
-                                                        className="text-xs h-8 bg-primary hover:bg-primary/90 text-primary-foreground"
+                                                        className="text-xs h-8 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                                                     >
                                                         Apply Filters
                                                     </Button>
@@ -557,20 +541,18 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                         {error && (
                             <div className="p-6">
                                 <Alert variant="destructive">
-                                    <AlertDescription>
-                                        Error fetching data: {error.message}
-                                    </AlertDescription>
+                                    <AlertDescription>Error fetching data: {error.message}</AlertDescription>
                                 </Alert>
                             </div>
                         )}
 
                         {isLoading ? (
                             <div className="flex justify-center py-16">
-                                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                                <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
                             </div>
                         ) : filteredData.length === 0 ? (
                             <div className="flex flex-col items-center justify-center py-20 text-center">
-                                <Search className="h-14 w-14 text-muted-foreground/30 mb-4" />
+                                <Search className="h-14 w-14 text-orange-200 mb-4" />
                                 <h3 className="text-lg font-semibold mb-2">No records found</h3>
                                 <p className="text-sm text-muted-foreground max-w-md">
                                     {searchTerm
@@ -582,7 +564,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                         variant="outline"
                                         size="sm"
                                         onClick={() => setSearchTerm('')}
-                                        className="mt-4"
+                                        className="mt-4 border-orange-200 text-orange-600 hover:bg-orange-50"
                                     >
                                         Clear Search
                                     </Button>
@@ -591,12 +573,13 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                         ) : (
                             <div className="relative w-full overflow-auto">
                                 {searchTerm && (
-                                    <div className="px-6 py-3 bg-primary/10 border-b border-primary/20">
-                                        <p className="text-sm text-primary">
-                                            <span className="font-semibold">{filteredData.length}</span> result{filteredData.length !== 1 ? 's' : ''} found for "{searchTerm}"
+                                    <div className="px-6 py-3 bg-orange-50 border-b border-orange-200">
+                                        <p className="text-sm text-orange-700">
+                                            <span className="font-semibold">{filteredData.length}</span> result
+                                            {filteredData.length !== 1 ? 's' : ''} found for "{searchTerm}"
                                             <button
                                                 onClick={() => setSearchTerm('')}
-                                                className="ml-2 text-primary hover:text-primary/80 underline"
+                                                className="ml-2 text-orange-600 hover:text-orange-700 underline"
                                             >
                                                 Clear
                                             </button>
@@ -607,17 +590,17 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                 {/* List View */}
                                 {viewMode === 'list' && (
                                     <Table>
-                                        <TableHeader className="bg-muted/30">
-                                            <TableRow className="border-b border-border/60">
+                                        <TableHeader className="bg-orange-50/30">
+                                            <TableRow className="border-b border-orange-100">
                                                 {listFields.map(field => (
                                                     <TableHead
                                                         key={field}
-                                                        className="h-12 font-semibold text-muted-foreground uppercase text-xs tracking-wider pl-6"
+                                                        className="h-12 font-semibold text-orange-700 uppercase text-xs tracking-wider pl-6"
                                                     >
                                                         {field.replace(/_/g, ' ')}
                                                     </TableHead>
                                                 ))}
-                                                <TableHead className="text-right pr-6">Actions</TableHead>
+                                                <TableHead className="text-right pr-6 text-orange-700">Actions</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
@@ -625,7 +608,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                                 <TableRow
                                                     key={item.name}
                                                     onClick={() => navigate(`${location.pathname}/${item.name}`)}
-                                                    className="cursor-pointer hover:bg-muted/40 transition-colors border-b border-border/40 group"
+                                                    className="cursor-pointer hover:bg-orange-50/40 transition-colors border-b border-orange-100/40 group"
                                                 >
                                                     {listFields.map(field => (
                                                         <TableCell key={field} className="py-4 pl-6 text-sm text-foreground/80">
@@ -637,7 +620,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                                             <Button
                                                                 variant="ghost"
                                                                 size="icon"
-                                                                className="h-9 w-9 text-primary hover:bg-primary/10"
+                                                                className="h-9 w-9 text-orange-600 hover:bg-orange-100"
                                                                 onClick={() => navigate(`${location.pathname}/${item.name}`)}
                                                                 title="Edit"
                                                             >
@@ -668,30 +651,31 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                             {filteredData.map((item: any) => (
                                                 <Card
                                                     key={item.name}
-                                                    className="cursor-pointer hover:shadow-md transition-all duration-200 border-border/60 hover:border-primary/40"
+                                                    className="cursor-pointer hover:shadow-md transition-all duration-200 border-2 border-orange-200 hover:border-orange-400 overflow-hidden rounded-xl"
                                                     onClick={() => navigate(`${location.pathname}/${item.name}`)}
                                                 >
+                                                    <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-1.5 rounded-t-xl"></div>
                                                     <CardHeader className="pb-3">
-                                                        <CardTitle className="text-sm font-semibold truncate">
+                                                        <CardTitle className="text-sm font-semibold truncate text-gray-900">
                                                             {item.name}
                                                         </CardTitle>
                                                     </CardHeader>
                                                     <CardContent className="space-y-2">
                                                         {listFields.slice(1).map(field => (
                                                             <div key={field} className="flex justify-between items-start gap-2">
-                                                                <span className="text-xs text-muted-foreground uppercase">
+                                                                <span className="text-xs text-orange-600 uppercase font-medium">
                                                                     {field.replace(/_/g, ' ')}:
                                                                 </span>
-                                                                <span className="text-xs font-medium text-right truncate">
+                                                                <span className="text-xs font-medium text-right truncate text-gray-700">
                                                                     {formatCellValue(item[field])}
                                                                 </span>
                                                             </div>
                                                         ))}
-                                                        <div className="flex gap-2 pt-3 border-t" onClick={(e) => e.stopPropagation()}>
+                                                        <div className="flex gap-2 pt-3 border-t border-orange-100" onClick={(e) => e.stopPropagation()}>
                                                             <Button
                                                                 variant="outline"
                                                                 size="sm"
-                                                                className="flex-1 text-xs h-8"
+                                                                className="flex-1 text-xs h-8 border-orange-200 text-orange-600 hover:bg-orange-50"
                                                                 onClick={() => navigate(`${location.pathname}/${item.name}`)}
                                                             >
                                                                 <Edit className="h-3 w-3 mr-1" />
@@ -700,7 +684,7 @@ const GenericHRMSList: React.FC<GenericHRMSListProps> = ({
                                                             <Button
                                                                 variant="outline"
                                                                 size="sm"
-                                                                className="flex-1 text-xs h-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                                                className="flex-1 text-xs h-8 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
                                                                 onClick={() => handleDelete(item.name)}
                                                                 disabled={deleteLoading}
                                                             >

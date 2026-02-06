@@ -13,7 +13,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "flex w-full items-center justify-start border-b border-border",
+      "flex w-full items-center justify-start border-b border-orange-200",
       className
     )}
     {...props}
@@ -29,14 +29,14 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "relative inline-flex items-center justify-center px-4 py-2 text-sm font-medium",
-      "text-muted-foreground transition-colors duration-200",
-      "hover:text-foreground",
-      "data-[state=active]:text-foreground",
+      "text-gray-600 transition-colors duration-200",
+      "hover:text-orange-600",
+      "data-[state=active]:text-orange-600",
 
       // animated gradient underline (thicker)
       "after:absolute after:bottom-0 after:left-1/2 after:h-[4px] after:w-0",
       "after:-translate-x-1/2 after:transition-all after:duration-300 after:ease-out",
-      "after:bg-gradient-to-r after:from-blue-600 after:to-blue-400",
+      "after:bg-gradient-to-r after:from-orange-500 after:to-amber-500",
       "data-[state=active]:after:w-full",
 
       className
@@ -56,7 +56,7 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      "mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+      "mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2",
       className
     )}
     {...props}

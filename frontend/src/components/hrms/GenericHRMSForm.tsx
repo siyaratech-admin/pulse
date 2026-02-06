@@ -1,4 +1,4 @@
-/*eslint-disable @typescript-eslint/no-explicit-any*/
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useFrappeGetCall, useFrappeGetDoc, useFrappeCreateDoc, useFrappeUpdateDoc, useFrappePostCall } from 'frappe-react-sdk';
@@ -121,7 +121,6 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                 setLoadingTimeout(true);
                 setIsDataReady(true);
             }, 10000); // 10 second timeout
-
             return () => clearTimeout(timeout);
         }
     }, [docLoading, metaLoading, contextLoading, isDataReady, isNew]);
@@ -168,10 +167,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
 
     // Refresh all data
     const refreshAll = async () => {
-        await Promise.all([
-            refreshDoc(),
-            refreshContext()
-        ]);
+        await Promise.all([refreshDoc(), refreshContext()]);
     };
 
     // Handle switching to edit mode
@@ -391,7 +387,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             toast.error(`Please fill in all required fields`, {
                 description: `${errorCount} field${errorCount > 1 ? 's' : ''} ${errorCount > 1 ? 'are' : 'is'} required: ${fieldNames.slice(0, 3).join(', ')}${errorCount > 3 ? ` and ${errorCount - 3} more` : ''}`,
                 duration: 5000,
-                position: "top-right", // ✅ CHANGED
+                position: "top-right",
             });
 
             // Try to switch to the tab containing the first error and scroll to it
@@ -466,10 +462,9 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
 
             if (isNew) {
                 const response = await createDoc(doctype, payload);
-
                 if (response?.name) {
                     toast.success(`${title || doctype} created as Draft`, {
-                        position: "top-right", // ✅ CHANGED
+                        position: "top-right",
                     });
 
                     const newName = response.name;
@@ -478,7 +473,6 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                 }
             } else {
                 const updatedDoc = await updateDoc(doctype, id, payload);
-
                 if (updatedDoc) {
                     setLocalFormData({ ...updatedDoc });
                 }
@@ -490,7 +484,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                 setIsReadOnly(true);
 
                 toast.success("Changes saved successfully", {
-                    position: "top-right", // ✅ CHANGED
+                    position: "top-right",
                 });
             }
         } catch (error: any) {
@@ -498,7 +492,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             const msg = getFrappeErrorMessage(error);
             toast.error("Save Failed", {
                 description: msg,
-                position: "top-right", // ✅ CHANGED
+                position: "top-right",
             });
 
             // Handle timestamp mismatch gracefully
@@ -553,15 +547,13 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
         if (!id || !localFormData) return;
 
         try {
-            const result = await submitDoc({
-                doc: { ...localFormData, doctype, name: id }
-            });
+            const result = await submitDoc({ doc: { ...localFormData, doctype, name: id } });
 
             if (result) {
                 setShowSubmitConfirm(false);
                 setSubmitSuccess(true);
 
-                // CRITICAL: Refresh context first to recognize new status permissions
+                // CRITICAL: Refresh context first to recognize new state permissions
                 await refreshContext();
                 await refreshDoc();
 
@@ -573,7 +565,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                 setIsReadOnly(true);
 
                 toast.success(`${title || doctype} Submitted Successfully`, {
-                    position: "top-right", // ✅ CHANGED
+                    position: "top-right",
                 });
 
                 setTimeout(() => setSubmitSuccess(false), 3000);
@@ -582,9 +574,8 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             const msg = getFrappeErrorMessage(error);
             toast.error("Submission Failed", {
                 description: msg,
-                position: "top-right", // ✅ CHANGED
+                position: "top-right",
             });
-
             await refreshAll();
         }
     };
@@ -606,12 +597,12 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             setShowCancelConfirm(false);
 
             toast.success(`${title || doctype} Cancelled`, {
-                position: "top-right", // ✅ CHANGED
+                position: "top-right",
             });
         } catch (error: any) {
             toast.error("Cancel Failed", {
                 description: getFrappeErrorMessage(error),
-                position: "top-right", // ✅ CHANGED
+                position: "top-right",
             });
             setShowCancelConfirm(false);
         }
@@ -630,13 +621,14 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             // Remove system fields
             const fieldsToDrop = ['name', 'creation', 'modified', 'modified_by', 'owner', 'docstatus', 'parent', 'parentfield', 'parenttype', 'idx', '_user_tags', '_comments', '_assign', '_liked_by', 'workflow_state'];
             fieldsToDrop.forEach(f => delete amendmentData[f]);
+
             amendmentData['amended_from'] = id;
 
             const response = await createDoc(doctype, amendmentData);
 
             if (response?.name) {
                 toast.success("Amendment created as Draft", {
-                    position: "top-right", // ✅ CHANGED
+                    position: "top-right",
                 });
 
                 const newName = response.name;
@@ -647,7 +639,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
         } catch (error: any) {
             toast.error("Amend Failed", {
                 description: getFrappeErrorMessage(error),
-                position: "top-right", // ✅ CHANGED
+                position: "top-right",
             });
         }
     };
@@ -658,47 +650,6 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
     const { call: callAPI } = useFrappePostCall('ai_calling_agent.api.start_ai_call');
     const { call: getSkills } = useFrappeGetCall('hrms.hr.doctype.interview.interview.get_expected_skill_set', {}, null, { revalidateOnFocus: false });
     const { call: getApplicant } = useFrappeGetDoc('Job Applicant', null, null); // Placeholder, adjusted below
-
-    const _handleStartAICall_deprecated = async () => {
-        if (!docData?.job_applicant) {
-            toast.error("No Job Applicant linked");
-            return;
-        }
-
-        try {
-            toast.info("Preparing AI Call...");
-
-            // 1. Fetch Phone
-            // We use frappe.client.get_value approach via SDK 'useFrappeGetCall' equivalent or just direct get_doc if we had hook
-            // Since we can't easily do ad-hoc get_value with hooks inside function, we'll assume we can fetch the doc.
-            // Using window.frappe if available or our SDK hooks. 
-            // Limitation: React SDK hooks are top-level.
-            // Workaround: We'll use a direct fetch wrapper or the 'call' method we have (frappe.client.get_value)
-
-            // Let's use the generic 'frappe.client.get_value' via a new hook at top level? No, loops.
-            // We'll use a direct fetch here:
-            const applicantRes = await window.frappe?.call({
-                method: 'frappe.client.get_value',
-                args: {
-                    doctype: 'Job Applicant',
-                    filters: { name: docData.job_applicant },
-                    fieldname: 'phone_number'
-                }
-            }) || { message: { phone_number: null } }; // Fallback/Mock if window.frappe missing (unlikely in this context? actually this is React app, window.frappe might not be there!)
-
-            // WAIT - This is a React App (CSR). window.frappe is NOT available (it's for Desk).
-            // We must use the SDK hooks. 
-            // We can't conditionally call hooks.
-            // We will use `useFrappePostCall` for 'frappe.client.get_value' which is a standard method.
-
-            // Actually, best to use the `callAPI` we defined above but targeting `frappe.client.get_value`? 
-            // No, `callAPI` is bound to method.
-
-            // Let's rely on standard fetch or `call` passed from useFrappePostCall('frappe.client.get_value')
-        } catch (e) { console.error(e); }
-
-        // RE-PLAN: define hooks at top
-    };
 
     // Correct Hook Usage
     const { call: fetchValue } = useFrappePostCall('frappe.client.get_value');
@@ -718,6 +669,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                 filters: { name: docData.job_applicant },
                 fieldname: ['phone_number', 'job_title', 'applicant_name']
             });
+
             const { phone_number: phone, job_title: jobOpening, applicant_name: applicantName } = applicantRes?.message || {};
 
             if (!phone) {
@@ -733,6 +685,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                     filters: { name: jobOpening },
                     fieldname: 'description'
                 });
+
                 if (jdRes?.message?.description) {
                     jobDescription = jdRes.message.description;
                 }
@@ -742,6 +695,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             let questions = [];
             if (docData.interview_round) {
                 const skillsRes = await fetchSkills({ interview_round: docData.interview_round });
+
                 if (skillsRes?.message) {
                     questions = skillsRes.message.map((s: any) => `Please explain your experience with ${s.skill}.`);
                 }
@@ -780,13 +734,13 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             } else {
                 toast.error("Failed to start call", { description: callRes?.message?.message });
             }
-
         } catch (e: any) {
             toast.error("Error", { description: e.message });
         }
     };
 
     const isLoading = (metaLoading || contextLoading || (docLoading && !isNew) || (!isNew && !isDataReady)) && !loadingTimeout;
+
     const [showSlowLoadingMsg, setShowSlowLoadingMsg] = useState(false);
 
     useEffect(() => {
@@ -803,21 +757,21 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
     if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-screen gap-3 text-center">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                <p className="text-sm text-muted-foreground">
-                    Loading {isNew ? 'form' : 'document'}...
-                </p>
+                <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+                <p className="text-sm text-muted-foreground">Loading {isNew ? 'form' : 'document'}...</p>
                 {showSlowLoadingMsg && (
                     <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-                        <p className="text-xs text-muted-foreground mt-2">
-                            Taking longer than expected?
-                        </p>
-                        <Button variant="link" size="sm" className="h-auto p-0 text-xs mt-1" onClick={() => window.location.reload()}>
+                        <p className="text-xs text-muted-foreground mt-2">Taking longer than expected?</p>
+                        <Button
+                            variant="link"
+                            size="sm"
+                            className="h-auto p-0 text-xs mt-1"
+                            onClick={() => window.location.reload()}
+                        >
                             Refresh Page
                         </Button>
                     </div>
                 )}
-
             </div>
         );
     }
@@ -839,7 +793,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
     if (!isNew && Object.keys(localFormData).length === 0 && !loadingTimeout) {
         return (
             <div className="flex flex-col justify-center items-center h-screen gap-3">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
                 <p className="text-sm text-muted-foreground">Loading document data...</p>
             </div>
         );
@@ -873,7 +827,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
 
                             {/* Success Indicator */}
                             {submitSuccess && (
-                                <div className="flex items-center text-green-600 text-xs font-medium animate-in fade-in zoom-in duration-300 mr-2">
+                                <div className="flex items-center text-orange-500 text-xs font-medium animate-in fade-in zoom-in duration-300 mr-2">
                                     <CheckCircle2 className="h-4 w-4 mr-1" />
                                     Success
                                 </div>
@@ -883,7 +837,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                             {!isNew && isReadOnly && actions.can_save && docData?.docstatus === 0 && isSubmittable && (
                                 <Button
                                     onClick={handleEnableEdit}
-                                    className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md transition-all duration-300 h-9 text-xs font-semibold"
+                                    className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-200 transition-all duration-300 h-9 text-xs font-semibold"
                                 >
                                     <Edit2 className="h-3.5 w-3.5 mr-2" />
                                     Edit Document
@@ -892,7 +846,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
 
                             {/* Read-Only Indicator for Draft - Only for submittable forms */}
                             {!isNew && isReadOnly && docData?.docstatus === 0 && isSubmittable && (
-                                <div className="px-3 py-1.5 bg-primary/10 text-primary rounded-md text-xs font-medium border border-primary/20 flex items-center gap-1.5">
+                                <div className="px-3 py-1.5 bg-orange-50 text-orange-600 rounded-md text-xs font-medium border border-orange-200 flex items-center gap-1.5">
                                     <Eye className="h-3.5 w-3.5" />
                                     Read-Only Mode
                                 </div>
@@ -905,7 +859,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                                         "h-9 px-4 flex items-center rounded-md text-xs font-bold border",
                                         currentStatus.color === 'green' && "bg-green-50 text-green-700 border-green-200",
                                         currentStatus.color === 'red' && "bg-red-50 text-red-700 border-red-200",
-                                        currentStatus.color === 'blue' && "bg-primary/10 text-primary border-primary/20",
+                                        currentStatus.color === 'blue' && "bg-orange-50 text-orange-600 border-orange-200",
                                         currentStatus.color === 'orange' && "bg-orange-50 text-orange-700 border-orange-200",
                                         currentStatus.color === 'purple' && "bg-purple-50 text-purple-700 border-purple-200"
                                     )}
@@ -915,7 +869,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                                             "w-1.5 h-1.5 rounded-full mr-2",
                                             currentStatus.color === 'green' && "bg-green-500",
                                             currentStatus.color === 'red' && "bg-red-500",
-                                            currentStatus.color === 'blue' && "bg-primary",
+                                            currentStatus.color === 'blue' && "bg-orange-500",
                                             currentStatus.color === 'orange' && "bg-orange-500",
                                             currentStatus.color === 'purple' && "bg-purple-500"
                                         )}
@@ -938,13 +892,12 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                             {!isNew && doctype === 'Interview' && docData?.status === 'Pending' && (
                                 <Button
                                     onClick={() => handleStartAICall()}
-                                    className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm transition-all duration-300 h-9 text-xs font-semibold ml-2"
+                                    className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-sm transition-all duration-300 h-9 text-xs font-semibold ml-2"
                                 >
                                     <span className="mr-2">✨</span>
                                     Start AI Call
                                 </Button>
                             )}
-
 
                             {/* Print Button */}
                             {!isNew && <PrintButton doctype={doctype} docname={id!} />}
@@ -956,7 +909,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                                     size="sm"
                                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                                     title={isSidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
-                                    className="text-primary border-primary/20 bg-white hover:bg-primary/5"
+                                    className="text-orange-600 border-orange-200 bg-white hover:bg-orange-50"
                                 >
                                     {isSidebarOpen ? "Hide Details" : "Show Details"}
                                 </Button>
@@ -969,7 +922,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                                     size="sm"
                                     onClick={() => navigate(`/face-enrollment?id=${id}&type=${doctype === 'Labour Onboarding' ? 'Labour' : 'Employee'}`)}
                                     title="Enroll Face"
-                                    className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20"
+                                    className="bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100"
                                 >
                                     <Camera className="w-3.5 h-3.5 mr-2" />
                                     Enroll Face
@@ -994,7 +947,10 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                 />
 
                 <div className="p-6 mt-6 space-y-6">
-                    <div className="border border-border/60 rounded-xl shadow-sm overflow-hidden bg-white">
+                    <div className="border-2 border-orange-400 rounded-2xl shadow-lg overflow-hidden bg-white">
+                        {/* Orange gradient top border */}
+                        <div className="bg-gradient-to-r from-orange-500 to-amber-500 h-2 rounded-t-2xl"></div>
+
                         <div className="p-6">
                             <TabbedDynamicForm
                                 ref={formRef}
@@ -1083,37 +1039,33 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
             </div>
 
             {/* Mobile Sidebar Backdrop */}
-            {
-                isSidebarOpen && (
-                    <div
-                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
-                        onClick={() => setIsSidebarOpen(false)}
-                    />
-                )
-            }
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
 
             {/* Sidebar */}
-            {
-                !isNew && id && (
-                    <div
-                        className={cn(
-                            "fixed inset-y-0 right-0 z-50 w-[320px] bg-white dark:bg-zinc-950 border-l shadow-2xl transition-all duration-300",
-                            "md:relative md:z-0 md:shadow-none md:border-l md:border-border/50",
-                            isSidebarOpen
-                                ? "translate-x-0 md:w-[320px] md:opacity-100"
-                                : "translate-x-full md:w-0 md:opacity-0 md:translate-x-0"
-                        )}
-                    >
-                        <div className="w-[320px] h-full">
-                            <FormSidebar
-                                doctype={doctype}
-                                docname={id}
-                                onClose={() => setIsSidebarOpen(false)}
-                            />
-                        </div>
+            {!isNew && id && (
+                <div
+                    className={cn(
+                        "fixed inset-y-0 right-0 z-50 w-[320px] bg-white dark:bg-zinc-950 border-l shadow-2xl transition-all duration-300",
+                        "md:relative md:z-0 md:shadow-none md:border-l md:border-border/50",
+                        isSidebarOpen
+                            ? "translate-x-0 md:w-[320px] md:opacity-100"
+                            : "translate-x-full md:w-0 md:opacity-0 md:translate-x-0"
+                    )}
+                >
+                    <div className="w-[320px] h-full">
+                        <FormSidebar
+                            doctype={doctype}
+                            docname={id}
+                            onClose={() => setIsSidebarOpen(false)}
+                        />
                     </div>
-                )
-            }
+                </div>
+            )}
 
             {/* Submit Confirmation Dialog */}
             <AlertDialog open={showSubmitConfirm} onOpenChange={setShowSubmitConfirm}>
@@ -1131,7 +1083,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                         <AlertDialogCancel className="h-9 text-xs">Review Again</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={confirmSubmit}
-                            className="h-9 text-xs bg-primary hover:bg-primary/90"
+                            className="h-9 text-xs bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
                             disabled={submitLoading}
                         >
                             {submitLoading ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
@@ -1157,7 +1109,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                         <AlertDialogCancel className="h-9 text-xs">Go Back</AlertDialogCancel>
                         <AlertDialogAction
                             onClick={confirmCancelDoc}
-                            className="h-9 text-xs bg-red-600 hover:bg-red-700"
+                            className="h-9 text-xs bg-red-600 hover:bg-red-700 text-white"
                             disabled={cancelLoading}
                         >
                             {cancelLoading ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
@@ -1166,7 +1118,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </div >
+        </div>
     );
 };
 
