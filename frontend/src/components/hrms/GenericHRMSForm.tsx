@@ -3,7 +3,7 @@ import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useFrappeGetCall, useFrappeGetDoc, useFrappeCreateDoc, useFrappeUpdateDoc, useFrappePostCall } from 'frappe-react-sdk';
 import { TabbedDynamicForm } from "@/components/form/TabbedDynamicForm";
-import { Loader2, Edit2, CheckCircle2, Eye, AlertCircle, Camera } from 'lucide-react';
+import { Loader2, Edit2, CheckCircle2, Eye, AlertCircle, Camera, Phone, FileText, HelpCircle, Briefcase } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { PrintButton } from "@/components/print/PrintButton";
@@ -78,6 +78,8 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
     const [isDataReady, setIsDataReady] = useState(false);
     const [loadingTimeout, setLoadingTimeout] = useState(false);
     const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+    const [showAICallConfirm, setShowAICallConfirm] = useState(false);
+    const [aiCallDetails, setAiCallDetails] = useState<any>(null);
 
     // Fetch Form Meta
     const { data: metaData, isLoading: metaLoading, error: metaError } = useFrappeGetCall(
@@ -732,20 +734,37 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
 
             // 4. Confirm
             // Clean JD for display if too long
-            const shortJd = jobDescription.length > 50 ? jobDescription.substring(0, 50) + '...' : jobDescription;
-            const confirmMsg = `Start AI Interview with ${applicantName} (${phone})?\n\nJob: ${shortJd}\nQuestions: ${questions.length}`;
+            const shortJd = jobDescription.length > 100 ? jobDescription.substring(0, 100) + '...' : jobDescription;
 
-            if (!window.confirm(confirmMsg)) return;
+            setAiCallDetails({
+                applicantName,
+                phone,
+                jobDescription: shortJd,
+                fullJobDescription: jobDescription,
+                questions,
+                questionCount: questions.length
+            });
+            setShowAICallConfirm(true);
+        } catch (e: any) {
+            toast.error("Error", { description: e.message });
+        }
+    };
+
+    const proceedWithAICall = async () => {
+        if (!docData?.job_applicant || !aiCallDetails) return;
+
+        try {
+            setShowAICallConfirm(false);
 
             // 5. Call Agent
             const callRes = await startAICall({
-                phone_number: phone,
+                phone_number: aiCallDetails.phone,
                 contact_docname: id,
                 party_type: 'Interview',
                 extra_metadata: JSON.stringify({
-                    interview_questions: questions,
-                    job_description: jobDescription,
-                    party: applicantName || docData.job_applicant
+                    interview_questions: aiCallDetails.questions,
+                    job_description: aiCallDetails.fullJobDescription,
+                    party: aiCallDetails.applicantName || docData.job_applicant
                 })
             });
 
@@ -1135,6 +1154,86 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                         >
                             {cancelLoading ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
                             Yes, Cancel Document
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            {/* AI Call Confirmation Dialog */}
+            <AlertDialog open={showAICallConfirm} onOpenChange={setShowAICallConfirm}>
+                <AlertDialogContent className="max-w-md">
+                    <AlertDialogHeader>
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+                                <span className="text-white text-lg">✨</span>
+                            </div>
+                            <div>
+                                <AlertDialogTitle className="text-xl">Start AI Interview</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Initiate an automated interview call
+                                </AlertDialogDescription>
+                            </div>
+                        </div>
+
+                        {aiCallDetails && (
+                            <div className="space-y-4 py-2">
+                                <div className="bg-slate-50 dark:bg-zinc-900 border border-slate-100 dark:border-zinc-800 rounded-lg p-4 space-y-3">
+                                    <div className="flex items-start gap-3">
+                                        <div className="mt-0.5 p-1.5 bg-blue-100 text-blue-600 rounded-md">
+                                            <Phone className="h-4 w-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Candidate</p>
+                                            <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{aiCallDetails.applicantName}</p>
+                                            <p className="text-xs text-slate-500 font-mono">{aiCallDetails.phone}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="h-px bg-slate-200 dark:bg-zinc-800" />
+
+                                    <div className="flex items-start gap-3">
+                                        <div className="mt-0.5 p-1.5 bg-orange-100 text-orange-600 rounded-md">
+                                            <Briefcase className="h-4 w-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Position Context</p>
+                                            <p className="text-sm text-slate-700 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                                                {aiCallDetails.jobDescription}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="h-px bg-slate-200 dark:bg-zinc-800" />
+
+                                    <div className="flex items-start gap-3">
+                                        <div className="mt-0.5 p-1.5 bg-purple-100 text-purple-600 rounded-md">
+                                            <HelpCircle className="h-4 w-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Interview Structure</p>
+                                            <div className="flex items-center gap-2 mt-0.5">
+                                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-50 text-purple-700 border border-purple-100">
+                                                    {aiCallDetails.questionCount} Questions
+                                                </span>
+                                                <span className="text-xs text-slate-400">ready to ask</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="text-xs text-slate-500 italic text-center">
+                                    The AI agent will call the candidate immediately.
+                                </p>
+                            </div>
+                        )}
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="gap-2 sm:gap-0">
+                        <AlertDialogCancel className="h-10">Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={proceedWithAICall}
+                            className="h-10 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-md shadow-indigo-200 border-0"
+                        >
+                            <Phone className="h-4 w-4 mr-2" />
+                            Start Call Now
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
