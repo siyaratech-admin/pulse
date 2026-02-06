@@ -54,105 +54,105 @@ export const navigationGroups = [
       },
     ]
   },
-  {
-    group: "Business",
-    items: [
-      {
-        title: "CRM",
-        icon: Users,
-        color: "text-orange-600",
-        roles: ["Sales User", "Sales Manager", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Dashboard", href: "/crm/dashboard" },
-          {
-            title: "Sales Pipeline",
-            subItems: [
-              { title: "Contacts", href: "/crm/contacts" },
-              { title: "Leads", href: "/crm/leads" },
-              { title: "Deals", href: "/crm/deals" },
-              { title: "Quotations", href: "/crm/quotations" },
-            ]
-          },
-          {
-            title: "AI Agent",
-            subItems: [
-              { title: "Bulk Calling", href: "/crm/bulk-calling" },
-              { title: "Call Logs", href: "/crm/call-logs" },
-            ]
-          },
-          {
-            title: "Relationships",
-            subItems: [
-              { title: "Organizations", href: "/crm/organizations" },
-            ]
-          },
-          {
-            title: "Communication",
-            subItems: [
-              { title: "Newsletter", href: "/crm/newsletter" },
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    group: "Core Operations",
-    items: [
-      {
-        title: "Planning & Budget",
-        icon: Layers,
-        color: "text-cyan-600",
-        roles: ["Planning Manager", "Planning User", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Dashboard", href: "/planning" },
-          { title: "Comparison View", href: "/planning/comparison" },
-          { title: "Rate Analysis", href: "/planning/rate-analysis" },
-          { title: "Planned Budget", href: "/planning/planned-budget" },
-          { title: "Bulk Data Import", href: "/bulk-data-import" },
-          { title: "Data Export", href: "/data-export" },
-        ]
-      },
-      {
-        title: "Task Management",
-        icon: ClipboardCheck,
-        color: "text-violet-600",
-        roles: ["Project Manager", "Projects User", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Main Dashboard", href: "/task-manager" },
-          { title: "Create Task", href: "/task-manager/new" },
-          { title: "Schedule Tasks", href: "/task-manager/library-selection" },
-        ]
-      },
-      {
-        title: "Subcontractors",
-        icon: Briefcase,
-        color: "text-amber-600",
-        roles: ["Purchase Manager", "Purchase User", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Dashboard", href: "/subcontractor/dashboard" },
-          { title: "Work Orders", href: "/subcontractor/subcontractor-work-order" },
-          { title: "Labour Rates", href: "/subcontractor/sub-contractor-labour-rates" },
-          { title: "Payment Stages", href: "/subcontractor/payment-stages" },
-          { title: "Payment Stage Types", href: "/subcontractor/kb-payment-stage-type" },
-        ]
-      }
-    ]
-  },
+  // {
+  //   group: "Business",
+  //   items: [
+  //     {
+  //       title: "CRM",
+  //       icon: Users,
+  //       color: "text-orange-600",
+  //       roles: ["Sales User", "Sales Manager", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Dashboard", href: "/crm/dashboard" },
+  //         {
+  //           title: "Sales Pipeline",
+  //           subItems: [
+  //             { title: "Contacts", href: "/crm/contacts" },
+  //             { title: "Leads", href: "/crm/leads" },
+  //             { title: "Deals", href: "/crm/deals" },
+  //             { title: "Quotations", href: "/crm/quotations" },
+  //           ]
+  //         },
+  //         {
+  //           title: "AI Agent",
+  //           subItems: [
+  //             { title: "Bulk Calling", href: "/crm/bulk-calling" },
+  //             { title: "Call Logs", href: "/crm/call-logs" },
+  //           ]
+  //         },
+  //         {
+  //           title: "Relationships",
+  //           subItems: [
+  //             { title: "Organizations", href: "/crm/organizations" },
+  //           ]
+  //         },
+  //         {
+  //           title: "Communication",
+  //           subItems: [
+  //             { title: "Newsletter", href: "/crm/newsletter" },
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
+  // {
+  //   group: "Core Operations",
+  //   items: [
+  //     {
+  //       title: "Planning & Budget",
+  //       icon: Layers,
+  //       color: "text-cyan-600",
+  //       roles: ["Planning Manager", "Planning User", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Dashboard", href: "/planning" },
+  //         { title: "Comparison View", href: "/planning/comparison" },
+  //         { title: "Rate Analysis", href: "/planning/rate-analysis" },
+  //         { title: "Planned Budget", href: "/planning/planned-budget" },
+  //         { title: "Bulk Data Import", href: "/bulk-data-import" },
+  //         { title: "Data Export", href: "/data-export" },
+  //       ]
+  //     },
+  //     {
+  //       title: "Task Management",
+  //       icon: ClipboardCheck,
+  //       color: "text-violet-600",
+  //       roles: ["Project Manager", "Projects User", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Main Dashboard", href: "/task-manager" },
+  //         { title: "Create Task", href: "/task-manager/new" },
+  //         { title: "Schedule Tasks", href: "/task-manager/library-selection" },
+  //       ]
+  //     },
+  //     {
+  //       title: "Subcontractors",
+  //       icon: Briefcase,
+  //       color: "text-amber-600",
+  //       roles: ["Purchase Manager", "Purchase User", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Dashboard", href: "/subcontractor/dashboard" },
+  //         { title: "Work Orders", href: "/subcontractor/subcontractor-work-order" },
+  //         { title: "Labour Rates", href: "/subcontractor/sub-contractor-labour-rates" },
+  //         { title: "Payment Stages", href: "/subcontractor/payment-stages" },
+  //         { title: "Payment Stage Types", href: "/subcontractor/kb-payment-stage-type" },
+  //       ]
+  //     }
+  //   ]
+  // },
   {
     group: "Workforce & HR",
     items: [
-      {
-        title: "Labour Management",
-        icon: Users,
-        color: "text-orange-600",
-        roles: ["HR Manager", "HR User", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Dashboard", href: "/labour-management" },
-          { title: "Labour Onboarding", href: "/labour-management/labour-onboarding" },
-          { title: "Daily Summary", href: "/labour-management/daily-labour-summary" },
-        ]
-      },
+      // {
+      //   title: "Labour Management",
+      //   icon: Users,
+      //   color: "text-orange-600",
+      //   roles: ["HR Manager", "HR User", "System Manager", "Administrator"],
+      //   subItems: [
+      //     { title: "Dashboard", href: "/labour-management" },
+      //     { title: "Labour Onboarding", href: "/labour-management/labour-onboarding" },
+      //     { title: "Daily Summary", href: "/labour-management/daily-labour-summary" },
+      //   ]
+      // },
       {
         title: "HR Management",
         icon: UserCog,
@@ -424,95 +424,95 @@ export const navigationGroups = [
       }
     ]
   },
-  {
-    group: "Assets & Logistics",
-    items: [
-      {
-        title: "Stock & Inventory",
-        icon: Warehouse,
-        color: "text-slate-700",
-        roles: ["Stock User", "Stock Manager", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Inventory Dashboard", href: "/stock" },
-          { title: "Material Resources", href: "/stock/material-resource-items" },
-          { title: "Material Requests", href: "/stock/material-request" },
-          { title: "Stock Entry", href: "/stock/stock-entry" },
-          {
-            title: "Item Requests",
-            subItems: [
-              { title: "Item Request", href: "/p-and-m/new-item-material-request" },
-              { title: "Item Transfer", href: "/p-and-m/new-item-material-transfer" },
-              { title: "Item Issue", href: "/p-and-m/new-item-material-issue?request_for=Item&purpose=Material Issue" },
-            ]
-          }
-        ]
-      },
-      {
-        title: "Central Asset Hub",
-        icon: Package,
-        color: "text-indigo-700",
-        roles: ["Asset Manager", "Stock Manager", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Dashboard", href: "/central-hub" },
-          { title: "Asset Registry", href: "/assets/asset" },
-          { title: "Maintenance Log", href: "/assets/maintenance-log" },
-          { title: "Asset Movement", href: "/assets/asset-movement" },
-          {
-            title: "Asset Requests",
-            subItems: [
-              { title: "Purchase Request", href: "/p-and-m/new-asset-purchase-request" },
-              { title: "Asset Transfer", href: "/p-and-m/new-asset-transfer" },
-              { title: "Asset Issue", href: "/p-and-m/new-asset-issue" },
-            ]
-          },
-          { title: "Machinery Resources", href: "/assets/machinery-resource-items" },
-        ]
-      }
-    ]
-  },
-  {
-    group: "Compliance & HSEQ",
-    items: [
-      {
-        title: "Safety",
-        icon: Shield,
-        color: "text-red-600",
-        roles: ["Safety User", "Safety Manager", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Safety Dashboard", href: "/safety" },
-          { title: "Incident Reporting", href: "/safety/new-incident-report" },
-          { title: "Safety Inspection Template", href: "/safety/safety-checklist-template" },
-          // { title: "Perm Level Test", href: "/safety/perm-level-test" },
-          {
-            title: "Setup",
-            subItems: [
-              { title: "Approver Template", href: "/approvals/approver-template" },
-            ]
-          }
-        ]
-      },
-      {
-        title: "Quality",
-        icon: ClipboardCheck,
-        color: "text-green-600",
-        roles: ["Quality User", "Quality Manager", "System Manager", "Administrator"],
-        subItems: [
-          { title: "Quality Dashboard", href: "/quality" },
-          { title: "Quality Checklists", href: "/quality/new-quality-checklist-inspection" },
-          { title: "Material Inspection", href: "/quality/material-inspection" },
-          {
-            title: "Setup",
-            subItems: [
-              { title: "Approver Template", href: "/approvals/approver-template" },
-              { title: "Material Template", href: "/quality/material-template" },
-              { title: "Aluform Checklist Template", href: "/quality/aluform-checklist-template" },
-              { title: "Quality Checklist Template", href: "/quality/quality-checklist-template" },
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  // {
+  //   group: "Assets & Logistics",
+  //   items: [
+  //     {
+  //       title: "Stock & Inventory",
+  //       icon: Warehouse,
+  //       color: "text-slate-700",
+  //       roles: ["Stock User", "Stock Manager", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Inventory Dashboard", href: "/stock" },
+  //         { title: "Material Resources", href: "/stock/material-resource-items" },
+  //         { title: "Material Requests", href: "/stock/material-request" },
+  //         { title: "Stock Entry", href: "/stock/stock-entry" },
+  //         {
+  //           title: "Item Requests",
+  //           subItems: [
+  //             { title: "Item Request", href: "/p-and-m/new-item-material-request" },
+  //             { title: "Item Transfer", href: "/p-and-m/new-item-material-transfer" },
+  //             { title: "Item Issue", href: "/p-and-m/new-item-material-issue?request_for=Item&purpose=Material Issue" },
+  //           ]
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       title: "Central Asset Hub",
+  //       icon: Package,
+  //       color: "text-indigo-700",
+  //       roles: ["Asset Manager", "Stock Manager", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Dashboard", href: "/central-hub" },
+  //         { title: "Asset Registry", href: "/assets/asset" },
+  //         { title: "Maintenance Log", href: "/assets/maintenance-log" },
+  //         { title: "Asset Movement", href: "/assets/asset-movement" },
+  //         {
+  //           title: "Asset Requests",
+  //           subItems: [
+  //             { title: "Purchase Request", href: "/p-and-m/new-asset-purchase-request" },
+  //             { title: "Asset Transfer", href: "/p-and-m/new-asset-transfer" },
+  //             { title: "Asset Issue", href: "/p-and-m/new-asset-issue" },
+  //           ]
+  //         },
+  //         { title: "Machinery Resources", href: "/assets/machinery-resource-items" },
+  //       ]
+  //     }
+  //   ]
+  // },
+  // {
+  //   group: "Compliance & HSEQ",
+  //   items: [
+  //     {
+  //       title: "Safety",
+  //       icon: Shield,
+  //       color: "text-red-600",
+  //       roles: ["Safety User", "Safety Manager", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Safety Dashboard", href: "/safety" },
+  //         { title: "Incident Reporting", href: "/safety/new-incident-report" },
+  //         { title: "Safety Inspection Template", href: "/safety/safety-checklist-template" },
+  //         // { title: "Perm Level Test", href: "/safety/perm-level-test" },
+  //         {
+  //           title: "Setup",
+  //           subItems: [
+  //             { title: "Approver Template", href: "/approvals/approver-template" },
+  //           ]
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       title: "Quality",
+  //       icon: ClipboardCheck,
+  //       color: "text-green-600",
+  //       roles: ["Quality User", "Quality Manager", "System Manager", "Administrator"],
+  //       subItems: [
+  //         { title: "Quality Dashboard", href: "/quality" },
+  //         { title: "Quality Checklists", href: "/quality/new-quality-checklist-inspection" },
+  //         { title: "Material Inspection", href: "/quality/material-inspection" },
+  //         {
+  //           title: "Setup",
+  //           subItems: [
+  //             { title: "Approver Template", href: "/approvals/approver-template" },
+  //             { title: "Material Template", href: "/quality/material-template" },
+  //             { title: "Aluform Checklist Template", href: "/quality/aluform-checklist-template" },
+  //             { title: "Quality Checklist Template", href: "/quality/quality-checklist-template" },
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
 ]
 
 interface SidebarProps {
