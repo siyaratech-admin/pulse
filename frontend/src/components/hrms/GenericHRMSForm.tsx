@@ -932,7 +932,7 @@ const GenericHRMSForm: React.FC<GenericHRMSFormProps> = ({
                             {!isNew && doctype === 'Interview' && docData?.status === 'Pending' && (
                                 <Button
                                     onClick={() => handleStartAICall()}
-                                    className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-sm transition-all duration-300 h-9 text-xs font-semibold ml-2"
+                                    className="bg-white hover:bg-yellow-50 text-orange-600 border border-orange-200 shadow-sm transition-all duration-300 h-9 text-xs font-bold ml-2"
                                 >
                                     <span className="mr-2">✨</span>
                                     Start AI Call
